@@ -30,26 +30,32 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="col mb-4 d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h4 class="card-title">Dosen</h4>
-                                            <p class="card-title-desc">Tabel ini berisi seluruh data dosen Universitas
-                                                Al-Irsyad Cilacap.</p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <a href="{{ route('admin.dosen.export') }}"
-                                                class="btn btn-outline-success me-2"><i
-                                                    class="ri-file-download-line me-2"></i> Export</a>
+                                    <div class="col mb-4">
+                                        <div
+                                            class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                                            <div>
+                                                <h4 class="card-title">Dosen</h4>
+                                                <p class="card-title-desc">Tabel ini berisi seluruh data dosen
+                                                    Universitas Al-Irsyad Cilacap.</p>
+                                            </div>
+                                            <div class="d-flex mt-3 mt-md-0">
+                                                <a href="{{ route('admin.dosen.export') }}"
+                                                    class="btn btn-outline-success mb-2 mb-md-0 me-2 waves-effect waves-light">
+                                                    <i class="ri-file-download-line me-2 d-none d-md-inline"></i>Export
+                                                </a>
 
-                                            <button type="button"
-                                                class="btn btn-outline-primary mb-2 mb-md-0 me-2 waves-effect waves-light"
-                                                data-bs-toggle="modal" data-bs-target="#myModal">
-                                                <i class="ri-file-excel-2-line me-2 d-none d-md-inline"></i>Import
-                                            </button>
+                                                <button type="button"
+                                                    class="btn btn-outline-primary mb-2 mb-md-0 me-2 waves-effect waves-light"
+                                                    data-bs-toggle="modal" data-bs-target="#myModal">
+                                                    <i class="ri-file-excel-2-line me-2 d-none d-md-inline"></i>Import
+                                                </button>
 
-                                            <a href="{{ route('admin.dosen.generate') }}"
-                                                class="btn btn-outline-secondary"><i class="ri-user-settings-line me-2"></i>
-                                                Generate User</a>
+                                                <a href="{{ route('admin.dosen.generate') }}"
+                                                    class="btn btn-outline-secondary mb-2 mb-md-0 waves-effect waves-light">
+                                                    <i class="ri-user-settings-line me-2 d-none d-md-inline"></i>Generate
+                                                    User
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
 
