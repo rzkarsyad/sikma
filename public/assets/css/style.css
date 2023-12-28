@@ -1,0 +1,14 @@
+.avatar{
+    width: 30%;
+    height: auto;
+}
+
+.tab-title{
+    font-size: larger;
+    font-weight: bold;
+    color: black;
+}
+
+.text-mute{
+    color: rgb(150, 150, 150);
+}

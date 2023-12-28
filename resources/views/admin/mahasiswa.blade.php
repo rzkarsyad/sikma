@@ -1,0 +1,158 @@
+@extends('layouts.main')
+@section('title')
+    Data Mahasiswa
+@endsection
+
+@section('content')
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Data Mahasiswa</h4>
+                    </div>
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (Session::has('error'))
+                        <div class="alert alert-danger">
+                            {{ Session::get('error') }}
+                        </div>
+                    @endif
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="col mb-4">
+                                        <div
+                                            class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                                            <div>
+                                                <h4 class="card-title">Mahasiswa</h4>
+                                                <p class="card-title-desc">Tabel ini berisi seluruh data mahasiswa
+                                                    Universitas Al-Irsyad Cilacap.</p>
+                                            </div>
+                                            <div class="d-flex mt-3 mt-md-0">
+                                                <a href="{{ route('admin.mahasiswa.export') }}"
+                                                    class="btn btn-outline-success mb-2 mb-md-0 me-2 waves-effect waves-light">
+                                                    <i class="ri-file-download-line me-2 d-none d-md-inline"></i>Export
+                                                </a>
+
+                                                <button type="button"
+                                                    class="btn btn-outline-primary mb-2 mb-md-0 me-2 waves-effect waves-light"
+                                                    data-bs-toggle="modal" data-bs-target="#myModal">
+                                                    <i class="ri-file-excel-2-line me-2 d-none d-md-inline"></i>Import
+                                                </button>
+
+                                                <a href="{{ route('admin.mahasiswa.generate') }}"
+                                                    class="btn btn-outline-secondary mb-2 mb-md-0 waves-effect waves-light">
+                                                    <i class="ri-user-settings-line me-2 d-none d-md-inline"></i>Generate
+                                                    User
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap']) !!}
+
+                                    {{-- <table id="example" class="table dt-responsive nowrap"
+                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>NIM</th>
+                                                <th>Nama</th>
+                                                <th>Institusi</th>
+                                                <th>Fakultas</th>
+                                                <th>Program Studi</th>
+                                                <th>Jalur Masuk</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>Tempat Lahir</th>
+                                                <th>Tanggal Lahir</th>
+                                                <th>NIK</th>
+                                                <th>No. HP</th>
+                                                <th>Email</th>
+                                                <th>Alamat</th>
+                                                <th>Tahun Masuk</th>
+                                                <th>No. HP Ortu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($mahasiswa as $item)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->nim }}</td>
+                                                    <td>{{ $item->nama }}</td>
+                                                    <td>{{ $item->institusi }}</td>
+                                                    <td>{{ $item->prodi->fakultas->nama }}</td>
+                                                    <td>{{ $item->prodi->nama }}</td>
+                                                    <td>{{ $item->jalur->nama }}</td>
+                                                    <td>
+                                                        @if ($item->jns_kelamin == 'P')
+                                                            Pria
+                                                        @else
+                                                            Wanita
+                                                        @endif
+                                                    </td>
+                                                    </td>
+                                                    <td>{{ $item->tempat_lahir }}</td>
+                                                    <td>{{ $item->tgl_lahir }}</td>
+                                                    <td>{{ $item->nik }}</td>
+                                                    <td>{{ $item->no_hp }}</td>
+                                                    <td>{{ $item->email }}</td>
+                                                    <td>{{ $item->alamat }}</td>
+                                                    <td>{{ $item->tahun_masuk }}</td>
+                                                    <td>{{ $item->no_hp_ortu }}</td>
+                                                </tr>
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table> --}}
+
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Import Data Mahasiswa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="{{ route('admin.mahasiswa.import') }}" method="POST" enctype="multipart/form-data">
+                        <p>Silahkan pilih file berupa .xlsx</p>
+                        @csrf
+                        <div class="mb-3">
+                            <input class="form-control" type="file" id="formFile" name="file" required>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary waves-effect waves-light">Import</button>
+                </div>
+                </form>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+@endsection
+
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush
