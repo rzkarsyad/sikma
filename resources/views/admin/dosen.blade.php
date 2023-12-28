@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
 
-                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap']) !!}
+                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
 
                                     {{-- <table id="example" class="table dt-responsive nowrap"
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
