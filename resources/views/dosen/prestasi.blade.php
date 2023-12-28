@@ -59,25 +59,37 @@
                                                     <td>{{ $item->tanggal_selesai }}</td>
                                                     <td>{{ $item->url_penyelenggara }}</td>
                                                     <td>
-                                                        <img src="{{ asset('storage/' . $item->tropi) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $item->tropi) }}"
-                                                            style="width: 64px; cursor: pointer;">
+                                                        @if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf')
+                                                            <!-- Display a button to download PDF -->
+                                                            <a href="{{ asset('storage/' . $item->tropi) }}"
+                                                                class="btn btn-primary" download>Download PDF</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $item->tropi) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $item->tropi) }}"
+                                                                style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('storage/' . $item->foto) }}"
                                                             class="rounded image-clickable" data-bs-toggle="modal"
                                                             data-bs-target="#myModal"
                                                             data-image="{{ asset('storage/' . $item->foto) }}"
-                                                            style="width: 64px; cursor: pointer;">
+                                                            style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
                                                     </td>
                                                     <td>
-                                                        <img src="{{ asset('storage/' . $item->undangan) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $item->undangan) }}"
-                                                            style="width: 64px; cursor: pointer;">
+                                                        @if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf')
+                                                            <!-- Display a button to download PDF -->
+                                                            <a href="{{ asset('storage/' . $item->undangan) }}"
+                                                                class="btn btn-primary" download>Download PDF</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $item->undangan) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $item->undangan) }}"
+                                                                style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @empty
@@ -93,7 +105,7 @@
             <!-- end page title -->
         </div>
     </div>
-    
+
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

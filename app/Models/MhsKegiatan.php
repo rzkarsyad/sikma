@@ -24,6 +24,11 @@ class MhsKegiatan extends Model
         'url_penyelenggara'
     ];
 
+    public function mahasiswa() 
+    {
+        return $this->belongsTo(Mahasiswa::class, 'user_id', 'user_id');
+    }
+
     public function tingkat() 
     {
         return $this->belongsTo(ListTingkat::class, 'id_kegiatan');

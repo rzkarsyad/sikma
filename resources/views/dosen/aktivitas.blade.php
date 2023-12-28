@@ -50,20 +50,25 @@
                                                     <td>{{ $item->kategori->nama }}</td>
                                                     <td>{{ $item->tahun }}</td>
                                                     <td>
-                                                        <img src="{{ asset('storage/' . $item->sertifikat) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $item->sertifikat) }}"
-                                                            style="width: 64px; cursor: pointer;">
+                                                        @if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf')
+                                                            <!-- Display a button to download PDF -->
+                                                            <a href="{{ asset('storage/' . $item->sertifikat) }}"
+                                                                class="btn btn-primary" download>Download PDF</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $item->sertifikat) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $item->sertifikat) }}"
+                                                                style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('storage/' . $item->foto) }}"
                                                             class="rounded image-clickable" data-bs-toggle="modal"
                                                             data-bs-target="#myModal"
                                                             data-image="{{ asset('storage/' . $item->foto) }}"
-                                                            style="width: 64px; cursor: pointer;">
+                                                            style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
                                                     </td>
-
                                                     <td>{{ $item->url_penyelenggara }}</td>
                                                 </tr>
                                             @empty

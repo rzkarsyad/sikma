@@ -19,6 +19,11 @@ class MhsOrmawa extends Model
         'url_media_ormawa',
     ];
 
+    public function mahasiswa() 
+    {
+        return $this->belongsTo(Mahasiswa::class, 'user_id', 'user_id');
+    }
+    
     public function ormawa() 
     {
         return $this->belongsTo(ListOrmawa::class, 'id_jenis_ormawa');

@@ -132,40 +132,36 @@
         });
 
         $(document).ready(function() {
-            new DataTable('#tb-aktivitas', {
-                scrollX: true,
+            $('#tb-aktivitas').DataTable({
                 "initComplete": function(settings, json) {
-                    $("#DataTableID").wrap(
+                    $("#tb-aktivitas").wrap(
                         "<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
             });
         });
 
         $(document).ready(function() {
-            new DataTable('#tb-kegiatan', {
-                scrollX: true,
+            $('#tb-kegiatan').DataTable({
                 "initComplete": function(settings, json) {
-                    $("#DataTableID").wrap(
+                    $("#tb-kegiatan").wrap(
                         "<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
             });
         });
 
         $(document).ready(function() {
-            new DataTable('#tb-prestasi', {
-                scrollX: true,
+            $('#tb-prestasi').DataTable({
                 "initComplete": function(settings, json) {
-                    $("#DataTableID").wrap(
+                    $("#tb-prestasi").wrap(
                         "<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
             });
         });
 
         $(document).ready(function() {
-            new DataTable('#tb-ormawa', {
-                scrollX: true,
+            $('#tb-ormawa').DataTable({
                 "initComplete": function(settings, json) {
-                    $("#DataTableID").wrap(
+                    $("#tb-ormawa").wrap(
                         "<div style='overflow:auto; width:100%;position:relative;'></div>");
                 },
             });

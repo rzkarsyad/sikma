@@ -23,6 +23,11 @@ class MhsPrestasi extends Model
         'foto',
         'undangan',
     ];
+    
+    public function mahasiswa() 
+    {
+        return $this->belongsTo(Mahasiswa::class, 'user_id', 'user_id');
+    }
 
     public function tingkat() 
     {

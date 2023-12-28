@@ -53,11 +53,17 @@
                                                     <td>{{ $item->masa_jabatan }}</td>
                                                     <td>{{ $item->url_media_ormawa }}</td>
                                                     <td>
-                                                        <img src="{{ asset('storage/' . $item->sk) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $item->sk) }}"
-                                                            style="width: 64px; cursor: pointer;">
+                                                        @if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf')
+                                                            <!-- Display a button to download PDF -->
+                                                            <a href="{{ asset('storage/' . $item->sk) }}"
+                                                                class="btn btn-primary" download>Download PDF</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $item->sk) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $item->sk) }}"
+                                                                style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @empty
