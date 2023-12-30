@@ -9,13 +9,10 @@
     <td>{{ $item->tahun }}</td>
     <td>
         @if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf')
-            <!-- Display a button to download PDF -->
-            <a href="{{ asset('storage/' . $item->sertifikat) }}" class="btn btn-sm btn-primary" download>Download
-                PDF</a>
+            <a href="{{ asset('storage/' . $item->sertifikat) }}" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
         @else
-            <img src="{{ asset('storage/' . $item->sertifikat) }}" class="rounded image-clickable"
-                data-bs-toggle="modal" data-bs-target="#myModal"
-                data-image="{{ asset('storage/' . $item->sertifikat) }}"
+            <img src="{{ asset('storage/' . $item->sertifikat) }}" class="rounded image-clickable" data-bs-toggle="modal"
+                data-bs-target="#myModal" data-image="{{ asset('storage/' . $item->sertifikat) }}"
                 style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
         @endif
     </td>

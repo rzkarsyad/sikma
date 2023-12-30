@@ -11,8 +11,7 @@
     <td>{{ $item->url_media_ormawa }}</td>
     <td>
         @if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf')
-            <!-- Display a button to download PDF -->
-            <a href="{{ asset('storage/' . $item->sk) }}" class="btn btn-sm btn-primary" download>Download PDF</a>
+            <a href="{{ asset('storage/' . $item->sk) }}" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
         @else
             <img src="{{ asset('storage/' . $item->sk) }}" class="rounded image-clickable" data-bs-toggle="modal"
                 data-bs-target="#myModal" data-image="{{ asset('storage/' . $item->sk) }}"
