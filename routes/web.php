@@ -8,6 +8,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MhsOrmawaController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\MhsAgendaController;
 use App\Http\Controllers\MhsKegiatanController;
 use App\Http\Controllers\MhsPrestasiController;
 use App\Http\Controllers\MhsAktivitasController;
@@ -43,6 +44,9 @@ Auth::routes(['register' => false]);
 Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
    
     Route::get('/dashboard', [MahasiswaController::class, 'index'])->name('m.dashboard');
+
+    Route::get('/agenda', [MhsAgendaController::class, 'index'])->name('m.agenda');
+    Route::get('/agenda/create', [MhsAgendaController::class, 'create'])->name('m.agenda-create');
 
     Route::get('/aktivitas', [MhsAktivitasController::class, 'index'])->name('m.aktivitas');
     Route::get('/aktivitas/create', [MhsAktivitasController::class, 'create'])->name('m.aktivitas-create');
