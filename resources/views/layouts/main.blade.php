@@ -98,7 +98,6 @@
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 
-
     <!-- apexcharts -->
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
@@ -171,7 +170,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             var myModal = new bootstrap.Modal(document.getElementById('myModal'));
 
-            $('.image-clickable').on('click', function() {
+            // Use event delegation for better performance:
+            $(document).on('click', '.image-clickable', function() {
                 var imageSrc = $(this).data('image');
                 $('#modalImage').attr('src', imageSrc);
                 myModal.show();
