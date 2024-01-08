@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MhsAgenda;
 use Illuminate\Http\Request;
+use App\DataTables\MhsAgendaDataTable;
 
 class MhsAgendaController extends Controller
 {
@@ -12,11 +13,9 @@ class MhsAgendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MhsAgendaDataTable $dataTable)
     {
-        $id = auth()->user()->id;
-        $mhsAgenda = MhsAgenda::where('user_id', $id)->get();
-        return view('mahasiswa.agenda', compact('mhsAgenda'));
+        return $dataTable->render('mahasiswa.agenda');
     }
 
     /**

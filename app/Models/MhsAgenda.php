@@ -14,7 +14,7 @@ class MhsAgenda extends Model
         'agenda_date',
         'agenda_time',
         'nidn',
-        'title',
+        'topic',
         'content',
         'result',
         'action',

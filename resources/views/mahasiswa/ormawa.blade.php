@@ -29,63 +29,7 @@
                                     <p class="card-title-desc">Tabel ini berisi seluruh kegiatan organisasi atau UKM yang
                                         diikuti oleh mahasiswa.
                                     </p>
-                                    <table id="example" class="table dt-responsive nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Jenis Organisasi</th>
-                                                <th>Nama Organisasi</th>
-                                                <th>Jabatan</th>
-                                                <th>Masa Jabatan</th>
-                                                <th>URL Sosial Media Ormawa</th>
-                                                <th>SK Kepengurusan</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($mhsOrmawa as $item)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $item->ormawa->nama }}</td>
-                                                    <td>{{ $item->nama_ormawa }}</td>
-                                                    <td>{{ $item->jabatan }}</td>
-                                                    <td>{{ $item->masa_jabatan }}</td>
-                                                    <td>{{ $item->url_media_ormawa }}</td>
-                                                    <td>
-                                                        @if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf')
-                                                            <!-- Display a button to download PDF -->
-                                                            <a href="{{ asset('storage/' . $item->sk) }}"
-                                                                class="btn btn-primary" download>Download PDF</a>
-                                                        @else
-                                                            <img src="{{ asset('storage/' . $item->sk) }}"
-                                                                class="rounded image-clickable" data-bs-toggle="modal"
-                                                                data-bs-target="#myModal"
-                                                                data-image="{{ asset('storage/' . $item->sk) }}"
-                                                                style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
-                                                        @endif
-                                                    </td>
-                                                    <td id="tooltip-container1">
-                                                        <a href="{{ route('m.ormawa-edit', ['id' => $item->id]) }}"
-                                                            class="me-3 text-secondary"
-                                                            data-bs-container="#tooltip-container1" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="Edit"><i
-                                                                class="mdi mdi-pencil font-size-18"></i></a>
-                                                        <form action="{{ route('m.ormawa-delete', ['id' => $item->id]) }}"
-                                                            method="POST" style="display: inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="button" class="btn text-secondary"
-                                                                onclick="deleteConfirmation(this)">
-                                                                <i class="mdi mdi-trash-can font-size-18"></i>
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                            @endforelse
-                                        </tbody>
-                                    </table>
+                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -110,3 +54,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

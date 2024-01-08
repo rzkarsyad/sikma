@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MhsKegiatan;
 use App\Models\ListJenis;
 use App\Models\ListTingkat;
+use App\Models\MhsKegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\DataTables\MhsKegiatanDataTable;
 
 class MhsKegiatanController extends Controller
 {
@@ -16,11 +17,9 @@ class MhsKegiatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MhsKegiatanDataTable $dataTable)
     {
-        $id = auth()->user()->id;
-        $mhsKegiatan = MhsKegiatan::where('user_id', $id)->get();
-        return view('mahasiswa.mandiri', compact('mhsKegiatan'));
+        return $dataTable->render('mahasiswa.mandiri');
     }
 
     /**

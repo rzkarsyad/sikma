@@ -28,92 +28,7 @@
                                     <h4 class="card-title">Data Prestasi</h4>
                                     <p class="card-title-desc">Tabel ini berisi seluruh prestasi yang diperoleh mahasiswa.
                                     </p>
-                                    <table id="example" class="table dt-responsive nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Tingkat</th>
-                                                <th>Nama Kegiatan</th>
-                                                <th>Penyelenggara</th>
-                                                <th>Jumlah Peserta</th>
-                                                <th>Capaian</th>
-                                                <th>Tgl Mulai</th>
-                                                <th>Tgl Selesai</th>
-                                                <th>URL Penyelenggara</th>
-                                                <th>Tropi</th>
-                                                <th>Foto</th>
-                                                <th>Surat Undangan</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($mhsPrestasi as $item)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $item->tingkat->nama }}</td>
-                                                    <td>{{ $item->nama }}</td>
-                                                    <td>{{ $item->penyelenggara }}</td>
-                                                    <td>{{ $item->jumlah }}</td>
-                                                    <td>{{ $item->capaian }}</td>
-                                                    <td>{{ $item->tanggal_mulai }}</td>
-                                                    <td>{{ $item->tanggal_selesai }}</td>
-                                                    <td>{{ $item->url_penyelenggara }}</td>
-                                                    <td>
-                                                        @if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf')
-                                                            <!-- Display a button to download PDF -->
-                                                            <a href="{{ asset('storage/' . $item->tropi) }}"
-                                                                class="btn btn-primary" download>Download PDF</a>
-                                                        @else
-                                                            <img src="{{ asset('storage/' . $item->tropi) }}"
-                                                                class="rounded image-clickable" data-bs-toggle="modal"
-                                                                data-bs-target="#myModal"
-                                                                data-image="{{ asset('storage/' . $item->tropi) }}"
-                                                                style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <img src="{{ asset('storage/' . $item->foto) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $item->foto) }}"
-                                                            style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
-                                                    </td>
-                                                    <td>
-                                                        @if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf')
-                                                            <!-- Display a button to download PDF -->
-                                                            <a href="{{ asset('storage/' . $item->undangan) }}"
-                                                                class="btn btn-primary" download>Download PDF</a>
-                                                        @else
-                                                            <img src="{{ asset('storage/' . $item->undangan) }}"
-                                                                class="rounded image-clickable" data-bs-toggle="modal"
-                                                                data-bs-target="#myModal"
-                                                                data-image="{{ asset('storage/' . $item->undangan) }}"
-                                                                style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
-                                                        @endif
-                                                    </td>
-                                                    <td id="tooltip-container1">
-                                                        <a href="{{ route('m.prestasi-edit', ['id' => $item->id]) }}"
-                                                            class="me-3 text-secondary"
-                                                            data-bs-container="#tooltip-container1" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="Edit"><i
-                                                                class="mdi mdi-pencil font-size-18"></i></a>
-                                                        <form
-                                                            action="{{ route('m.prestasi-delete', ['id' => $item->id]) }}"
-                                                            method="POST" style="display: inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="button" class="btn text-secondary"
-                                                                onclick="deleteConfirmation(this)">
-                                                                <i class="mdi mdi-trash-can font-size-18"></i>
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                            @endforelse
-                                        </tbody>
-                                    </table>
+                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -138,3 +53,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

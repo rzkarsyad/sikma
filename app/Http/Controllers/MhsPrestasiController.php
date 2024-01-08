@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MhsPrestasi;
 use App\Models\ListTingkat;
+use App\Models\MhsPrestasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\DataTables\MhsPrestasiDataTable;
 
 
 class MhsPrestasiController extends Controller
@@ -16,11 +17,9 @@ class MhsPrestasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MhsPrestasiDataTable $dataTable)
     {
-        $id = auth()->user()->id;
-        $mhsPrestasi = MhsPrestasi::where('user_id', $id)->get();
-        return view('mahasiswa.prestasi', compact('mhsPrestasi'));
+        return $dataTable->render('mahasiswa.prestasi');
     }
 
     /**

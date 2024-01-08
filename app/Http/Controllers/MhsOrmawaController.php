@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\MhsOrmawa;
 use App\Models\ListOrmawa;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\DataTables\MhsOrmawaDataTable;
+use Illuminate\Support\Facades\Storage;
 
 class MhsOrmawaController extends Controller
 {
@@ -15,11 +16,9 @@ class MhsOrmawaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MhsOrmawaDataTable $dataTable)
     {
-        $id = auth()->user()->id;
-        $mhsOrmawa = MhsOrmawa::where('user_id', $id)->get();
-        return view('mahasiswa.ormawa', compact('mhsOrmawa'));
+        return $dataTable->render('mahasiswa.ormawa');
     }
 
     /**

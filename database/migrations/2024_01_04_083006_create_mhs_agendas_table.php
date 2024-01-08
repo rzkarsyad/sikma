@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('topic');
             $table->text('content');
             $table->text('result');
-            $table->text('follow_up');
+            $table->text('action');
             $table->enum('status', ['1', '2', '3']);
             $table->timestamps();
         });

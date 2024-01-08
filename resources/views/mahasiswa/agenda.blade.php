@@ -21,7 +21,6 @@
                         </div>
                     @endif
 
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -30,26 +29,7 @@
                                     <p class="card-title-desc">Tabel ini berisi seluruh agenda yang telah dilakukan oleh
                                         mahasiswa
                                     </p>
-                                    <table id="example" class="table dt-responsive nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Topik</th>
-                                                <th>Dosen Pembimbing</th>
-                                                <th>Tanggal</th>
-                                                <th>Waktu</th>
-                                                <th>Isi</th>
-                                                <th>Hasil</th>
-                                                <th>Tindak Lanjut</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
+                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -60,3 +40,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush
