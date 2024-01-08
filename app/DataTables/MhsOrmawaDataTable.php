@@ -23,7 +23,7 @@ class MhsOrmawaDataTable extends DataTable
             ->editColumn('sk', function ($item) {
                 if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf') {
                     // Display a button to download PDF
-                    return '<a href="' . asset('storage/' . $item->sk) . '" class="btn btn-primary" download>Download PDF</a>';
+                    return '<a href="' . asset('storage/' . $item->sk) . '" class="btn btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
                     // Display an image with modal trigger
                     return '<img src="' . asset('storage/' . $item->sk) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sk) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';

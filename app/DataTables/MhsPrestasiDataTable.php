@@ -20,7 +20,7 @@ class MhsPrestasiDataTable extends DataTable
             ->editColumn('tropi', function ($item) {
                 if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf') {
                     // Display a button to download PDF
-                    return '<a href="' . asset('storage/' . $item->tropi) . '" class="btn btn-primary" download>Download PDF</a>';
+                    return '<a href="' . asset('storage/' . $item->tropi) . '" class="btn btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
                     // Display an image with modal trigger
                     return '<img src="' . asset('storage/' . $item->tropi) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->tropi) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
