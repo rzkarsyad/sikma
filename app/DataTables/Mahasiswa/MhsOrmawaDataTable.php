@@ -22,10 +22,8 @@ class MhsOrmawaDataTable extends DataTable
             })
             ->editColumn('sk', function ($item) {
                 if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf') {
-                    // Display a button to download PDF
-                    return '<a href="' . asset('storage/' . $item->sk) . '" class="btn btn-primary" target="_blank">Lihat Berkas</a>';
+                    return '<a href="' . asset('storage/' . $item->sk) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
-                    // Display an image with modal trigger
                     return '<img src="' . asset('storage/' . $item->sk) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sk) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
                 }
             })
@@ -34,7 +32,15 @@ class MhsOrmawaDataTable extends DataTable
 
     public function query(MhsOrmawa $model)
     {
-        return $model->newQuery();
+        $id = auth()->user()->id;
+
+        return $model->newQuery()
+            ->where('user_id', $id)
+            ->with(['ormawa'])
+            ->select([
+                'mhs_ormawa.*',
+                'mhs_ormawa.id as ormawa_id',
+            ]);
     }
 
     public function html()

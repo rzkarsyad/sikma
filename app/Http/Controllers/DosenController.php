@@ -9,7 +9,11 @@ use App\Models\MhsKegiatan;
 use App\Models\MhsPrestasi;
 use App\Models\MhsAktivitas;
 use Illuminate\Http\Request;
-use App\DataTables\MahasiswaDataTable;
+use App\DataTables\Dosen\OrmawaDataTable;
+use App\DataTables\Dosen\MandiriDataTable;
+use App\DataTables\Dosen\PrestasiDataTable;
+use App\DataTables\Master\MahasiswaDataTable;
+use App\DataTables\Dosen\AktivitasDataTable;
 
 class DosenController extends Controller
 {
@@ -89,28 +93,24 @@ class DosenController extends Controller
         //
     }
 
-    public function aktivitas()
+    public function aktivitas(AktivitasDataTable $dataTable)
     {
-        $aktivitas = MhsAktivitas::all();
-        return view('dosen.aktivitas', compact('aktivitas'));
+        return $dataTable->render('dosen.aktivitas');
     }
 
-    public function kegiatan()
+    public function mandiri(MandiriDataTable $dataTable)
     {
-        $kegiatan = MhsKegiatan::all();
-        return view('dosen.mandiri', compact('kegiatan'));
+        return $dataTable->render('dosen.mandiri');
     }
 
-    public function prestasi()
+    public function prestasi(PrestasiDataTable $dataTable)
     {
-        $prestasi = MhsPrestasi::all();
-        return view('dosen.prestasi', compact('prestasi'));
+        return $dataTable->render('dosen.prestasi');
     }
 
-    public function ormawa()
+    public function ormawa(OrmawaDataTable $dataTable)
     {
-        $ormawa = MhsOrmawa::all();
-        return view('dosen.ormawa', compact('ormawa'));
+        return $dataTable->render('dosen.ormawa');
     }
 
     public function listMahasiswa(MahasiswaDataTable $dataTable)

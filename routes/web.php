@@ -89,7 +89,7 @@ Route::middleware(['auth', 'user-access:dosen'])->group(function () {
    
     Route::get('/dosen/dashboard', [HomeController::class, 'dosenHome'])->name('dosen.home');
     Route::get('/dosen/aktivitas', [DosenController::class, 'aktivitas'])->name('dosen.aktivitas');
-    Route::get('/dosen/mandiri', [DosenController::class, 'kegiatan'])->name('dosen.mandiri');
+    Route::get('/dosen/mandiri', [DosenController::class, 'mandiri'])->name('dosen.mandiri');
     Route::get('/dosen/prestasi', [DosenController::class, 'prestasi'])->name('dosen.prestasi');
     Route::get('/dosen/ormawa', [DosenController::class, 'ormawa'])->name('dosen.ormawa');
     Route::get('/dosen/mahasiswa', [DosenController::class, 'listMahasiswa'])->name('dosen.mahasiswa');

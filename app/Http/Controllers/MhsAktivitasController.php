@@ -19,7 +19,7 @@ class MhsAktivitasController extends Controller
      */
     public function index(MhsAktivitasDataTable $dataTable)
     {
-        return $dataTable->render('mahasiswa.aktivitas');
+        return $dataTable->render('mahasiswa.aktivitas.index');
     }
 
     /**
@@ -32,7 +32,7 @@ class MhsAktivitasController extends Controller
         $kategori = ListKategori::pluck('nama', 'id');
         $kegiatan = ListKegiatan::pluck('nama', 'id');
         $tahun = $this->tahunDropdown();
-        return view('mahasiswa.aktivitas-create', compact('kategori', 'kegiatan', 'tahun'));
+        return view('mahasiswa.aktivitas.create', compact('kategori', 'kegiatan', 'tahun'));
     }
 
     /**
@@ -77,7 +77,7 @@ class MhsAktivitasController extends Controller
         $kategori = ListKategori::pluck('nama', 'id');
         $kegiatan = ListKegiatan::pluck('nama', 'id');
         $tahun = $this->tahunDropdown();
-        return view('mahasiswa.aktivitas-edit', compact('kategori', 'kegiatan', 'tahun', 'mhsAktivitas'));
+        return view('mahasiswa.aktivitas.edit', compact('kategori', 'kegiatan', 'tahun', 'mhsAktivitas'));
     }
 
     /**

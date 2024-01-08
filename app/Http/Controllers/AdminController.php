@@ -10,10 +10,10 @@ use App\Imports\DosenImport;
 use Illuminate\Http\Request;
 use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
-use App\DataTables\DosenDataTable;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
-use App\DataTables\MahasiswaDataTable;
+use App\DataTables\Master\MahasiswaDataTable;
+use App\DataTables\Master\DosenDataTable;
 
 class AdminController extends Controller
 {

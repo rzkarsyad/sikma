@@ -19,10 +19,8 @@ class MhsPrestasiDataTable extends DataTable
             })
             ->editColumn('tropi', function ($item) {
                 if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf') {
-                    // Display a button to download PDF
-                    return '<a href="' . asset('storage/' . $item->tropi) . '" class="btn btn-primary" target="_blank">Lihat Berkas</a>';
+                    return '<a href="' . asset('storage/' . $item->tropi) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
-                    // Display an image with modal trigger
                     return '<img src="' . asset('storage/' . $item->tropi) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->tropi) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
                 }
             })
@@ -31,10 +29,8 @@ class MhsPrestasiDataTable extends DataTable
             })
             ->editColumn('undangan', function ($item) {
                 if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf') {
-                    // Display a button to download PDF
-                    return '<a href="' . asset('storage/' . $item->undangan) . '" class="btn btn-primary" download>Download PDF</a>';
+                    return '<a href="' . asset('storage/' . $item->undangan) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
-                    // Display an image with modal trigger
                     return '<img src="' . asset('storage/' . $item->undangan) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->undangan) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
                 }
             })
@@ -43,7 +39,15 @@ class MhsPrestasiDataTable extends DataTable
 
     public function query(MhsPrestasi $model)
     {
-        return $model->newQuery();
+        $id = auth()->user()->id;
+
+        return $model->newQuery()
+            ->where('user_id', $id)
+            ->with(['tingkat'])
+            ->select([
+                'mhs_prestasi.*',
+                'mhs_prestasi.id as prestasi_id',
+            ]);
     }
 
     public function html()

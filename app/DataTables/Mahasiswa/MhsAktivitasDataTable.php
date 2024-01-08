@@ -18,10 +18,8 @@ class MhsAktivitasDataTable extends DataTable
             })
             ->editColumn('sertifikat', function ($item) {
                 if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf') {
-                    // Display a button to open PDF in a new tab
-                    return '<a href="' . asset('storage/' . $item->sertifikat) . '" class="btn btn-primary" target="_blank">Lihat Berkas</a>';
+                    return '<a href="' . asset('storage/' . $item->sertifikat) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
-                    // Display an image with modal trigger
                     return '<img src="' . asset('storage/' . $item->sertifikat) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
                 }
             })               

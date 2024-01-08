@@ -20,35 +20,7 @@
                                     <h4 class="card-title">Data Prestasi</h4>
                                     <p class="card-title-desc">Tabel ini berisi seluruh prestasi yang diperoleh mahasiswa.
                                     </p>
-                                    <table id="example" class="table dt-responsive nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>NIM</th>
-                                                <th>Nama Mahasiswa</th>
-                                                <th>Prodi</th>
-                                                <th>Jalur Masuk</th>
-                                                <th>Tingkat</th>
-                                                <th>Nama Kegiatan</th>
-                                                <th>Penyelenggara</th>
-                                                <th>Jumlah Peserta</th>
-                                                <th>Capaian</th>
-                                                <th>Tgl Mulai</th>
-                                                <th>Tgl Selesai</th>
-                                                <th>URL Penyelenggara</th>
-                                                <th>Tropi</th>
-                                                <th>Foto</th>
-                                                <th>Surat Undangan</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($prestasi as $item)
-                                                @include('collections.c-prestasi')
-                                            @empty
-                                            @endforelse
-                                        </tbody>
-                                    </table>
+                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -58,18 +30,9 @@
             <!-- end page title -->
         </div>
     </div>
-
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Lihat Gambar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img id="modalImage" src="" class="img-fluid w-100">
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('components.lib.modal-img')
 @endsection
+
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

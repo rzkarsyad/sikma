@@ -19,7 +19,7 @@ class MhsKegiatanController extends Controller
      */
     public function index(MhsKegiatanDataTable $dataTable)
     {
-        return $dataTable->render('mahasiswa.mandiri');
+        return $dataTable->render('mahasiswa.mandiri.index');
     }
 
     /**
@@ -31,7 +31,7 @@ class MhsKegiatanController extends Controller
     {
         $tingkat = ListTingkat::pluck('nama', 'id');
         $jenis = ListJenis::pluck('nama', 'id');
-        return view('mahasiswa.mandiri-create', compact('tingkat', 'jenis'));
+        return view('mahasiswa.mandiri.create', compact('tingkat', 'jenis'));
     }
 
     /**
@@ -81,7 +81,7 @@ class MhsKegiatanController extends Controller
         $mhsKegiatan = MhsKegiatan::findOrFail($id);
         $tingkat = ListTingkat::pluck('nama', 'id');
         $jenis = ListJenis::pluck('nama', 'id');
-        return view('mahasiswa.mandiri-edit', compact('tingkat', 'jenis', 'mhsKegiatan'));
+        return view('mahasiswa.mandiri.edit', compact('tingkat', 'jenis', 'mhsKegiatan'));
     }
 
     /**

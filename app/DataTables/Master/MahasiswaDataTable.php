@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Master;
 
 use App\Models\Mahasiswa;
 use Yajra\DataTables\Html\Column;

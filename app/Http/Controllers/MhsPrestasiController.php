@@ -19,7 +19,7 @@ class MhsPrestasiController extends Controller
      */
     public function index(MhsPrestasiDataTable $dataTable)
     {
-        return $dataTable->render('mahasiswa.prestasi');
+        return $dataTable->render('mahasiswa.prestasi.index');
     }
 
     /**
@@ -30,7 +30,7 @@ class MhsPrestasiController extends Controller
     public function create()
     {
         $tingkat = ListTingkat::pluck('nama', 'id');
-        return view('mahasiswa.prestasi-create', compact('tingkat'));
+        return view('mahasiswa.prestasi.create', compact('tingkat'));
     }
 
     /**
@@ -90,7 +90,7 @@ class MhsPrestasiController extends Controller
     {
         $mhsPrestasi = MhsPrestasi::findOrFail($id);
         $tingkat = ListTingkat::pluck('nama', 'id');
-        return view('mahasiswa.prestasi-edit', compact('mhsPrestasi', 'tingkat'));
+        return view('mahasiswa.prestasi.edit', compact('mhsPrestasi', 'tingkat'));
     }
 
     /**

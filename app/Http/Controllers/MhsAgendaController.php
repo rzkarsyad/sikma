@@ -15,7 +15,7 @@ class MhsAgendaController extends Controller
      */
     public function index(MhsAgendaDataTable $dataTable)
     {
-        return $dataTable->render('mahasiswa.agenda');
+        return $dataTable->render('mahasiswa.agenda.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class MhsAgendaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.agenda-create');
+        return view('mahasiswa.agenda.create');
     }
 
     /**
