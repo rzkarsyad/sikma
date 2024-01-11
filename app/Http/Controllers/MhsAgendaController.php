@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
 use App\Models\MhsAgenda;
 use Illuminate\Http\Request;
-use App\DataTables\MhsAgendaDataTable;
+use Illuminate\Support\Facades\Auth;
+use App\DataTables\Mahasiswa\MhsAgendaDataTable;
 
 class MhsAgendaController extends Controller
 {
@@ -25,7 +27,12 @@ class MhsAgendaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.agenda.create');
+        $jenis_bimbingan = [
+            1 => 'Bimbingan Konseling',
+            2 => 'Bimbingan Pembina Ormawa',
+        ];
+        $dosen = Dosen::pluck('nama', 'nidn');
+        return view('mahasiswa.agenda.create', compact('dosen', 'jenis_bimbingan'));
     }
 
     /**
@@ -36,7 +43,23 @@ class MhsAgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateAgenda($request);
+        
+        $user = Auth::user();
+        $nim = $user->mahasiswa->nim;
+        $user_id = $user->id;
+
+        MhsAgenda::create([
+            'user_id' => $user_id,
+            'type' => $request->type,
+            'agenda_date' => $request->agenda_date,
+            'agenda_time' => $request->agenda_time,
+            'dosen_id' => $request->dosen_id,
+            'topic' => $request->topic,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('m.agenda')->with('success', 'Bimbingan berhasil ditambahkan.');
     }
 
     /**
@@ -56,9 +79,15 @@ class MhsAgendaController extends Controller
      * @param  \App\Models\MhsAgenda  $mhsAgenda
      * @return \Illuminate\Http\Response
      */
-    public function edit(MhsAgenda $mhsAgenda)
+    public function edit($id)
     {
-        //
+        $mhsAgenda = MhsAgenda::findOrFail($id);
+        $jenis_bimbingan = [
+            1 => 'Bimbingan Konseling',
+            2 => 'Bimbingan Pembina Ormawa',
+        ];
+        $dosen = Dosen::pluck('nama', 'nidn');
+        return view('mahasiswa.agenda.edit', compact('dosen', 'jenis_bimbingan', 'mhsAgenda'));
     }
 
     /**
@@ -68,9 +97,22 @@ class MhsAgendaController extends Controller
      * @param  \App\Models\MhsAgenda  $mhsAgenda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MhsAgenda $mhsAgenda)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validateAgenda($request);
+
+        $mhsAgenda = MhsAgenda::findOrFail($id);
+
+        $mhsAgenda->type = $request->type;
+        $mhsAgenda->agenda_date = $request->agenda_date;
+        $mhsAgenda->agenda_time = $request->agenda_time;
+        $mhsAgenda->dosen_id = $request->dosen_id;
+        $mhsAgenda->topic = $request->topic;
+        $mhsAgenda->content = $request->content;
+
+        $mhsAgenda->save();
+
+        return redirect()->route('m.agenda')->with('success', 'Bimbingan berhasil diubah.');
     }
 
     /**
@@ -79,8 +121,35 @@ class MhsAgendaController extends Controller
      * @param  \App\Models\MhsAgenda  $mhsAgenda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MhsAgenda $mhsAgenda)
+    public function destroy($id)
     {
-        //
+        $mhsAgenda = MhsAgenda::findOrFail($id);
+
+        $mhsAgenda->delete();
+
+        return redirect()->route('m.agenda')->with('success', 'Bimbingan berhasil dihapus.');
+    }
+
+    public function validateAgenda(Request $request)
+    {
+        $rules = [
+            'type' => 'required',
+            'agenda_date' => 'required',
+            'agenda_time' => 'required',
+            'dosen_id' => 'required',
+            'topic' => 'required',
+            'content' => 'required',
+        ];
+
+        $messages = [
+            'type.required' => 'Jenis bimbingan tidak boleh kosong',
+            'agenda_date.required' => 'Tanggal tidak boleh kosong',
+            'agenda_time.required' => 'Waktu tidak boleh kosong',
+            'dosen_id.required' => 'Dosen pembimbing tidak boleh kosong',
+            'topic.required' => 'Judul tidak boleh kosong',
+            'content.required' => 'Isi tidak boleh kosong',
+        ];
+
+        $request->validate($rules, $messages);
     }
 }

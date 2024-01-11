@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Mahasiswa;
 
 use App\Models\MhsKegiatan;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;

@@ -11,9 +11,10 @@ class MhsAgenda extends Model
     protected $table = 'mhs_agenda';
     protected $fillable = [
         'user_id',
+        'type',
         'agenda_date',
         'agenda_time',
-        'nidn',
+        'dosen_id',
         'topic',
         'content',
         'result',
@@ -28,6 +29,6 @@ class MhsAgenda extends Model
     
     public function dosen() 
     {
-        return $this->belongsTo(Dosen::class, 'nidn', 'nidn');
+        return $this->belongsTo(Dosen::class, 'dosen_id', 'nidn');
     }
 }

@@ -49,6 +49,11 @@ class Mahasiswa extends Model
         return $this->belongsTo(Jenjang::class, 'jenjang', 'id');
     }
 
+    public function agenda()
+    {
+        return $this->hasMany(MhsAgenda::class, 'user_id', 'user_id');
+    }
+
     public function aktivitas()
     {
         return $this->hasMany(MhsAktivitas::class, 'user_id', 'user_id');

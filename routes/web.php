@@ -47,6 +47,11 @@ Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
 
     Route::get('/agenda', [MhsAgendaController::class, 'index'])->name('m.agenda');
     Route::get('/agenda/create', [MhsAgendaController::class, 'create'])->name('m.agenda-create');
+    Route::post('/agenda/store', [MhsAgendaController::class, 'store'])->name('m.agenda-store');
+    Route::post('/agenda/show', [MhsAgendaController::class, 'show'])->name('m.agenda-show');
+    Route::get('/agenda/edit/{id}', [MhsAgendaController::class, 'edit'])->name('m.agenda-edit');
+    Route::put('/agenda/update/{id}', [MhsAgendaController::class, 'update'])->name('m.agenda-update');
+    Route::delete('/agenda/delete/{id}', [MhsAgendaController::class, 'destroy'])->name('m.agenda-delete');
 
     Route::get('/aktivitas', [MhsAktivitasController::class, 'index'])->name('m.aktivitas');
     Route::get('/aktivitas/create', [MhsAktivitasController::class, 'create'])->name('m.aktivitas-create');

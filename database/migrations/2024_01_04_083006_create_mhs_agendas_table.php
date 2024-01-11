@@ -16,14 +16,15 @@ return new class extends Migration
         Schema::create('mhs_agenda', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->enum('type', ['1', '2']);
             $table->date('agenda_date');
             $table->time('agenda_time');
-            $table->string('nidn');
+            $table->string('dosen_id');
             $table->string('topic');
             $table->text('content');
-            $table->text('result');
-            $table->text('action');
-            $table->enum('status', ['1', '2', '3']);
+            $table->text('result')->nullable();
+            $table->text('action')->nullable();
+            $table->enum('status', ['1', '2', '3'])->default('1');
             $table->timestamps();
         });
     }

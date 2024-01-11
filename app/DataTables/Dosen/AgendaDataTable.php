@@ -2,7 +2,7 @@
 
 namespace App\DataTables\Dosen;
 
-use App\Models\Agenda;
+use App\Models\MhsAgenda;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -21,7 +21,7 @@ class AgendaDataTable extends DataTable
             ->addIndexColumn();
     }
 
-    public function query(Agenda $model)
+    public function query(MhsAgenda $model)
     {
         $id = auth()->user()->id;
 
@@ -57,8 +57,9 @@ class AgendaDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
+            Column::make('type')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
-            Column::make('nidn')->title('Dosen Pembimbing'),
+            Column::make('dosen.nama')->title('Nama Pembimbing'),
             Column::make('agenda_date')->title('Tanggal'),
             Column::make('agenda_time')->title('Waktu'),
             Column::make('content')->title('Isi'),

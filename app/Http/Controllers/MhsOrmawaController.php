@@ -6,8 +6,8 @@ use App\Models\MhsOrmawa;
 use App\Models\ListOrmawa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\DataTables\MhsOrmawaDataTable;
 use Illuminate\Support\Facades\Storage;
+use App\DataTables\Mahasiswa\MhsOrmawaDataTable;
 
 class MhsOrmawaController extends Controller
 {

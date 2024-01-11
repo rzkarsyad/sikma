@@ -8,7 +8,7 @@ use App\Models\MhsAktivitas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\DataTables\MhsAktivitasDataTable;
+use App\DataTables\Mahasiswa\MhsAktivitasDataTable;
 
 class MhsAktivitasController extends Controller
 {

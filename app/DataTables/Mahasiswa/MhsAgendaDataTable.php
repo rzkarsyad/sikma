@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Mahasiswa;
 
 use App\Models\MhsAgenda;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -21,8 +21,50 @@ class MhsAgendaDataTable extends DataTable
             ->addIndexColumn()
             ->addColumn('actions', function ($item) {
                 return view('mahasiswa.actions.mhs-agenda', compact('item'));
-            });
-    }
+            })
+            ->addColumn('type', function ($item) {
+                $type = [
+                    1 => 'Bimbingan Konseling',
+                    2 => 'Bimbingan Pembina Ormawa',
+                ];
+    
+                return $type[$item->type] ?? $item->type;
+            })
+            ->addColumn('status', function ($item) {
+                $status = [
+                    1 => 'Belum diterima',
+                    2 => 'Diterima',
+                    3 => 'Selesai',
+                ];
+    
+                $statusText = $status[$item->status] ?? $item->status;
+                $badgeClass = '';
+    
+                switch ($item->status) {
+                    case 1:
+                        $badgeClass = 'text-bg-danger';
+                        break;
+                    case 2:
+                        $badgeClass = 'text-bg-success';
+                        break;
+                    case 3:
+                        $badgeClass = 'text-bg-primary';
+                        break;
+                    default:
+                        $badgeClass = 'text-bg-secondary';
+                        break;
+                }
+    
+                return '<span class="badge rounded-pill ' . $badgeClass . '">' . $statusText . '</span>';
+            })
+            ->editColumn('result', function ($item) {
+                return $item->result ?? '-';
+            })
+            ->editColumn('action', function ($item) {
+                return $item->action ?? '-';
+            })
+            ->rawColumns(['status']);
+        }
 
     public function query(MhsAgenda $model)
     {
@@ -60,14 +102,15 @@ class MhsAgendaDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
+            Column::make('type')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
-            Column::make('nidn')->title('Dosen Pembimbing'),
+            Column::make('dosen.nama')->title('Nama Pembimbing'),
             Column::make('agenda_date')->title('Tanggal'),
             Column::make('agenda_time')->title('Waktu'),
             Column::make('content')->title('Isi'),
             Column::make('result')->title('Hasil'),
             Column::make('action')->title('Tindak Lanjut'),
-            Column::make('status')->title('Status'),
+            Column::computed('status')->title('Status'),
             Column::computed('actions')
             ->title('Aksi')
             ->orderable(false)
