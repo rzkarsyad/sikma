@@ -29,7 +29,10 @@
                                     <p class="card-title-desc">Tabel ini berisi seluruh kegiatan mandiri yang
                                         diikuti oleh mahasiswa.
                                     </p>
-                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
+                                    {!! $dataTable->table([
+                                        'class' => 'table table-striped nowrap',
+                                        'style' => 'width:100%;',
+                                    ]) !!}
                                 </div>
                             </div>
                         </div> <!-- end col -->

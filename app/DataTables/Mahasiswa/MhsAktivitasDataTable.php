@@ -48,9 +48,10 @@ class MhsAktivitasDataTable extends DataTable
             ->setTableId('mhsaktivitas-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
+            ->scrollY(180)
             ->scrollX(true)
             ->responsive(true)
-            ->orderBy(0) // Assuming 'No' column is the first one
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
@@ -81,6 +82,12 @@ class MhsAktivitasDataTable extends DataTable
                 ->exportable(false)
                 ->printable(false),
             Column::make('url_penyelenggara')->title('URL Penyelenggara'),
+            Column::computed('actions')
+            ->title('Aksi')
+            ->orderable(false)
+            ->searchable(false)
+            ->exportable(false)
+            ->printable(false),
         ];
     }
 

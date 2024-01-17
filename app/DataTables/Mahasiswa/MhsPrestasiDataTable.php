@@ -56,9 +56,10 @@ class MhsPrestasiDataTable extends DataTable
         ->setTableId('mhsprestasi-table')
         ->columns($this->getColumns())
         ->minifiedAjax()
+        ->scrollY(180)
         ->scrollX(true)
         ->responsive(true)
-        ->orderBy(0) // Assuming 'No' column is the first one
+        ->orderBy(0)
         ->selectStyleSingle()
         ->buttons([
             'excel', 'csv', 'pdf', 'print', 'reset', 'reload'

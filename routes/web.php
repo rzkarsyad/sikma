@@ -46,9 +46,9 @@ Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
     Route::get('/dashboard', [MahasiswaController::class, 'index'])->name('m.dashboard');
 
     Route::get('/agenda', [MhsAgendaController::class, 'index'])->name('m.agenda');
+    Route::get('/agenda/show/{id}', [MhsAgendaController::class, 'show'])->name('m.agenda-show');
     Route::get('/agenda/create', [MhsAgendaController::class, 'create'])->name('m.agenda-create');
     Route::post('/agenda/store', [MhsAgendaController::class, 'store'])->name('m.agenda-store');
-    Route::get('/agenda/show/{id}', [MhsAgendaController::class, 'show'])->name('m.agenda-show');
     Route::get('/agenda/edit/{id}', [MhsAgendaController::class, 'edit'])->name('m.agenda-edit');
     Route::put('/agenda/update/{id}', [MhsAgendaController::class, 'update'])->name('m.agenda-update');
     Route::delete('/agenda/delete/{id}', [MhsAgendaController::class, 'destroy'])->name('m.agenda-delete');
@@ -61,6 +61,7 @@ Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
     Route::delete('/aktivitas/delete/{id}', [MhsAktivitasController::class, 'destroy'])->name('m.aktivitas-delete');
 
     Route::get('/kegiatan-mandiri', [MhsKegiatanController::class, 'index'])->name('m.mandiri');
+    Route::get('/kegiatan-mandiri/show/{id}', [MhsKegiatanController::class, 'show'])->name('m.mandiri-show');
     Route::get('/kegiatan-mandiri/create', [MhsKegiatanController::class, 'create'])->name('m.mandiri-create');
     Route::post('/kegiatan-mandiri/store', [MhsKegiatanController::class, 'store'])->name('m.mandiri-store');
     Route::get('/kegiatan-mandiri/edit/{id}', [MhsKegiatanController::class, 'edit'])->name('m.mandiri-edit');
@@ -68,6 +69,7 @@ Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
     Route::delete('/kegiatan-mandiri/delete/{id}', [MhsKegiatanController::class, 'destroy'])->name('m.mandiri-delete');
     
     Route::get('/prestasi', [MhsPrestasiController::class, 'index'])->name('m.prestasi');
+    Route::get('/prestasi/show/{id}', [MhsPrestasiController::class, 'show'])->name('m.prestasi-show');
     Route::get('/prestasi/create', [MhsPrestasiController::class, 'create'])->name('m.prestasi-create');
     Route::post('/prestasi/store', [MhsPrestasiController::class, 'store'])->name('m.prestasi-store');
     Route::get('/prestasi/edit/{id}', [MhsPrestasiController::class, 'edit'])->name('m.prestasi-edit');

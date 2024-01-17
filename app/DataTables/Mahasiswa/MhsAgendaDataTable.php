@@ -19,10 +19,6 @@ class MhsAgendaDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('empty_row', function () {
-                return '';
-            })
-            ->rawColumns(['empty_row'])
             ->addColumn('actions', function ($item) {
                 return view('mahasiswa.actions.mhs-agenda', compact('item'));
             })
@@ -84,7 +80,9 @@ class MhsAgendaDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->responsive(true)
-            ->autowidth(false)
+            ->autoWidth(true)
+            ->scrollY(180)
+            ->scrollX(true)
             ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([

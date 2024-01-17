@@ -1,12 +1,25 @@
-<td id="tooltip-container1">
-    <a href="{{ route('m.ormawa-edit', ['id' => $item->id]) }}" class="text-secondary"
-        data-bs-container="#tooltip-container1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i
-            class="mdi mdi-pencil font-size-18"></i></a>
-    <form action="{{ route('m.ormawa-delete', ['id' => $item->id]) }}" method="POST" style="display: inline">
-        @csrf
-        @method('DELETE')
-        <button type="button" class="btn text-secondary" onclick="deleteConfirmation(this)">
-            <i class="mdi mdi-trash-can font-size-18"></i>
-        </button>
-    </form>
-</td>
+<div class="dropdown">
+    <a href="" class="text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="ri-more-2-fill"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <form id="editForm" action="{{ route('m.ormawa-edit', ['id' => $item->id]) }}" method="GET"
+                style="display: inline;">
+                <button type="submit" class="btn dropdown-item">
+                    <i class="ri-pencil-line font-size-16 me-2"></i>Edit
+                </button>
+            </form>
+        </li>
+        <li>
+            <form id="deleteForm" action="{{ route('m.ormawa-delete', ['id' => $item->id]) }}" method="POST"
+                style="display: inline;">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="btn dropdown-item" onclick="deleteConfirmation(this)">
+                    <i class="ri-delete-bin-line font-size-16 me-2"></i>Hapus
+                </button>
+            </form>
+        </li>
+    </ul>
+</div>

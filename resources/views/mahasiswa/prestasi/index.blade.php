@@ -28,7 +28,10 @@
                                     <h4 class="card-title">Data Prestasi</h4>
                                     <p class="card-title-desc">Tabel ini berisi seluruh prestasi yang diperoleh mahasiswa.
                                     </p>
-                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
+                                    {!! $dataTable->table([
+                                        'class' => 'table table-striped nowrap',
+                                        'style' => 'width:100%;',
+                                    ]) !!}
                                 </div>
                             </div>
                         </div> <!-- end col -->
