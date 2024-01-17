@@ -68,9 +68,47 @@ class MhsAgendaController extends Controller
      * @param  \App\Models\MhsAgenda  $mhsAgenda
      * @return \Illuminate\Http\Response
      */
-    public function show(MhsAgenda $mhsAgenda)
+    public function show($id)
     {
-        //
+        $mhsAgenda = MhsAgenda::findOrFail($id);
+
+        $status = [
+            1 => 'Belum diterima',
+            2 => 'Diterima',
+            3 => 'Selesai',
+        ];
+    
+        $statusText = $status[$mhsAgenda->status] ?? $mhsAgenda->status;
+        $badgeClass = '';
+    
+        switch ($mhsAgenda->status) {
+            case 1:
+                $badgeClass = 'text-bg-danger';
+                break;
+            case 2:
+                $badgeClass = 'text-bg-success';
+                break;
+            case 3:
+                $badgeClass = 'text-bg-primary';
+                break;
+            default:
+                $badgeClass = 'text-bg-secondary';
+                break;
+        }
+
+        $type = [
+            1 => 'Bimbingan Konseling',
+            2 => 'Bimbingan Pembina Ormawa',
+        ];
+
+        $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
+
+        return view('mahasiswa.agenda.show')->with([
+            'statusText' => $statusText,
+            'badgeClass' => $badgeClass,
+            'mhsAgenda' => $mhsAgenda,
+            'type' => $type,
+        ]);
     }
 
     /**

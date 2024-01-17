@@ -37,7 +37,7 @@
     <li>
         <a href="{{ route('m.ormawa') }}" class=" waves-effect">
             <i class="ri-team-line"></i>
-            <span>Kegiatan Ormawa</span>
+            <span>Ormawa & UKM</span>
         </a>
     </li>
     <li class="menu-title">Pengaturan</li>

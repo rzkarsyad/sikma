@@ -19,6 +19,10 @@ class MhsAgendaDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('empty_row', function () {
+                return '';
+            })
+            ->rawColumns(['empty_row'])
             ->addColumn('actions', function ($item) {
                 return view('mahasiswa.actions.mhs-agenda', compact('item'));
             })
@@ -57,12 +61,6 @@ class MhsAgendaDataTable extends DataTable
     
                 return '<span class="badge rounded-pill ' . $badgeClass . '">' . $statusText . '</span>';
             })
-            ->editColumn('result', function ($item) {
-                return $item->result ?? '-';
-            })
-            ->editColumn('action', function ($item) {
-                return $item->action ?? '-';
-            })
             ->rawColumns(['status']);
         }
 
@@ -85,9 +83,9 @@ class MhsAgendaDataTable extends DataTable
             ->setTableId('mhsagenda-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->scrollX(true)
             ->responsive(true)
-            ->orderBy(0) // Assuming 'No' column is the first one
+            ->autowidth(false)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
@@ -107,9 +105,6 @@ class MhsAgendaDataTable extends DataTable
             Column::make('dosen.nama')->title('Nama Pembimbing'),
             Column::make('agenda_date')->title('Tanggal'),
             Column::make('agenda_time')->title('Waktu'),
-            Column::make('content')->title('Isi'),
-            Column::make('result')->title('Hasil'),
-            Column::make('action')->title('Tindak Lanjut'),
             Column::computed('status')->title('Status'),
             Column::computed('actions')
             ->title('Aksi')

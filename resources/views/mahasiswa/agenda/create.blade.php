@@ -43,15 +43,18 @@
                                                 <div class="col-md-6 mb-3 mb-md-0">
                                                     <label for="agenda_date">Tanggal</label>
                                                     <input name="agenda_date" type="date"
-                                                        class="form-control @error('agenda_date') is-invalid @enderror">
+                                                        class="form-control @error('agenda_date') is-invalid @enderror"
+                                                        value="{{ old('agenda_date') }}">
                                                     @error('agenda_date')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
+
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="agenda_time">Waktu</label>
                                                     <input name="agenda_time" type="time"
-                                                        class="form-control @error('agenda_time') is-invalid @enderror">
+                                                        class="form-control @error('agenda_time') is-invalid @enderror"
+                                                        value="{{ old('agenda_time') }}">
                                                     @error('agenda_time')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
@@ -62,13 +65,14 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="dosen_id">Dosen Pembimbing</label>
-                                                <select name="dosen_id"
+                                                <select name="dosen_id" id="searchableDropdown" data-live-search="true"
                                                     class="form-select @error('dosen_id') is-invalid @enderror">
                                                     <option value="">Pilih Dosen</option>
                                                     @foreach ($dosen as $nidn => $nama)
                                                         <option value="{{ $nidn }}"
-                                                            {{ old('nidn') == $nidn ? 'selected' : null }}>
-                                                            {{ $nama }}</option>
+                                                            {{ old('dosen_id') == $nidn ? 'selected' : null }}>
+                                                            {{ $nama }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                                 @error('dosen_id')
@@ -78,7 +82,8 @@
                                             <div class="mb-3">
                                                 <label for="topic">Judul</label>
                                                 <input name="topic" type="input"
-                                                    class="form-control @error('topic') is-invalid @enderror">
+                                                    class="form-control @error('topic') is-invalid @enderror"
+                                                    value="{{ old('topic') }}">
                                                 @error('topic')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -90,8 +95,8 @@
                                         <div class="col-md-12">
                                             <div class="mb-3">
                                                 <label for="content">Isi</label>
-                                                <textarea class="form-control @error('content') is-invalid @enderror"" name="content" id="content" cols="30"
-                                                    rows="3" placeholder="Tulis bahasan bimbingan"></textarea>
+                                                <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" cols="30"
+                                                    rows="6" placeholder="Tulis bahasan bimbingan">{{ old('content') }}</textarea>
                                                 @error('content')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

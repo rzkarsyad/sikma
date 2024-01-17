@@ -93,7 +93,7 @@
                                             <div class="mb-3">
                                                 <label for="content">Isi</label>
                                                 <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" cols="30"
-                                                    rows="3" placeholder="Tulis bahasan bimbingan">{{ $mhsAgenda->content }}</textarea>
+                                                    rows="6" placeholder="Tulis bahasan bimbingan">{{ $mhsAgenda->content }}</textarea>
                                                 @error('content')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
