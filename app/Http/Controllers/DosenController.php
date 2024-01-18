@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\MhsAgenda;
 use App\Models\MhsOrmawa;
 use App\Models\MhsKegiatan;
 use App\Models\MhsPrestasi;
 use App\Models\MhsAktivitas;
 use Illuminate\Http\Request;
+use App\DataTables\Dosen\AgendaDataTable;
 use App\DataTables\Dosen\OrmawaDataTable;
 use App\DataTables\Dosen\MandiriDataTable;
 use App\DataTables\Dosen\PrestasiDataTable;
-use App\DataTables\Master\MahasiswaDataTable;
 use App\DataTables\Dosen\AktivitasDataTable;
+use App\DataTables\Master\MahasiswaDataTable;
 
 class DosenController extends Controller
 {
@@ -91,6 +93,75 @@ class DosenController extends Controller
     public function destroy(Dosen $dosen)
     {
         //
+    }
+
+    public function agenda(AgendaDataTable $dataTable)
+    {
+        return $dataTable->render('dosen.agenda');
+    }
+
+    public function showAgenda($id)
+    {
+        $mhsAgenda = MhsAgenda::findOrFail($id);
+
+        $status = [
+            1 => 'Belum diterima',
+            2 => 'Diterima',
+            3 => 'Selesai',
+        ];
+    
+        $statusText = $status[$mhsAgenda->status] ?? $mhsAgenda->status;
+        $badgeClass = '';
+    
+        switch ($mhsAgenda->status) {
+            case 1:
+                $badgeClass = 'text-bg-danger';
+                break;
+            case 2:
+                $badgeClass = 'text-bg-success';
+                break;
+            case 3:
+                $badgeClass = 'text-bg-primary';
+                break;
+            default:
+                $badgeClass = 'text-bg-secondary';
+                break;
+        }
+
+        $type = [
+            1 => 'Bimbingan Konseling',
+            2 => 'Bimbingan Pembina Ormawa',
+        ];
+
+        $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
+
+        return view('dosen.show-agenda')->with([
+            'statusText' => $statusText,
+            'badgeClass' => $badgeClass,
+            'mhsAgenda' => $mhsAgenda,
+            'type' => $type,
+        ]);
+    }
+
+    public function storeAgenda(Request $request)
+    {
+        $this->validateAgenda($request);
+        
+        $user = Auth::user();
+        $nim = $user->mahasiswa->nim;
+        $user_id = $user->id;
+
+        MhsAgenda::create([
+            'user_id' => $user_id,
+            'type' => $request->type,
+            'agenda_date' => $request->agenda_date,
+            'agenda_time' => $request->agenda_time,
+            'dosen_id' => $request->dosen_id,
+            'topic' => $request->topic,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('m.agenda')->with('success', 'Bimbingan berhasil ditinjau.');
     }
 
     public function aktivitas(AktivitasDataTable $dataTable)

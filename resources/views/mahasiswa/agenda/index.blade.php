@@ -27,10 +27,9 @@
                                 <div class="card-body">
                                     <h4 class="card-title">Data Agenda</h4>
                                     <p class="card-title-desc">Tabel ini berisi seluruh agenda yang telah dilakukan oleh
-                                        mahasiswa
-                                    </p>
+                                        mahasiswa</p>
                                     {!! $dataTable->table([
-                                        'class' => 'table table-striped nowrap',
+                                        'class' => 'table table-striped overflow-auto nowrap',
                                         'style' => 'width:100%;',
                                     ]) !!}
                                 </div>

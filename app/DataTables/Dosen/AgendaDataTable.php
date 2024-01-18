@@ -18,20 +18,61 @@ class AgendaDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addIndexColumn();
+            ->addIndexColumn()
+            ->addColumn('actions', function ($item) {
+                return view('dosen.actions.action-agenda', compact('item'));
+            })
+            ->addColumn('type', function ($item) {
+                $type = [
+                    1 => 'Bimbingan Konseling',
+                    2 => 'Bimbingan Pembina Ormawa',
+                ];
+    
+                return $type[$item->type] ?? $item->type;
+            })
+            ->addColumn('status', function ($item) {
+                $status = [
+                    1 => 'Belum diterima',
+                    2 => 'Diterima',
+                    3 => 'Selesai',
+                ];
+    
+                $statusText = $status[$item->status] ?? $item->status;
+                $badgeClass = '';
+    
+                switch ($item->status) {
+                    case 1:
+                        $badgeClass = 'text-bg-danger';
+                        break;
+                    case 2:
+                        $badgeClass = 'text-bg-success';
+                        break;
+                    case 3:
+                        $badgeClass = 'text-bg-primary';
+                        break;
+                    default:
+                        $badgeClass = 'text-bg-secondary';
+                        break;
+                }
+    
+                return '<span class="badge rounded-pill ' . $badgeClass . '">' . $statusText . '</span>';
+            })
+            ->rawColumns(['status']);
     }
 
     public function query(MhsAgenda $model)
     {
-        $id = auth()->user()->id;
+        $nidn = auth()->user()->nim_nidn;
 
         return $model->newQuery()
-            ->where('user_id', $id)
-            ->with(['dosen'])
-            ->select([
-                'mhs_agenda.*',
-                'mhs_agenda.id as agenda_id',
-            ]);
+        ->whereHas('dosen', function ($query) use ($nidn) {
+            $query->where('dosen_id', $nidn);
+        })
+        ->with(['dosen'])
+        ->select([
+            'mhs_agenda.*',
+            'mhs_agenda.id as agenda_id',
+        ]);
     }
 
     public function html()
@@ -40,9 +81,10 @@ class AgendaDataTable extends DataTable
             ->setTableId('agenda-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
+            ->autoWidth(true)
             ->scrollX(true)
             ->responsive(true)
-            ->orderBy(0) // Assuming 'No' column is the first one
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
@@ -62,10 +104,13 @@ class AgendaDataTable extends DataTable
             Column::make('dosen.nama')->title('Nama Pembimbing'),
             Column::make('agenda_date')->title('Tanggal'),
             Column::make('agenda_time')->title('Waktu'),
-            Column::make('content')->title('Isi'),
-            Column::make('result')->title('Hasil'),
-            Column::make('action')->title('Tindak Lanjut'),
             Column::make('status')->title('Status'),
+            Column::computed('actions')
+            ->title('Aksi')
+            ->orderable(false)
+            ->searchable(false)
+            ->exportable(false)
+            ->printable(false),
         ];
     }
 

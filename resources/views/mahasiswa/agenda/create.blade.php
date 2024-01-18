@@ -65,7 +65,8 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="dosen_id">Dosen Pembimbing</label>
-                                                <select name="dosen_id" id="searchableDropdown" data-live-search="true"
+                                                <select name="dosen_id" id="#js-example-basic-single"
+                                                    data-live-search="true"
                                                     class="form-select @error('dosen_id') is-invalid @enderror">
                                                     <option value="">Pilih Dosen</option>
                                                     @foreach ($dosen as $nidn => $nama)

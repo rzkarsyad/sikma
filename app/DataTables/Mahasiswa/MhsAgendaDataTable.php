@@ -57,7 +57,7 @@ class MhsAgendaDataTable extends DataTable
     
                 return '<span class="badge rounded-pill ' . $badgeClass . '">' . $statusText . '</span>';
             })
-            ->rawColumns(['status']);
+            ->rawColumns(['status', 'actions']);
         }
 
     public function query(MhsAgenda $model)
@@ -79,11 +79,9 @@ class MhsAgendaDataTable extends DataTable
             ->setTableId('mhsagenda-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->responsive(true)
-            ->autoWidth(true)
-            ->scrollY(180)
-            ->scrollX(true)
             ->orderBy(0)
+            ->scrollX(true)
+            ->scrollCollapse(true)
             ->selectStyleSingle()
             ->buttons([
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
@@ -98,6 +96,9 @@ class MhsAgendaDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
+            Column::make('type')->title('Jenis Bimbingan'),
+            Column::make('type')->title('Jenis Bimbingan'),
+            Column::make('type')->title('Jenis Bimbingan'),
             Column::make('type')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
             Column::make('dosen.nama')->title('Nama Pembimbing'),

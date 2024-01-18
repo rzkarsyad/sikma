@@ -44,7 +44,7 @@ class AktivitasDataTable extends DataTable
             ->minifiedAjax()
             ->scrollX(true)
             ->responsive(true)
-            ->orderBy(0) // Assuming 'No' column is the first one
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'

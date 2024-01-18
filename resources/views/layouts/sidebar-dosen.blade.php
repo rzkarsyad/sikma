@@ -9,6 +9,13 @@
     </li>
 
     <li>
+        <a href="{{ route('dosen.agenda') }}" class=" waves-effect">
+            <i class="ri-file-list-line"></i>
+            <span>Agenda</span>
+        </a>
+    </li>
+
+    <li>
         <a href="{{ route('dosen.aktivitas') }}" class=" waves-effect">
             <i class="ri-file-list-2-line"></i>
             <span>Aktivitas Mahasiswa</span>

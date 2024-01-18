@@ -11,10 +11,6 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-unaic.png') }}">
 
-    {{-- Select2 --}}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     <!-- Sweet Alert-->
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -129,12 +125,8 @@
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#searchableDropdown').select2();
-        });
-    </script>
+        $('body .dropdown-toggle').dropdown();
 
-    <script>
         $(document).ready(function() {
             new DataTable('#example', {
                 scrollX: true,
