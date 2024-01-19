@@ -75,7 +75,11 @@ class DosenDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('DT_RowIndex')->title('No.'),
+            Column::make('DT_RowIndex')->title('No.')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
             Column::make('nidn')->title('NIDN'),
             Column::make('nama')->title('Nama Dosen'),
             Column::make('email')->title('Email'),

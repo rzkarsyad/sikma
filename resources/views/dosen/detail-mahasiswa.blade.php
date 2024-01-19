@@ -15,8 +15,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn bg-white text-dark waves-effect waves-light shadow mb-3"
-                                onclick="javascript:history.back()">Kembali</button>
+                            <a href="{{ url()->previous() }}"
+                                class="btn bg-white text-dark waves-effect waves-light shadow mb-3">
+                                <i class="ri-arrow-left-line"></i>
+                                Kembali
+                            </a>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="mb-4">
