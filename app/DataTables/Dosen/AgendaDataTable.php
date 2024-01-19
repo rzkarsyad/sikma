@@ -68,7 +68,7 @@ class AgendaDataTable extends DataTable
         ->whereHas('dosen', function ($query) use ($nidn) {
             $query->where('dosen_id', $nidn);
         })
-        ->with(['dosen'])
+        ->with(['dosen', 'mahasiswa'])
         ->select([
             'mhs_agenda.*',
             'mhs_agenda.id as agenda_id',
@@ -99,11 +99,12 @@ class AgendaDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
+            Column::make('mahasiswa.nim')->title('NIM'),
+            Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
             Column::make('type')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
             Column::make('dosen.nama')->title('Nama Pembimbing'),
             Column::make('agenda_date')->title('Tanggal'),
-            Column::make('agenda_time')->title('Waktu'),
             Column::make('status')->title('Status'),
             Column::computed('actions')
             ->title('Aksi')

@@ -183,7 +183,7 @@
             <div class="dropdown d-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="../../assets/images/users/avatar.jpeg"
+                    <img class="rounded-circle header-profile-user" src="../../../assets/images/users/avatar.jpeg"
                         alt="Header Avatar">
                     @if (Auth::user()->type == 'dosen')
                         <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->dosen->nama }}</span>

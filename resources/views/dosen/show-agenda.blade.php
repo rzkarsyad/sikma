@@ -15,79 +15,97 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a href="{{ url()->previous() }}" class="text-dark">
-                                        <i class="ri-arrow-left-line font-size-24"></i>
-                                    </a>
-                                    <h4 class="ms-2 my-auto w-100 overflow-hidden" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="{{ $mhsAgenda->topic }}">
-                                        {!! strlen($mhsAgenda->topic) > 100 ? substr($mhsAgenda->topic, 0, 100) . '...' : $mhsAgenda->topic !!}
-                                    </h4>
-                                </div>
-                                <div>
-                                    <span class="badge rounded-pill {{ $badgeClass }}">{{ $statusText }}</span>
-                                </div>
-                            </div>
-
-
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td style="width: 22%">Jenis Bimbingan</td>
-                                    <td>{{ $type }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal</td>
-                                    <td>{{ $mhsAgenda->agenda_date }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Waktu</td>
-                                    <td>{{ $mhsAgenda->agenda_time }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dosen Pembimbing</td>
-                                    <td>{{ $mhsAgenda->dosen->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Judul</td>
-                                    <td>{{ $mhsAgenda->topic }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Isi</td>
-                                    <td>{{ $mhsAgenda->content }}</td>
-                                </tr>
-                            </table>
-
-                            <h5>Berikan Tanggapan</h5>
-
-                            <div class="mb-3">
-                                <label for="result">Hasil</label>
-                                <textarea class="form-control @error('result') is-invalid @enderror" name="result" id="result" cols="30"
-                                    rows="6" placeholder="Tulis pembahasan">{{ old('result') }}</textarea>
-                                @error('result')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="action">Tindak Lanjut</label>
-                                <textarea class="form-control @error('action') is-invalid @enderror" name="action" id="action" cols="30"
-                                    rows="6" placeholder="Tulis pembahasan">{{ old('action') }}</textarea>
-                                @error('action')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <a href="{{ route('dosen.agenda.store') }}"
-                                            class="btn btn-outline-primary px-3">Batal</a>
-                                        <button class="btn btn-primary ms-2 waves-effect px-3"
-                                            type="submit">Simpan</button>
+                            <form action="{{ route('dosen.agenda.update', $mhsAgenda->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a href="{{ url()->previous() }}" class="text-dark">
+                                            <i class="ri-arrow-left-line font-size-24"></i>
+                                        </a>
+                                        <h4 class="ms-2 my-auto w-100 overflow-hidden" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="{{ $mhsAgenda->topic }}">
+                                            {!! strlen($mhsAgenda->topic) > 100 ? substr($mhsAgenda->topic, 0, 100) . '...' : $mhsAgenda->topic !!}
+                                        </h4>
                                     </div>
                                 </div>
-                            </div>
+
+                                <div>
+                                    <h5>{{ $mahasiswa->nama }}</h5>
+                                    <p>{{ $mahasiswa->nim }}</p>
+                                </div>
+
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td style="width: 22%">Jenis Bimbingan</td>
+                                        <td>{{ $type }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tanggal</td>
+                                        <td>{{ $mhsAgenda->agenda_date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Waktu</td>
+                                        <td>{{ $mhsAgenda->agenda_time }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dosen Pembimbing</td>
+                                        <td>{{ $mhsAgenda->dosen->nama }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Judul</td>
+                                        <td>{{ $mhsAgenda->topic }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Isi</td>
+                                        <td>{{ $mhsAgenda->content }}</td>
+                                    </tr>
+                                </table>
+
+                                @if ($mhsAgenda->status == 2)
+                                    <h5>Tanggapan Anda</h5>
+                                    <table class="table table-bordered mt-4">
+                                        <tr>
+                                            <td style="width: 22%">Hasil</td>
+                                            <td>{{ $mhsAgenda->result }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tindak Lanjut</td>
+                                            <td>{{ $mhsAgenda->action }}</td>
+                                        </tr>
+                                    </table>
+                                @else
+                                    <h5>Berikan Tanggapan</h5>
+                                    <div class="mb-3">
+                                        <label for="result">Hasil</label>
+                                        <textarea class="form-control @error('result') is-invalid @enderror" name="result" id="result" cols="30"
+                                            rows="6" placeholder="Tulis pembahasan">{{ old('result') }}</textarea>
+                                        @error('result')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="action">Tindak Lanjut</label>
+                                        <textarea class="form-control @error('action') is-invalid @enderror" name="action" id="action" cols="30"
+                                            rows="6" placeholder="Tulis pembahasan">{{ old('action') }}</textarea>
+                                        @error('action')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <a href="{{ route('dosen.agenda') }}"
+                                                    class="btn btn-outline-primary px-3">Batal</a>
+                                                <button class="btn btn-primary ms-2 waves-effect px-3"
+                                                    type="submit">Simpan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </form>
                         </div>
 
                     </div>

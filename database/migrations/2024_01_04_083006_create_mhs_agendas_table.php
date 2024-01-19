@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('content');
             $table->text('result')->nullable();
             $table->text('action')->nullable();
-            $table->enum('status', ['1', '2', '3'])->default('1');
+            $table->enum('status', ['1', '2'])->default('1');
             $table->timestamps();
         });
     }

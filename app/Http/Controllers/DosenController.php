@@ -104,64 +104,35 @@ class DosenController extends Controller
     {
         $mhsAgenda = MhsAgenda::findOrFail($id);
 
-        $status = [
-            1 => 'Belum diterima',
-            2 => 'Diterima',
-            3 => 'Selesai',
-        ];
-    
-        $statusText = $status[$mhsAgenda->status] ?? $mhsAgenda->status;
-        $badgeClass = '';
-    
-        switch ($mhsAgenda->status) {
-            case 1:
-                $badgeClass = 'text-bg-danger';
-                break;
-            case 2:
-                $badgeClass = 'text-bg-success';
-                break;
-            case 3:
-                $badgeClass = 'text-bg-primary';
-                break;
-            default:
-                $badgeClass = 'text-bg-secondary';
-                break;
-        }
-
         $type = [
             1 => 'Bimbingan Konseling',
             2 => 'Bimbingan Pembina Ormawa',
         ];
 
         $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
+        
+        $mahasiswa = $mhsAgenda->mahasiswa;
 
         return view('dosen.show-agenda')->with([
-            'statusText' => $statusText,
-            'badgeClass' => $badgeClass,
             'mhsAgenda' => $mhsAgenda,
             'type' => $type,
+            'mahasiswa' => $mahasiswa,
         ]);
     }
 
-    public function storeAgenda(Request $request)
+    public function updateAgenda(Request $request, $id)
     {
         $this->validateAgenda($request);
         
-        $user = Auth::user();
-        $nim = $user->mahasiswa->nim;
-        $user_id = $user->id;
+        $mhsAgenda = MhsAgenda::findOrFail($id);
 
-        MhsAgenda::create([
-            'user_id' => $user_id,
-            'type' => $request->type,
-            'agenda_date' => $request->agenda_date,
-            'agenda_time' => $request->agenda_time,
-            'dosen_id' => $request->dosen_id,
-            'topic' => $request->topic,
-            'content' => $request->content,
-        ]);
+        $mhsAgenda->result = $request->result;
+        $mhsAgenda->action = $request->action;
+        $mhsAgenda->status = 2;
 
-        return redirect()->route('m.agenda')->with('success', 'Bimbingan berhasil ditinjau.');
+        $mhsAgenda->save();
+
+        return redirect()->route('dosen.agenda')->with('success', 'Bimbingan berhasil ditinjau.');
     }
 
     public function aktivitas(AktivitasDataTable $dataTable)
@@ -195,6 +166,21 @@ class DosenController extends Controller
 
         return view('dosen.detail-mahasiswa', compact('mahasiswa'));
 
+    }
+
+    public function validateAgenda(Request $request)
+    {
+        $rules = [
+            'result' => 'required',
+            'action' => 'required',
+        ];
+
+        $messages = [
+            'result.required' => 'Hasil tidak boleh kosong',
+            'action.required' => 'Tindak lanjut tidak boleh kosong',
+        ];
+
+        $request->validate($rules, $messages);
     }
 
 }

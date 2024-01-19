@@ -73,9 +73,8 @@ class MhsAgendaController extends Controller
         $mhsAgenda = MhsAgenda::findOrFail($id);
 
         $status = [
-            1 => 'Belum diterima',
-            2 => 'Diterima',
-            3 => 'Selesai',
+            1 => 'Belum ditinjau',
+            2 => 'Sudah ditinjau',
         ];
     
         $statusText = $status[$mhsAgenda->status] ?? $mhsAgenda->status;
@@ -87,9 +86,6 @@ class MhsAgendaController extends Controller
                 break;
             case 2:
                 $badgeClass = 'text-bg-success';
-                break;
-            case 3:
-                $badgeClass = 'text-bg-primary';
                 break;
             default:
                 $badgeClass = 'text-bg-secondary';
