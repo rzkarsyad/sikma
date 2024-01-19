@@ -112,11 +112,13 @@ class DosenController extends Controller
         $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
         
         $mahasiswa = $mhsAgenda->mahasiswa;
+        $dosen = $mhsAgenda->dosen;
 
         return view('dosen.show-agenda')->with([
             'mhsAgenda' => $mhsAgenda,
             'type' => $type,
             'mahasiswa' => $mahasiswa,
+            'dosen' => $dosen,
         ]);
     }
 

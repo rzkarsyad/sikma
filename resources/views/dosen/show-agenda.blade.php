@@ -9,18 +9,18 @@
 
             <!-- start page title -->
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0">Detail Agenda</h4>
                     </div>
                     <div class="card">
                         <div class="card-body">
+                            @csrf
                             <form action="{{ route('dosen.agenda.update', $mhsAgenda->id) }}" method="post">
-                                @csrf
                                 @method('PUT')
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <a href="{{ url()->previous() }}" class="text-dark">
+                                        <a href="{{ route('dosen.agenda') }}" class="text-dark">
                                             <i class="ri-arrow-left-line font-size-24"></i>
                                         </a>
                                         <h4 class="ms-2 my-auto w-100 overflow-hidden" data-bs-toggle="tooltip"
@@ -30,52 +30,64 @@
                                     </div>
                                 </div>
 
-                                <div>
-                                    <h5>{{ $mahasiswa->nama }}</h5>
-                                    <p>{{ $mahasiswa->nim }}</p>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <table class="table">
+                                            <tr>
+                                                <td style="width: 32%" class="text-primary fw-bold">Mahasiswa</td>
+                                                <td>{{ $mahasiswa->nim }} - {{ $mahasiswa->nama }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 32%" class="text-primary fw-bold">Pembimbing</td>
+                                                <td>{{ $dosen->nidn }} - {{ $dosen->nama }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 32%" class="text-primary fw-bold">Jenis Bimbingan</td>
+                                                <td>{{ $type }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md">
+                                        <table class="table">
+                                            <tr>
+                                                <td style="width: 32%" class="text-primary fw-bold">Tanggal</td>
+                                                <td>{{ $mhsAgenda->agenda_date }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 32%" class="text-primary fw-bold">Waktu</td>
+                                                <td>{{ $mhsAgenda->agenda_time }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 32%" class="text-primary fw-bold">Topik</td>
+                                                <td>{{ $mhsAgenda->topic }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
 
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <td style="width: 22%">Jenis Bimbingan</td>
-                                        <td>{{ $type }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tanggal</td>
-                                        <td>{{ $mhsAgenda->agenda_date }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Waktu</td>
-                                        <td>{{ $mhsAgenda->agenda_time }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dosen Pembimbing</td>
-                                        <td>{{ $mhsAgenda->dosen->nama }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Judul</td>
-                                        <td>{{ $mhsAgenda->topic }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Isi</td>
-                                        <td>{{ $mhsAgenda->content }}</td>
-                                    </tr>
-                                </table>
+                                <div class="col-md-10">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 19%" class="text-primary fw-bold">Pembahasan</td>
+                                            <td>{{ $mhsAgenda->content }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
 
                                 @if ($mhsAgenda->status == 2)
-                                    <h5>Tanggapan Anda</h5>
-                                    <table class="table table-bordered mt-4">
+                                    <h5 class="mt-4">Tanggapan Anda</h5>
+                                    <table class="table mt-4">
                                         <tr>
-                                            <td style="width: 22%">Hasil</td>
+                                            <td style="width: 16%" class="text-primary fw-bold">Hasil</td>
                                             <td>{{ $mhsAgenda->result }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Tindak Lanjut</td>
+                                            <td class="text-primary fw-bold">Tindak Lanjut</td>
                                             <td>{{ $mhsAgenda->action }}</td>
                                         </tr>
                                     </table>
                                 @else
-                                    <h5>Berikan Tanggapan</h5>
+                                    <h5 class="mt-4">Berikan Tanggapan</h5>
                                     <div class="mb-3">
                                         <label for="result">Hasil</label>
                                         <textarea class="form-control @error('result') is-invalid @enderror" name="result" id="result" cols="30"
