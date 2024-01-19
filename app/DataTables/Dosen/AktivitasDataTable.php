@@ -8,6 +8,13 @@ use Yajra\DataTables\Services\DataTable;
 
 class AktivitasDataTable extends DataTable
 {
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
     public function dataTable($query)
     {
         return datatables()
@@ -28,14 +35,21 @@ class AktivitasDataTable extends DataTable
 
     public function query(MhsAktivitas $model)
     {
-        return $model->newQuery()
-        ->with(['mahasiswa.prodi', 'mahasiswa.jalur', 'kegiatan', 'kategori'])
-        ->select([
+        $query = $model->newQuery()
+        ->with(['mahasiswa.prodi', 'mahasiswa.jalur', 'kegiatan', 'kategori']);
+
+        if ($this->user_id) {
+            $query->whereHas('mahasiswa', function ($subquery) {
+                $subquery->where('user_id', $this->user_id);
+            });
+        }
+
+        return $query->select([
             'mhs_aktivitas.*',
             'mhs_aktivitas.id as aktivitas_id',
         ]);
     }
-
+    
     public function html()
     {
         return $this->builder()
@@ -44,6 +58,7 @@ class AktivitasDataTable extends DataTable
             ->minifiedAjax()
             ->scrollX(true)
             ->responsive(true)
+            ->autoWidth(true)
             ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
@@ -53,7 +68,7 @@ class AktivitasDataTable extends DataTable
 
     protected function getColumns()
     {
-        return [
+        $columns = [
             Column::make('DT_RowIndex')->title('No.')
                 ->orderable(false)
                 ->searchable(false)
@@ -80,6 +95,13 @@ class AktivitasDataTable extends DataTable
                 ->printable(false),
             Column::make('url_penyelenggara')->title('URL Penyelenggara'),
         ];
+
+        if ($this->user_id) {
+            $columns = array_filter($columns, function ($column) {
+                return !in_array($column->name, ['mahasiswa.nim', 'mahasiswa.nama']);
+            });
+        }
+        return $columns;
     }
 
     protected function filename(): string

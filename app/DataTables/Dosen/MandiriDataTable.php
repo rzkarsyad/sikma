@@ -9,6 +9,13 @@ use Yajra\DataTables\Services\DataTable;
 
 class MandiriDataTable extends DataTable
 {
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
     public function dataTable($query)
     {
         return datatables()
@@ -29,12 +36,19 @@ class MandiriDataTable extends DataTable
 
     public function query(MhsKegiatan $model)
     {
-        return $model->newQuery()
-            ->with(['mahasiswa.prodi', 'mahasiswa.jalur', 'kegiatan', 'kategori'])
-            ->select([
-                'mhs_kegiatan.*',
-                'mhs_kegiatan.id as aktivitas_id',
-            ]);
+        $query = $model->newQuery()
+        ->with(['mahasiswa.prodi', 'mahasiswa.jalur', 'kegiatan', 'kategori']);
+
+        if ($this->user_id) {
+            $query->whereHas('mahasiswa', function ($subquery) {
+                $subquery->where('user_id', $this->user_id);
+            });
+        }
+
+        return $query->select([
+            'mhs_kegiatan.*',
+            'mhs_kegiatan.id as kegiatan_id',
+        ]);
     }
 
     public function html()
@@ -45,6 +59,7 @@ class MandiriDataTable extends DataTable
             ->minifiedAjax()
             ->scrollX(true)
             ->responsive(true)
+            ->autoWidth(true)
             ->orderBy(0) 
             ->selectStyleSingle()
             ->buttons([
@@ -54,7 +69,7 @@ class MandiriDataTable extends DataTable
 
     protected function getColumns()
     {
-        return [
+        $columns = [
             Column::make('DT_RowIndex')->title('No.')
                 ->orderable(false)
                 ->searchable(false)
@@ -87,6 +102,13 @@ class MandiriDataTable extends DataTable
                 ->printable(false),
             Column::make('mhskegiatan.url_penyelenggara')->title('URL Penyelenggara'),
         ];
+
+        if ($this->user_id) {
+            $columns = array_filter($columns, function ($column) {
+                return !in_array($column->name, ['mahasiswa.nim', 'mahasiswa.nama']);
+            });
+        }
+        return $columns;
     }
 
     protected function filename(): string

@@ -162,13 +162,14 @@ class DosenController extends Controller
         return $dataTable->render('dosen.mahasiswa');
     }
 
-    public function showMhs(string $id){
+    public function showMhs($id, AktivitasDataTable $dataTable)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        
+        $dataTable->setUserId($mahasiswa->user_id);
 
-        $mahasiswa = Mahasiswa::with(['aktivitas', 'kegiatan', 'prestasi', 'ormawa'])->findOrFail($id);
-
-        return view('dosen.detail-mahasiswa', compact('mahasiswa'));
-
-    }
+        return $dataTable->render('dosen.detail-mahasiswa', compact('mahasiswa'));
+    }        
 
     public function validateAgenda(Request $request)
     {

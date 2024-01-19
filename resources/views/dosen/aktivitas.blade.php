@@ -21,7 +21,7 @@
                                     <p class="card-title-desc">Tabel ini berisi seluruh kegiatan aktivitas dari kampus yang
                                         diikuti oleh mahasiswa.
                                     </p>
-                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
+                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap align-middle', 'style' => 'width:100%;']) !!}
                                 </div>
                             </div>
                         </div> <!-- end col -->

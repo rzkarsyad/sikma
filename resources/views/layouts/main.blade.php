@@ -125,20 +125,9 @@
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        $('body .dropdown-toggle').dropdown();
-
         $(document).ready(function() {
             new DataTable('#example', {
                 scrollX: true,
-            });
-        });
-
-        $(document).ready(function() {
-            $('#tb-aktivitas').DataTable({
-                "initComplete": function(settings, json) {
-                    $("#tb-aktivitas").wrap(
-                        "<div style='overflow:auto; width:100%;position:relative;'></div>");
-                },
             });
         });
 

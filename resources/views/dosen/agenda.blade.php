@@ -22,7 +22,7 @@
                                         ditambahkan oleh mahasiswa.
                                     </p>
                                     {!! $dataTable->table([
-                                        'class' => 'table table-striped nowrap',
+                                        'class' => 'table table-striped nowrap align-middle',
                                         'style' => 'width:100%;',
                                     ]) !!}
                                 </div>
