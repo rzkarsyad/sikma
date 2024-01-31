@@ -12,3 +12,7 @@
 .text-mute{
     color: rgb(150, 150, 150);
 }
+
+.bg-dark{
+    background-color: #101923 !important;
+}
