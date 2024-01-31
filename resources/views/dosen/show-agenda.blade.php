@@ -15,8 +15,8 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            @csrf
                             <form action="{{ route('dosen.agenda.update', $mhsAgenda->id) }}" method="post">
+                                @csrf
                                 @method('PUT')
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="d-flex align-items-center justify-content-center">

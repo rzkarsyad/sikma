@@ -53,18 +53,11 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="tahun">Tahun</label>
-                                                <select name="tahun"
-                                                    class="form-select @error('tahun') is-invalid @enderror">
-                                                    <option value="">Pilih Tahun</option>
-                                                    @foreach ($tahun as $thn)
-                                                        <option value="{{ $thn }}"
-                                                            {{ old('tahun') == $thn ? 'selected' : null }}>
-                                                            {{ $thn }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('tahun')
+                                                <label for="foto" class="form-label">Foto</label>
+                                                <input name="foto"
+                                                    class="form-control @error('foto') is-invalid @enderror" type="file"
+                                                    id="foto" accept="image/*">
+                                                @error('foto')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -81,14 +74,22 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="foto" class="form-label">Foto</label>
-                                                <input name="foto"
-                                                    class="form-control @error('foto') is-invalid @enderror" type="file"
-                                                    id="foto" accept="image/*">
-                                                @error('foto')
+                                                <label for="tahun">Tahun</label>
+                                                <select name="tahun"
+                                                    class="form-select @error('tahun') is-invalid @enderror">
+                                                    <option value="">Pilih Tahun</option>
+                                                    @foreach ($tahun as $thn)
+                                                        <option value="{{ $thn }}"
+                                                            {{ old('tahun') == $thn ? 'selected' : null }}>
+                                                            {{ $thn }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('tahun')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
                                             <div class="mb-3">
                                                 <label for="sertifikat" class="form-label">Sertifikat</label>
                                                 <input name="sertifikat"

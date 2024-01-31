@@ -159,9 +159,7 @@
                                         </div>
                                         <div class="tab-pane" id="aktivitas" role="tabpanel">
                                             <h5 class="mb-4">Data Aktivitas</h5>
-                                            <div class="overflow-auto">
-                                                {!! $dataTable->table(['class' => 'table dt-responsive nowrap align-middle', 'style' => 'width:100%;']) !!}
-                                            </div>
+                                            {!! $dataTable->table(['class' => 'table dt-responsive nowrap align-middle', 'style' => 'width:100%;']) !!}
                                         </div>
                                         <div class="tab-pane" id="mandiri" role="tabpanel">
                                             <h5 class="mb-4">Data Kegiatan Mandiri</h5>

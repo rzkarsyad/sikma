@@ -97,9 +97,6 @@ class MhsAgendaDataTable extends DataTable
                 ->exportable(false)
                 ->printable(false),
             Column::make('type')->title('Jenis Bimbingan'),
-            Column::make('type')->title('Jenis Bimbingan'),
-            Column::make('type')->title('Jenis Bimbingan'),
-            Column::make('type')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
             Column::make('dosen.nama')->title('Nama Pembimbing'),
             Column::make('agenda_date')->title('Tanggal'),
