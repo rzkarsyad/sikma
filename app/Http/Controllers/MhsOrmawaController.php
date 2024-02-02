@@ -78,9 +78,11 @@ class MhsOrmawaController extends Controller
      * @param  \App\Models\MhsOrmawa  $mhsOrmawa
      * @return \Illuminate\Http\Response
      */
-    public function edit(MhsOrmawa $mhsOrmawa)
+    public function edit($id)
     {
-        //
+        $mhsOrmawa = MhsOrmawa::findOrFail($id);
+        $ormawa = ListOrmawa::pluck('nama', 'id');
+        return view('mahasiswa.ormawa.edit', compact('mhsOrmawa', 'ormawa'));
     }
 
     /**
@@ -90,9 +92,30 @@ class MhsOrmawaController extends Controller
      * @param  \App\Models\MhsOrmawa  $mhsOrmawa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MhsOrmawa $mhsOrmawa)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validateAktivitas($request, false);
+
+        $mhsOrmawa = MhsOrmawa::findOrFail($id);
+
+        $mhsOrmawa->id_jenis_ormawa = $request->id_jenis_ormawa;
+        $mhsOrmawa->nama_ormawa = $request->nama_ormawa;
+        $mhsOrmawa->jabatan = $request->jabatan;
+        $mhsOrmawa->masa_jabatan = $request->masa_jabatan;
+        $mhsOrmawa->url_media_ormawa = $request->url_media_ormawa;
+
+        if ($request->hasFile('sk')) {
+            $pathS = $mhsOrmawa->sk;
+            if ($pathS != null || $pathS != '') {
+                Storage::disk('public')->delete($pathS);
+            }
+            $sk = $request->file('sk')->store('sk', 'public');
+            $mhsOrmawa->sk = $sk;
+        }
+
+        $mhsOrmawa->save();
+
+        return redirect()->route('m.ormawa')->with('success', 'Data ormawa & UKM berhasil diubah.');
     }
 
     /**

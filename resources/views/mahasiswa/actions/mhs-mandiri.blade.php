@@ -4,10 +4,10 @@
     </a>
     <ul class="dropdown-menu dropdown-menu-end">
         <li>
-            <a class="dropdown-item" href="{{ route('m.mandiri-show', ['id' => $item->id]) }}">
+            {{-- <a class="dropdown-item" href="{{ route('m.mandiri-show', ['id' => $item->id]) }}">
                 <i class="ri-eye-line font-size-16 me-2"></i>
                 Lihat
-            </a>
+            </a> --}}
         </li>
         <li>
             <form id="editForm" action="{{ route('m.mandiri-edit', ['id' => $item->id]) }}" method="GET"

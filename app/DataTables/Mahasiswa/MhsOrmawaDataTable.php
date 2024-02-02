@@ -27,7 +27,10 @@ class MhsOrmawaDataTable extends DataTable
                     return '<img src="' . asset('storage/' . $item->sk) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sk) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
                 }
             })
-            ->rawColumns(['sk']);
+            ->editColumn('foto', function ($item) {
+                return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
+            })
+            ->rawColumns(['sk', 'foto']);
     }
 
     public function query(MhsOrmawa $model)

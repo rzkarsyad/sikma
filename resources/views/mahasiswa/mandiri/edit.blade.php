@@ -113,10 +113,19 @@
                                             <tr>
                                                 <td>
                                                     @if ($mhsKegiatan->sertifikat)
-                                                        <img src="{{ asset('storage/' . $mhsKegiatan->sertifikat) }}"
-                                                            class="img-thumbnail" alt="" style="width: 200px">
+                                                        @if (pathinfo($mhsKegiatan->sertifikat, PATHINFO_EXTENSION) == 'pdf')
+                                                            <a href="{{ asset('storage/' . $mhsKegiatan->sertifikat) }}"
+                                                                class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
+                                                                Berkas</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $mhsKegiatan->sertifikat) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $mhsKegiatan->sertifikat) }}"
+                                                                style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-danger">Belum ada foto</span>
+                                                        <span class="badge badge-danger">Belum ada sertifikat</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -156,10 +165,19 @@
                                             <tr>
                                                 <td>
                                                     @if ($mhsKegiatan->undangan)
-                                                        <img src="{{ asset('storage/' . $mhsKegiatan->undangan) }}"
-                                                            class="img-thumbnail" alt="" style="width: 200px">
+                                                        @if (pathinfo($mhsKegiatan->undangan, PATHINFO_EXTENSION) == 'pdf')
+                                                            <a href="{{ asset('storage/' . $mhsKegiatan->undangan) }}"
+                                                                class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
+                                                                Berkas</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $mhsKegiatan->undangan) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $mhsKegiatan->undangan) }}"
+                                                                style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-danger">Belum ada foto</span>
+                                                        <span class="badge badge-danger">Belum ada sertifikat</span>
                                                     @endif
                                                 </td>
                                             </tr>

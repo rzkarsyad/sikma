@@ -109,9 +109,18 @@
                                                     <tr>
                                                         <td>
                                                             @if ($mhsAktivitas->sertifikat)
-                                                                <img src="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
-                                                                    class="img-thumbnail" alt=""
-                                                                    style="width: 300px">
+                                                                @if (pathinfo($mhsAktivitas->sertifikat, PATHINFO_EXTENSION) == 'pdf')
+                                                                    <a href="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
+                                                                        class="btn btn-sm btn-primary mb-2"
+                                                                        target="_blank">Lihat
+                                                                        Berkas</a>
+                                                                @else
+                                                                    <img src="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
+                                                                        class="rounded image-clickable"
+                                                                        data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                        data-image="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
+                                                                        style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
+                                                                @endif
                                                             @else
                                                                 <span class="badge badge-danger">Belum ada sertifikat</span>
                                                             @endif

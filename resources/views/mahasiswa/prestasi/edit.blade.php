@@ -104,10 +104,19 @@
                                             <tr>
                                                 <td>
                                                     @if ($mhsPrestasi->tropi)
-                                                        <img src="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
-                                                            class="img-thumbnail" alt="" style="width: 200px">
+                                                        @if (pathinfo($mhsPrestasi->tropi, PATHINFO_EXTENSION) == 'pdf')
+                                                            <a href="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
+                                                                class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
+                                                                Berkas</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
+                                                                style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-danger">Belum ada foto</span>
+                                                        <span class="badge badge-danger">Belum ada SK</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -146,10 +155,19 @@
                                             <tr>
                                                 <td>
                                                     @if ($mhsPrestasi->undangan)
-                                                        <img src="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
-                                                            class="img-thumbnail" alt="" style="width: 200px">
+                                                        @if (pathinfo($mhsPrestasi->undangan, PATHINFO_EXTENSION) == 'pdf')
+                                                            <a href="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
+                                                                class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
+                                                                Berkas</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
+                                                                style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-danger">Belum ada foto</span>
+                                                        <span class="badge badge-danger">Belum ada SK</span>
                                                     @endif
                                                 </td>
                                             </tr>

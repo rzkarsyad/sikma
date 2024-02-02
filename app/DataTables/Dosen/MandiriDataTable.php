@@ -28,16 +28,23 @@ class MandiriDataTable extends DataTable
                     return '<img src="' . asset('storage/' . $item->sertifikat) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
                 }
             })               
+            ->editColumn('undangan', function ($item) {
+                if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf') {
+                    return '<a href="' . asset('storage/' . $item->undangan) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
+                } else {
+                    return '<img src="' . asset('storage/' . $item->undangan) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
+                }
+            })               
             ->editColumn('foto', function ($item) {
                 return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
             })
-            ->rawColumns(['sertifikat', 'foto']);
+            ->rawColumns(['sertifikat', 'foto', 'undangan']);
     }
 
     public function query(MhsKegiatan $model)
     {
         $query = $model->newQuery()
-        ->with(['mahasiswa.prodi', 'mahasiswa.jalur', 'kegiatan', 'kategori']);
+        ->with(['mahasiswa.prodi', 'mahasiswa.jalur', 'tingkat', 'jenis']);
 
         if ($this->user_id) {
             $query->whereHas('mahasiswa', function ($subquery) {
@@ -87,15 +94,14 @@ class MandiriDataTable extends DataTable
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
             Column::make('mahasiswa.prodi.nama')->title('Prodi'),
             Column::make('mahasiswa.jalur.nama')->title('Jalur Masuk'),
-            Column::make('kegiatan.nama')->title('Nama Kegiatan'),
-            Column::make('kategori.nama')->title('Kategori Kegiatan'),
+            Column::make('tingkat.nama')->title('Tingkat'),
             Column::make('jenis.nama')->title('Jenis Kepesertaan'),
-            Column::make('mhskegiatan.nama')->title('Nama Kegiatan'),
-            Column::make('mhskegiatan.penyelenggara')->title('Penyelenggara'),
-            Column::make('mhskegiatan.jumlah')->title('Jumlah Peserta'),
-            Column::make('mhskegiatan.tanggal_mulai')->title('Tanggal Mulai'),
-            Column::make('mhskegiatan.tanggal_selesai')->title('Tanggal Selesai'),
-            Column::make('mhskegiatan.url_penyelenggara')->title('URL Penyelenggara'),
+            Column::make('nama')->title('Nama Kegiatan'),
+            Column::make('penyelenggara')->title('Penyelenggara'),
+            Column::make('jumlah')->title('Jumlah Peserta'),
+            Column::make('tanggal_mulai')->title('Tanggal Mulai'),
+            Column::make('tanggal_selesai')->title('Tanggal Selesai'),
+            Column::make('url_penyelenggara')->title('URL Penyelenggara'),
             Column::computed('sertifikat')
                 ->title('Sertifikat')
                 ->orderable(false)
@@ -108,7 +114,13 @@ class MandiriDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
-            Column::make('mhskegiatan.url_penyelenggara')->title('URL Penyelenggara'),
+            Column::computed('undangan')
+                ->title('Surat Tugas / Undangan')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
+            Column::make('url_penyelenggara')->title('URL Penyelenggara'),
         ];
 
         if ($this->user_id) {

@@ -3,12 +3,12 @@
         <i class="ri-more-2-fill"></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-end">
-        <li>
+        {{-- <li>
             <a class="dropdown-item" href="{{ route('m.prestasi-show', ['id' => $item->id]) }}">
                 <i class="ri-eye-line font-size-16 me-2"></i>
                 Lihat
             </a>
-        </li>
+        </li> --}}
         <li>
             <form id="editForm" action="{{ route('m.prestasi-edit', ['id' => $item->id]) }}" method="GET"
                 style="display: inline;">
