@@ -64,7 +64,15 @@ class MandiriDataTable extends DataTable
             ->selectStyleSingle()
             ->buttons([
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
-            ]);
+            ])
+            ->initComplete('function(settings, json) {
+                // Apply custom styling after DataTable initialization
+                $(".dataTables_wrapper").addClass("mb-3"); // Add margin-bottom to the entire DataTable container
+                $(".dataTables_filter").addClass("mb-2"); // Add margin-bottom to the search bar
+                $(".dataTables_length").addClass("mb-2"); // Add margin-bottom to the show entries dropdown
+                $(".dataTables_paginate").addClass("mt-3"); // Add margin-top to the pagination container
+                $(".dataTables_info").addClass("mt-3"); // Add margin-top to the showing text
+            }');
     }
 
     protected function getColumns()
