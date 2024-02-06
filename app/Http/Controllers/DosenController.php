@@ -179,7 +179,12 @@ class DosenController extends Controller
 
     public function prestasi(PrestasiDataTable $dataTable)
     {
-        return $dataTable->render('dosen.prestasi');
+        $angkatan = $this->getAngkatan();
+        $prodi = Prodi::pluck('nama', 'id');
+
+        $tingkat = ListTingkat::pluck('nama', 'id');
+
+        return $dataTable->render('dosen.prestasi', compact('angkatan', 'prodi', 'tingkat'));
     }
 
     public function ormawa(OrmawaDataTable $dataTable)

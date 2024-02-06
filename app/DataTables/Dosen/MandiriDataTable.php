@@ -44,7 +44,7 @@ class MandiriDataTable extends DataTable
     public function query(MhsKegiatan $model)
     {
         $query = $model->newQuery()
-        ->with(['mahasiswa.prodi', 'mahasiswa.jalur', 'tingkat', 'jenis'])
+        ->with(['mahasiswa.prodi', 'tingkat', 'jenis'])
         ->select([
             'mhs_kegiatan.*',
             'mhs_kegiatan.id as kegiatan_id',
@@ -117,7 +117,7 @@ class MandiriDataTable extends DataTable
                 ->printable(false),
             Column::make('mahasiswa.nim')->title('NIM'),
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
-            Column::make('mahasiswa.prodi.nama')->title('Prodi'),
+            Column::make('mahasiswa.prodi.nama')->title('Program Studi'),
             Column::make('mahasiswa.tahun_masuk')->title('Angkatan'),
             Column::make('tingkat.nama')->title('Tingkat'),
             Column::make('jenis.nama')->title('Jenis Kepesertaan'),

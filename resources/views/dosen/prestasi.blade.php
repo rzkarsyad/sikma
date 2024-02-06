@@ -17,10 +17,54 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Data Prestasi</h4>
-                                    <p class="card-title-desc">Tabel ini berisi seluruh prestasi yang diperoleh mahasiswa.
-                                    </p>
-                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
+                                    <div>
+                                        <h5>Data Prestasi</h5>
+                                        <p class="card-title-desc">Tabel ini berisi seluruh kegiatan prestasi yang
+                                            diraih oleh mahasiswa.
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <label for="filter-angkatan">Angkatan</label>
+                                                <select id="filter-angkatan" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($angkatan as $angkatan)
+                                                        <option value="{{ $angkatan }}">{{ $angkatan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <label for="filter-prodi">Program Studi</label>
+                                                <select id="filter-prodi" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($prodi as $id => $nama)
+                                                        <option value="{{ $id }}">{{ $nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <label for="filter-tingkat">Tingkat</label>
+                                                <select id="filter-tingkat" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($tingkat as $id => $nama)
+                                                        <option value="{{ $id }}">{{ $nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mt-4">
+                                        {!! $dataTable->table([
+                                            'class' => 'table table-striped nowrap align-middle',
+                                            'style' => 'width:100%;',
+                                        ]) !!}
+                                    </div>
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -35,4 +79,18 @@
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+    <script>
+        const table = $('#prestasi-table');
+        table.on('preXhr.dt', function(e, settings, data) {
+            data.angkatan = $('#filter-angkatan').val();
+            data.prodi = $('#filter-prodi').val();
+            data.tingkat = $('#filter-tingkat').val();
+            data.jenis = $('#filter-jenis').val();
+        });
+
+        $('#filter-angkatan, #filter-prodi, #filter-tingkat, #filter-jenis').on('change', function() {
+            table.DataTable().ajax.reload();
+        });
+    </script>
 @endpush

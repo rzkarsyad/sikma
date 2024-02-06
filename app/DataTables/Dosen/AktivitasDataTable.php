@@ -114,7 +114,7 @@ class AktivitasDataTable extends DataTable
                 ->printable(false),
             Column::make('mahasiswa.nim')->title('NIM'),
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
-            Column::make('mahasiswa.prodi.nama')->title('Prodi'),
+            Column::make('mahasiswa.prodi.nama')->title('Program Studi'),
             Column::make('mahasiswa.tahun_masuk')->title('Angkatan'),
             Column::make('kegiatan.nama')->title('Nama Kegiatan'),
             Column::make('kategori.nama')->title('Tingkat'),
