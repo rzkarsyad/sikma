@@ -31,4 +31,9 @@ class MhsAgenda extends Model
     {
         return $this->belongsTo(Dosen::class, 'dosen_id', 'nidn');
     }
+
+    public function prodi() 
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi', 'id');
+    }
 }
