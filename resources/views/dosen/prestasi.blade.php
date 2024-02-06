@@ -24,7 +24,7 @@
                                         </p>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md">
+                                        <div class="col-md-2">
                                             <div class="mb-2">
                                                 <label for="filter-angkatan">Angkatan</label>
                                                 <select id="filter-angkatan" class="form-select">
@@ -35,7 +35,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md">
+                                        <div class="col-md-2">
                                             <div class="mb-2">
                                                 <label for="filter-prodi">Program Studi</label>
                                                 <select id="filter-prodi" class="form-select">
@@ -46,7 +46,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md">
+                                        <div class="col-md-2">
                                             <div class="mb-2">
                                                 <label for="filter-tingkat">Tingkat</label>
                                                 <select id="filter-tingkat" class="form-select">

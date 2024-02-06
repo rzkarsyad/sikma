@@ -50,6 +50,7 @@ class MandiriDataTable extends DataTable
             'mhs_kegiatan.id as kegiatan_id',
         ]);
 
+
         if ($this->user_id) {
             $query->whereHas('mahasiswa', function ($subquery) {
                 $subquery->where('user_id', $this->user_id);

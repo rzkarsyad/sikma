@@ -42,6 +42,7 @@ class AktivitasDataTable extends DataTable
             'mhs_aktivitas.id as aktivitas_id',
         ]);
 
+
         if ($this->user_id) {
             $query->whereHas('mahasiswa', function ($subquery) {
                 $subquery->where('user_id', $this->user_id);

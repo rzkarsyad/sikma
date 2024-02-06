@@ -8,6 +8,7 @@ use App\Models\ListJenis;
 use App\Models\Mahasiswa;
 use App\Models\MhsAgenda;
 use App\Models\MhsOrmawa;
+use App\Models\ListOrmawa;
 use App\Models\ListTingkat;
 use App\Models\MhsKegiatan;
 use App\Models\MhsPrestasi;
@@ -189,7 +190,12 @@ class DosenController extends Controller
 
     public function ormawa(OrmawaDataTable $dataTable)
     {
-        return $dataTable->render('dosen.ormawa');
+        $angkatan = $this->getAngkatan();
+        $prodi = Prodi::pluck('nama', 'id');
+
+        $ormawa = ListOrmawa::pluck('nama', 'id');
+        
+        return $dataTable->render('dosen.ormawa', compact('angkatan', 'prodi', 'ormawa'));
     }
 
     public function listMahasiswa(MahasiswaDataTable $dataTable)
