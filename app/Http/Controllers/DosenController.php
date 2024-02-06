@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\Prodi;
 use App\Models\Mahasiswa;
 use App\Models\MhsAgenda;
 use App\Models\MhsOrmawa;
@@ -97,7 +98,20 @@ class DosenController extends Controller
 
     public function agenda(AgendaDataTable $dataTable)
     {
-        return $dataTable->render('dosen.agenda');
+        // filter
+        $angkatan = $this->getAngkatan();
+        $prodi = Prodi::pluck('nama', 'id');
+        $jenis_bimbingan = [
+            1 => 'Bimbingan Konseling',
+            2 => 'Bimbingan Pembina Ormawa',
+        ];
+        $status = [
+            1 => 'Belum Diterima',
+            2 => 'Diterima',
+        ];
+
+        //render
+        return $dataTable->render('dosen.agenda', compact('angkatan', 'prodi', 'jenis_bimbingan', 'status'));
     }
 
     public function showAgenda($id)
@@ -186,4 +200,16 @@ class DosenController extends Controller
         $request->validate($rules, $messages);
     }
 
+    public function getAngkatan()
+    {
+        $currentYear = date('Y');
+        $startYear = $currentYear - 15;
+        $tahunMasukOptions = [];
+
+        for ($year = $currentYear; $year >= $startYear; $year--) {
+            $tahunMasukOptions[$year] = $year;
+        }
+
+        return $tahunMasukOptions;
+    }
 }

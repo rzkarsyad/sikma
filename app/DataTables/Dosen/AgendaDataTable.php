@@ -34,7 +34,6 @@ class AgendaDataTable extends DataTable
                 $status = [
                     1 => 'Belum diterima',
                     2 => 'Diterima',
-                    3 => 'Selesai',
                 ];
     
                 $statusText = $status[$item->status] ?? $item->status;
@@ -46,9 +45,6 @@ class AgendaDataTable extends DataTable
                         break;
                     case 2:
                         $badgeClass = 'text-bg-success';
-                        break;
-                    case 3:
-                        $badgeClass = 'text-bg-primary';
                         break;
                     default:
                         $badgeClass = 'text-bg-secondary';
