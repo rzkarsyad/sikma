@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Prodi;
+use App\Models\ListJenis;
 use App\Models\Mahasiswa;
 use App\Models\MhsAgenda;
 use App\Models\MhsOrmawa;
+use App\Models\ListTingkat;
 use App\Models\MhsKegiatan;
 use App\Models\MhsPrestasi;
+use App\Models\ListKategori;
+use App\Models\ListKegiatan;
 use App\Models\MhsAktivitas;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\DataTables\Dosen\AgendaDataTable;
 use App\DataTables\Dosen\OrmawaDataTable;
 use App\DataTables\Dosen\MandiriDataTable;
@@ -98,9 +103,9 @@ class DosenController extends Controller
 
     public function agenda(AgendaDataTable $dataTable)
     {
-        // filter
         $angkatan = $this->getAngkatan();
         $prodi = Prodi::pluck('nama', 'id');
+
         $jenis_bimbingan = [
             1 => 'Bimbingan Konseling',
             2 => 'Bimbingan Pembina Ormawa',
@@ -110,7 +115,6 @@ class DosenController extends Controller
             2 => 'Diterima',
         ];
 
-        //render
         return $dataTable->render('dosen.agenda', compact('angkatan', 'prodi', 'jenis_bimbingan', 'status'));
     }
 
@@ -153,12 +157,24 @@ class DosenController extends Controller
 
     public function aktivitas(AktivitasDataTable $dataTable)
     {
-        return $dataTable->render('dosen.aktivitas');
+        $angkatan = $this->getAngkatan();
+        $prodi = Prodi::pluck('nama', 'id');
+
+        $kategori = ListKategori::pluck('nama', 'id');
+        $kegiatan = ListKegiatan::pluck('nama', 'id');
+        $tahun = $this->tahunDropdown();
+        return $dataTable->render('dosen.aktivitas', compact('angkatan', 'prodi', 'kategori', 'kegiatan', 'tahun'));
     }
 
     public function mandiri(MandiriDataTable $dataTable)
     {
-        return $dataTable->render('dosen.mandiri');
+        $angkatan = $this->getAngkatan();
+        $prodi = Prodi::pluck('nama', 'id');
+
+        $tingkat = ListTingkat::pluck('nama', 'id');
+        $jenis = ListJenis::pluck('nama', 'id');
+
+        return $dataTable->render('dosen.mandiri', compact('angkatan', 'prodi', 'tingkat', 'jenis'));
     }
 
     public function prestasi(PrestasiDataTable $dataTable)
@@ -211,5 +227,18 @@ class DosenController extends Controller
         }
 
         return $tahunMasukOptions;
+    }
+
+    public function tahunDropdown()
+    {
+        $currentYear = date('Y');
+        $startYear = $currentYear - 15;
+        $tahun = [];
+
+        for ($year = $currentYear; $year >= $startYear; $year--) {
+            $tahun[$year] = $year;
+        }
+
+        return $tahun;
     }
 }

@@ -17,15 +17,16 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Data Agenda</h4>
-                                    <p class="card-title-desc">Tabel ini berisi seluruh kegiatan agenda yang
-                                        ditambahkan oleh mahasiswa.
-                                    </p>
-                                    <hr>
+                                    <div>
+                                        <h5>Data Agenda</h5>
+                                        <p class="card-title-desc">Tabel ini berisi seluruh kegiatan agenda yang
+                                            ditambahkan oleh mahasiswa.
+                                        </p>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="mb-2">
-                                                <label for="angkatan">Angkatan</label>
+                                                <label for="filter-angkatan">Angkatan</label>
                                                 <select id="filter-angkatan" class="form-select">
                                                     <option value="" selected>Pilih</option>
                                                     @foreach ($angkatan as $angkatan)
@@ -47,7 +48,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="mb-2">
-                                                <label for="bimbingan">Bimbingan</label>
+                                                <label for="filter-bimbingan">Bimbingan</label>
                                                 <select id="filter-bimbingan" class="form-select">
                                                     <option value="" selected>Pilih</option>
                                                     @foreach ($jenis_bimbingan as $value => $label)
@@ -98,19 +99,7 @@
                 data.status = $('#filter-status-agenda').val();
             });
 
-            $('#filter-angkatan').on('change', function() {
-                table.DataTable().ajax.reload();
-            });
-
-            $('#filter-prodi').on('change', function() {
-                table.DataTable().ajax.reload();
-            });
-
-            $('#filter-bimbingan').on('change', function() {
-                table.DataTable().ajax.reload();
-            });
-
-            $('#filter-status-agenda').on('change', function() {
+            $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').on('change', function() {
                 table.DataTable().ajax.reload();
             });
         </script>
