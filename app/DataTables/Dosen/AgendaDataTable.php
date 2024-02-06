@@ -60,15 +60,42 @@ class AgendaDataTable extends DataTable
     {
         $nidn = auth()->user()->nim_nidn;
 
-        return $model->newQuery()
-        ->whereHas('dosen', function ($query) use ($nidn) {
-            $query->where('dosen_id', $nidn);
-        })
-        ->with(['dosen', 'mahasiswa'])
-        ->select([
-            'mhs_agenda.*',
-            'mhs_agenda.id as agenda_id',
-        ]);
+        $query = $model->newQuery()
+            ->whereHas('dosen', function ($query) use ($nidn) {
+                $query->where('dosen_id', $nidn);
+            })
+            ->with(['dosen', 'mahasiswa'])
+            ->select([
+                'mhs_agenda.*',
+                'mhs_agenda.id as agenda_id',
+            ]);
+
+        $angkatan = request('angkatan');
+        $prodi = request('prodi');
+        $bimbingan = request('bimbingan');
+        $status = request('status');
+
+        if (!empty($angkatan)) {
+            $query->whereHas('mahasiswa', function ($query) use ($angkatan) {
+                $query->where('tahun_masuk', $angkatan);
+            });
+        }
+
+        if (!empty($prodi)) {
+            $query->whereHas('mahasiswa', function ($query) use ($prodi) {
+                $query->where('id_prodi', $prodi);
+            });
+        }
+
+        if (!empty($bimbingan)) {
+            $query->where('type', $bimbingan);
+        }
+
+        if (!empty($status)) {
+            $query->where('status', $status);
+        }
+
+        return $query;
     }
 
     public function html()

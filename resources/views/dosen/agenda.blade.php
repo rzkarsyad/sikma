@@ -24,9 +24,9 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <div id="filter-angkatan" class="mb-2">
+                                            <div class="mb-2">
                                                 <label for="angkatan">Angkatan</label>
-                                                <select id="angkatan" class="form-select">
+                                                <select id="filter-angkatan" class="form-select">
                                                     <option value="" selected>Pilih</option>
                                                     @foreach ($angkatan as $angkatan)
                                                         <option value="{{ $angkatan }}">{{ $angkatan }}</option>
@@ -35,34 +35,34 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div id="filter-prodi" class="mb-2">
-                                                <label for="prodi">Program Studi</label>
-                                                <select id="prodi" class="form-select">
+                                            <div class="mb-2">
+                                                <label for="filter-prodi">Program Studi</label>
+                                                <select id="filter-prodi" class="form-select">
                                                     <option value="" selected>Pilih</option>
-                                                    @foreach ($prodi as $prodi)
-                                                        <option value="{{ $prodi }}">{{ $prodi }}</option>
+                                                    @foreach ($prodi as $id => $nama)
+                                                        <option value="{{ $id }}">{{ $nama }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div id="filter-bimbingan" class="mb-2">
+                                            <div class="mb-2">
                                                 <label for="bimbingan">Bimbingan</label>
                                                 <select id="filter-bimbingan" class="form-select">
                                                     <option value="" selected>Pilih</option>
-                                                    @foreach ($jenis_bimbingan as $bimbingan)
-                                                        <option value="{{ $bimbingan }}">{{ $bimbingan }}</option>
+                                                    @foreach ($jenis_bimbingan as $value => $label)
+                                                        <option value="{{ $value }}">{{ $label }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div id="filter-status" class="mb-2">
-                                                <label for="status">Status</label>
-                                                <select id="filter-status" class="form-select">
+                                            <div class="mb-2">
+                                                <label for="filter-status-agenda">Status</label>
+                                                <select id="filter-status-agenda" class="form-select">
                                                     <option value="" selected>Pilih</option>
-                                                    @foreach ($status as $status)
-                                                        <option value="{{ $status }}">{{ $status }}</option>
+                                                    @foreach ($status as $value => $label)
+                                                        <option value="{{ $value }}">{{ $label }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -89,4 +89,29 @@
 
     @push('scripts')
         {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+        <script>
+            const table = $('#agenda-table');
+            table.on('preXhr.dt', function(e, settings, data) {
+                data.angkatan = $('#filter-angkatan').val();
+                data.prodi = $('#filter-prodi').val();
+                data.bimbingan = $('#filter-bimbingan').val();
+                data.status = $('#filter-status-agenda').val();
+            });
+
+            $('#filter-angkatan').on('change', function() {
+                table.DataTable().ajax.reload();
+            });
+
+            $('#filter-prodi').on('change', function() {
+                table.DataTable().ajax.reload();
+            });
+
+            $('#filter-bimbingan').on('change', function() {
+                table.DataTable().ajax.reload();
+            });
+
+            $('#filter-status-agenda').on('change', function() {
+                table.DataTable().ajax.reload();
+            });
+        </script>
     @endpush
