@@ -2,10 +2,11 @@
 
 namespace App\DataTables\Dosen;
 
+use Carbon\Carbon;
 use App\Models\MhsPrestasi;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class PrestasiDataTable extends DataTable
 {
@@ -30,6 +31,12 @@ class PrestasiDataTable extends DataTable
                 } else {
                     return '<img src="' . asset('storage/' . $item->undangan) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->undangan) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
                 }
+            })
+            ->addColumn('tanggal_mulai', function ($item) {
+                return Carbon::parse($item->tanggal_mulai)->format('d M Y');
+            })
+            ->addColumn('tanggal_selesai', function ($item) {
+                return Carbon::parse($item->tanggal_selesai)->format('d M Y');
             })
             ->rawColumns(['tropi', 'foto', 'undangan']);
     }

@@ -2,10 +2,11 @@
 
 namespace App\DataTables\Dosen;
 
+use Carbon\Carbon;
 use App\Models\MhsKegiatan;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class MandiriDataTable extends DataTable
 {
@@ -37,6 +38,12 @@ class MandiriDataTable extends DataTable
             })               
             ->editColumn('foto', function ($item) {
                 return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
+            })
+            ->addColumn('tanggal_mulai', function ($item) {
+                return Carbon::parse($item->tanggal_mulai)->format('d M Y');
+            })
+            ->addColumn('tanggal_selesai', function ($item) {
+                return Carbon::parse($item->tanggal_selesai)->format('d M Y');
             })
             ->rawColumns(['sertifikat', 'foto', 'undangan']);
     }

@@ -2,15 +2,16 @@
 
 namespace App\DataTables\Dosen;
 
+use Carbon\Carbon;
 use App\Models\MhsAgenda;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class AgendaDataTable extends DataTable
 {
@@ -52,6 +53,9 @@ class AgendaDataTable extends DataTable
                 }
     
                 return '<span class="badge rounded-pill ' . $badgeClass . '">' . $statusText . '</span>';
+            })
+            ->addColumn('agenda_date', function ($item) {
+                return Carbon::parse($item->agenda_date)->format('d M Y');
             })
             ->rawColumns(['status']);
     }
@@ -135,15 +139,14 @@ class AgendaDataTable extends DataTable
                 Column::make('mahasiswa.tahun_masuk')->title('Angkatan'),
             Column::make('type')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
-            Column::make('dosen.nama')->title('Nama Pembimbing'),
             Column::make('agenda_date')->title('Tanggal'),
             Column::make('status')->title('Status'),
             Column::computed('actions')
-            ->title('Aksi')
-            ->orderable(false)
-            ->searchable(false)
-            ->exportable(false)
-            ->printable(false),
+                ->title('Aksi')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
         ];
     }
 
