@@ -23,7 +23,7 @@
                                             universitas.
                                         </p>
                                     </div>
-                                    <div class="row">
+                                    <div class="row align-items-end">
                                         <div class="col-md-2">
                                             <div class="mb-2">
                                                 <label for="filter-angkatan">Angkatan</label>
@@ -55,6 +55,11 @@
                                                         <option value="{{ $id }}">{{ $nama }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <button id="btnReset" class="btn btn-primary px-3">Reset Filter</button>
                                             </div>
                                         </div>
                                     </div>
@@ -89,6 +94,11 @@
         });
 
         $('#filter-angkatan, #filter-prodi, #filter-jalur').on('change', function() {
+            table.DataTable().ajax.reload();
+        });
+
+        $('#btnReset').on('click', function() {
+            $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').val('');
             table.DataTable().ajax.reload();
         });
     </script>
