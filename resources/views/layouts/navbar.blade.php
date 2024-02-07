@@ -199,7 +199,7 @@
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
                     @if (Auth::user()->type == 'mahasiswa')
-                        <a class="dropdown-item" href="{{ route('m.profil') }}"><i
+                        <a class="dropdown-item" href="{{ route('m.profile') }}"><i
                                 class="ri-user-line align-middle me-1"></i>
                             Profil</a>
                         <div class="dropdown-divider"></div>

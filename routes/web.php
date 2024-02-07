@@ -83,7 +83,7 @@ Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
     Route::put('/ormawa/update/{id}', [MhsOrmawaController::class, 'update'])->name('m.ormawa-update');
     Route::delete('/ormawa/delete/{id}', [MhsOrmawaController::class, 'destroy'])->name('m.ormawa-delete');
 
-    Route::get('/profil', [MahasiswaController::class, 'profil'])->name('m.profil');
+    Route::get('/profile', [MahasiswaController::class, 'profile'])->name('m.profile');
 
     Route::post('/change-password', [MahasiswaController::class, 'changePassword'])->name('change.password');
     Route::post('/ubah-kontak-pribadi', [MahasiswaController::class, 'ubahKontakPribadi'])->name('ubah.kontak.pribadi');
@@ -105,6 +105,11 @@ Route::middleware(['auth', 'user-access:dosen'])->group(function () {
     Route::get('/dosen/mahasiswa', [DosenController::class, 'listMahasiswa'])->name('dosen.mahasiswa');
 
     Route::get('/dosen/mahasiswa/{id}', [DosenController::class, 'showMhs'])->name('dosen.show.mahasiswa');
+    
+    Route::get('/dosen/profile', [DosenController::class, 'profile'])->name('dosen.profile');
+    Route::post('/dosen/change-password', [DosenController::class, 'changePassword'])->name('dosen.change.password');
+    Route::post('/dosen/change-contact', [DosenController::class, 'changeContact'])->name('dosen.contact.update');
+
 });
 
 // Admin Route List
