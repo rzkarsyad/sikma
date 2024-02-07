@@ -15,6 +15,13 @@ class PrestasiDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('url_penyelenggara', function ($item) {
+                $url = $item->url_penyelenggara;
+                if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                    $url = "http://" . $url;
+                }
+                return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
+            })
             ->editColumn('tropi', function ($item) {
                 if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->tropi) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
@@ -38,7 +45,7 @@ class PrestasiDataTable extends DataTable
             ->addColumn('tanggal_selesai', function ($item) {
                 return Carbon::parse($item->tanggal_selesai)->format('d M Y');
             })
-            ->rawColumns(['tropi', 'foto', 'undangan']);
+            ->rawColumns(['url_penyelenggara','tropi', 'foto', 'undangan']);
     }
 
     public function query(MhsPrestasi $model)

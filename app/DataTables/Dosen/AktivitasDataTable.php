@@ -20,6 +20,16 @@ class AktivitasDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('actions', function ($item) {
+                return view('dosen.aktivitas.action', compact('item'));
+            })
+            ->addColumn('url_penyelenggara', function ($item) {
+                $url = $item->url_penyelenggara;
+                if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                    $url = "http://" . $url;
+                }
+                return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
+            })
             ->editColumn('sertifikat', function ($item) {
                 if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->sertifikat) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
@@ -30,7 +40,7 @@ class AktivitasDataTable extends DataTable
             ->editColumn('foto', function ($item) {
                 return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
             })
-            ->rawColumns(['sertifikat', 'foto']);
+            ->rawColumns(['url_penyelenggara','sertifikat', 'foto']);
     }
 
     public function query(MhsAktivitas $model)
@@ -113,6 +123,12 @@ class AktivitasDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
+            Column::computed('actions')
+            ->title('Detail')
+            ->orderable(false)
+            ->searchable(false)
+            ->exportable(false)
+            ->printable(false),
             Column::make('mahasiswa.nim')->title('NIM'),
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
             Column::make('mahasiswa.prodi.nama')->title('Program Studi'),

@@ -27,6 +27,7 @@ class MhsAktivitasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         $kategori = ListKategori::pluck('nama', 'id');

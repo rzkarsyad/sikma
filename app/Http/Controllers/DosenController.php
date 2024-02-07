@@ -171,6 +171,17 @@ class DosenController extends Controller
         return $dataTable->render('dosen.aktivitas', compact('angkatan', 'prodi', 'kategori', 'kegiatan', 'tahun'));
     }
 
+    public function showAktivitas($id)
+    {
+        $mhsAktivitas = MhsAktivitas::findOrFail($id);
+        $mahasiswa = $mhsAktivitas->mahasiswa;
+        $url = $mhsAktivitas->url_penyelenggara;
+        if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
+            $url = 'http://' . $url;
+        }
+        return view('dosen.aktivitas.show', compact('mhsAktivitas', 'mahasiswa', 'url'));
+    }
+
     public function mandiri(MandiriDataTable $dataTable)
     {
         $angkatan = $this->getAngkatan();

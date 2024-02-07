@@ -17,6 +17,13 @@ class OrmawaDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('url_media_ormawa', function ($item) {
+                $url = $item->url_media_ormawa;
+                if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                    $url = "http://" . $url;
+                }
+                return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
+            })
             ->editColumn('sk', function ($item) {
                 if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->sk) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
@@ -24,7 +31,7 @@ class OrmawaDataTable extends DataTable
                     return '<img src="' . asset('storage/' . $item->sk) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sk) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
                 }
             })
-            ->rawColumns(['sk']);
+            ->rawColumns(['url_media_ormawa','sk']);
     }
 
     public function query(MhsOrmawa $model)
