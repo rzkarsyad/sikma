@@ -1,3 +1,7 @@
+@php
+    use Laravolt\Avatar\Facade as Avatar;
+@endphp
+
 <header id="page-topbar">
     <div class="navbar-header">
         <div class="d-flex">
@@ -183,8 +187,14 @@
             <div class="dropdown d-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="../../../assets/images/users/avatar.jpeg"
-                        alt="Header Avatar">
+                    @if (Auth::user()->type == 'dosen')
+                        <img src="{{ Avatar::create(Auth::user()->dosen->nama)->toBase64() }}" alt="Avatar">
+                    @elseif (Auth::user()->type == 'mahasiswa')
+                        <img src="{{ Avatar::create(Auth::user()->mahasiswa->nama)->toBase64() }}" alt="Avatar">
+                    @elseif (Auth::user()->type == 'admin')
+                        <img src="{{ Avatar::create('Admin')->toBase64() }}" alt="Avatar">
+                    @endif
+
                     @if (Auth::user()->type == 'dosen')
                         <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->dosen->nama }}</span>
                     @endif
