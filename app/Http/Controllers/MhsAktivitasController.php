@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MhsAktivitas;
 use App\Models\ListKategori;
 use App\Models\ListKegiatan;
+use App\Models\MhsAktivitas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\DataTables\Mahasiswa\MhsAktivitasDataTable;
 
 class MhsAktivitasController extends Controller
 {
@@ -16,11 +17,9 @@ class MhsAktivitasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MhsAktivitasDataTable $dataTable)
     {
-        $id = auth()->user()->id;
-        $mhsAktivitas = MhsAktivitas::where('user_id', $id)->get();
-        return view('mahasiswa.aktivitas', compact('mhsAktivitas'));
+        return $dataTable->render('mahasiswa.aktivitas.index');
     }
 
     /**
@@ -33,7 +32,7 @@ class MhsAktivitasController extends Controller
         $kategori = ListKategori::pluck('nama', 'id');
         $kegiatan = ListKegiatan::pluck('nama', 'id');
         $tahun = $this->tahunDropdown();
-        return view('mahasiswa.aktivitas-create', compact('kategori', 'kegiatan', 'tahun'));
+        return view('mahasiswa.aktivitas.create', compact('kategori', 'kegiatan', 'tahun'));
     }
 
     /**
@@ -78,7 +77,7 @@ class MhsAktivitasController extends Controller
         $kategori = ListKategori::pluck('nama', 'id');
         $kegiatan = ListKegiatan::pluck('nama', 'id');
         $tahun = $this->tahunDropdown();
-        return view('mahasiswa.aktivitas-edit', compact('kategori', 'kegiatan', 'tahun', 'mhsAktivitas'));
+        return view('mahasiswa.aktivitas.edit', compact('kategori', 'kegiatan', 'tahun', 'mhsAktivitas'));
     }
 
     /**

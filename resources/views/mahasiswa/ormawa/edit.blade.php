@@ -77,10 +77,19 @@
                                             <tr>
                                                 <td>
                                                     @if ($mhsOrmawa->sk)
-                                                        <img src="{{ asset('storage/' . $mhsOrmawa->sk) }}"
-                                                            class="img-thumbnail" alt="" style="width: 200px">
+                                                        @if (pathinfo($mhsOrmawa->sk, PATHINFO_EXTENSION) == 'pdf')
+                                                            <a href="{{ asset('storage/' . $mhsOrmawa->sk) }}"
+                                                                class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
+                                                                Berkas</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $mhsOrmawa->sk) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $mhsOrmawa->sk) }}"
+                                                                style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-danger">Belum ada foto</span>
+                                                        <span class="badge badge-danger">Belum ada SK</span>
                                                     @endif
                                                 </td>
                                             </tr>

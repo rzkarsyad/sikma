@@ -9,6 +9,13 @@
     </li>
 
     <li>
+        <a href="{{ route('m.agenda') }}" class=" waves-effect">
+            <i class="ri-file-list-line"></i>
+            <span>Agenda</span>
+        </a>
+    </li>
+
+    <li>
         <a href="{{ route('m.aktivitas') }}" class=" waves-effect">
             <i class="ri-file-list-2-line"></i>
             <span>Aktivitas Mahasiswa</span>
@@ -30,7 +37,7 @@
     <li>
         <a href="{{ route('m.ormawa') }}" class=" waves-effect">
             <i class="ri-team-line"></i>
-            <span>Kegiatan Ormawa</span>
+            <span>Ormawa & UKM</span>
         </a>
     </li>
     <li class="menu-title">Pengaturan</li>

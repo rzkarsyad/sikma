@@ -17,34 +17,82 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Data Aktivitas</h4>
-                                    <p class="card-title-desc">Tabel ini berisi seluruh kegiatan aktivitas dari kampus yang
-                                        diikuti oleh mahasiswa.
-                                    </p>
-                                    <table id="example" class="table dt-responsive nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>NIM</th>
-                                                <th>Nama Mahasiswa</th>
-                                                <th>Prodi</th>
-                                                <th>Jalur Masuk</th>
-                                                <th>Nama Kegiatan</th>
-                                                <th>Kategori</th>
-                                                <th>Tahun</th>
-                                                <th>Sertifikat</th>
-                                                <th>Foto</th>
-                                                <th>URL Penyelenggara</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($aktivitas as $item)
-                                                @include('collections.c-aktivitas')
-                                            @empty
-                                            @endforelse
-                                        </tbody>
-                                    </table>
+                                    <div>
+                                        <h5>Data Aktivitas</h5>
+                                        <p class="card-title-desc">Tabel ini berisi seluruh kegiatan aktivitas dari kampus
+                                            yang
+                                            diikuti oleh mahasiswa.
+                                        </p>
+                                    </div>
+                                    <div class="row align-items-end">
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <label for="filter-angkatan">Angkatan</label>
+                                                <select id="filter-angkatan" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($angkatan as $angkatan)
+                                                        <option value="{{ $angkatan }}">{{ $angkatan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <label for="filter-prodi">Program Studi</label>
+                                                <select id="filter-prodi" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($prodi as $id => $nama)
+                                                        <option value="{{ $id }}">{{ $nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <label for="filter-kategori">Tingkat</label>
+                                                <select id="filter-kategori" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($kategori as $id => $nama)
+                                                        <option value="{{ $id }}">{{ $nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <label for="filter-tahun">Tahun</label>
+                                                <select id="filter-tahun" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($tahun as $thn)
+                                                        <option value="{{ $thn }}">{{ $thn }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <label for="filter-kegiatan">Kegiatan</label>
+                                                <select id="filter-kegiatan" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($kegiatan as $id => $nama)
+                                                        <option value="{{ $id }}">{{ $nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <button id="btnReset" class="btn btn-primary px-3">Reset Filter</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mt-4">
+                                        {!! $dataTable->table([
+                                            'class' => 'table table-striped nowrap align-middle',
+                                            'style' => 'width:100%;',
+                                        ]) !!}
+                                    </div>
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -55,17 +103,24 @@
         </div>
     </div>
 
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Lihat Gambar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img id="modalImage" src="" class="img-fluid w-100">
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('components.lib.modal-img')
 @endsection
+
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+    <script>
+        const table = $('#aktivitas-table');
+        table.on('preXhr.dt', function(e, settings, data) {
+            data.angkatan = $('#filter-angkatan').val();
+            data.prodi = $('#filter-prodi').val();
+            data.kegiatan = $('#filter-kegiatan').val();
+            data.kategori = $('#filter-kategori').val();
+            data.tahun = $('#filter-tahun').val();
+        });
+
+        $('#filter-angkatan, #filter-prodi, #filter-kegiatan, #filter-kategori, #filter-tahun').on('change', function() {
+            table.DataTable().ajax.reload();
+        });
+    </script>
+@endpush

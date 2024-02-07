@@ -6,8 +6,8 @@
     <meta charset="utf-8" />
     <title>@yield('title') | SIKMA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
+    <meta content="Sistem Informasi Kegiatan Mahasiswa" name="description" />
+    <meta content="Developer UNAIC" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-unaic.png') }}">
 
@@ -39,8 +39,10 @@
 
     <!-- Bootstrap Css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+
     <!-- Icons Css -->
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+
     <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
@@ -98,7 +100,6 @@
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 
-
     <!-- apexcharts -->
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
@@ -124,19 +125,11 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
         $(document).ready(function() {
             new DataTable('#example', {
                 scrollX: true,
-            });
-        });
-
-        $(document).ready(function() {
-            $('#tb-aktivitas').DataTable({
-                "initComplete": function(settings, json) {
-                    $("#tb-aktivitas").wrap(
-                        "<div style='overflow:auto; width:100%;position:relative;'></div>");
-                },
             });
         });
 
@@ -171,7 +164,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             var myModal = new bootstrap.Modal(document.getElementById('myModal'));
 
-            $('.image-clickable').on('click', function() {
+            // Use event delegation for better performance:
+            $(document).on('click', '.image-clickable', function() {
                 var imageSrc = $(this).data('image');
                 $('#modalImage').attr('src', imageSrc);
                 myModal.show();

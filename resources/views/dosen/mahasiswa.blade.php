@@ -17,77 +17,54 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="col d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h4 class="card-title">Data Aktivitas</h4>
-                                            <p class="card-title-desc">Tabel ini berisi seluruh kegiatan aktivitas dari
-                                                kampus yang diikuti oleh mahasiswa.</p>
+                                    <div>
+                                        <h5>Data Mahasiswa</h5>
+                                        <p class="card-title-desc">Tabel ini berisi seluruh mahasiswa yang terdaftar di
+                                            universitas.
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="mb-2">
+                                                <label for="filter-angkatan">Angkatan</label>
+                                                <select id="filter-angkatan" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($angkatan as $angkatan)
+                                                        <option value="{{ $angkatan }}">{{ $angkatan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="mb-2">
+                                                <label for="filter-prodi">Program Studi</label>
+                                                <select id="filter-prodi" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($prodi as $id => $nama)
+                                                        <option value="{{ $id }}">{{ $nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="mb-2">
+                                                <label for="filter-jalur">Jalur Masuk</label>
+                                                <select id="filter-jalur" class="form-select">
+                                                    <option value="" selected>Pilih</option>
+                                                    @foreach ($jalur as $id => $nama)
+                                                        <option value="{{ $id }}">{{ $nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    {!! $dataTable->table(['class' => 'table dt-responsive nowrap']) !!}
-
-                                    {{-- <table id="example" class="table dt-responsive table-striped nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Detail</th>
-                                                <th>NIM</th>
-                                                <th>Nama</th>
-                                                <th>Institusi</th>
-                                                <th>Fakultas</th>
-                                                <th>Program Studi</th>
-                                                <th>Jalur Masuk</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Tempat Lahir</th>
-                                                <th>Tanggal Lahir</th>
-                                                <th>No. HP</th>
-                                                <th>Email Kampus</th>
-                                                <th>Alamat</th>
-                                                <th>Tahun Masuk</th>
-                                                <th>Nama Ortu</th>
-                                                <th>Hubungan Ortu</th>
-                                                <th>No. HP Ortu</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($mahasiswa as $item)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        <a href="{{ route('dosen.show.mahasiswa', ['id' => $item->id]) }}"
-                                                            class="btn btn-primary btn-sm"><i class="ri-eye-line"></i></a>
-                                                    </td>
-                                                    <td>{{ $item->nim }}</td>
-                                                    <td>{{ $item->nama }}</td>
-                                                    <td>{{ $item->institusi }}</td>
-                                                    <td>{{ $item->prodi->fakultas->nama }}</td>
-                                                    <td>{{ $item->prodi->nama }}</td>
-                                                    <td>{{ $item->jalur->nama }}</td>
-                                                    <td>
-                                                        @if ($item->jns_kelamin == 'L')
-                                                            Laki-laki
-                                                        @else
-                                                            Perempuan
-                                                        @endif
-                                                    </td>
-                                                    </td>
-                                                    <td>{{ $item->tempat_lahir }}</td>
-                                                    <td>{{ $item->tgl_lahir }}</td>
-                                                    <td>{{ $item->no_hp }}</td>
-                                                    <td>{{ $item->email_kampus }}</td>
-                                                    <td>{{ $item->alamat }}</td>
-                                                    <td>{{ $item->tahun_masuk }}</td>
-                                                    <td>{{ $item->nama_ortu }}</td>
-                                                    <td>{{ $item->hubungan_ortu }}</td>
-                                                    <td>{{ $item->no_hp_ortu }}</td>
-                                                </tr>
-                                            @empty
-                                            @endforelse
-                                        </tbody>
-                                    </table> --}}
-
+                                    <hr>
+                                    <div class="mt-4">
+                                        {!! $dataTable->table([
+                                            'class' => 'table table-striped nowrap align-middle',
+                                            'style' => 'width:100%;',
+                                        ]) !!}
+                                    </div>
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -102,4 +79,17 @@
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+    <script>
+        const table = $('#mahasiswa-table');
+        table.on('preXhr.dt', function(e, settings, data) {
+            data.angkatan = $('#filter-angkatan').val();
+            data.prodi = $('#filter-prodi').val();
+            data.jalur = $('#filter-jalur').val();
+        });
+
+        $('#filter-angkatan, #filter-prodi, #filter-jalur').on('change', function() {
+            table.DataTable().ajax.reload();
+        });
+    </script>
 @endpush

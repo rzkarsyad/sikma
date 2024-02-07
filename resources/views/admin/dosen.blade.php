@@ -61,46 +61,6 @@
 
                                     {!! $dataTable->table(['class' => 'table dt-responsive nowrap', 'style' => 'width:100%;']) !!}
 
-                                    {{-- <table id="example" class="table dt-responsive nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>NIDN</th>
-                                                <th>Nama</th>
-                                                <th>Email</th>
-                                                <th>Institusi</th>
-                                                <th>Program Studi</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Jabatan</th>
-                                                <th>No. HP</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($dosen as $item)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $item->nidn }}</td>
-                                                    <td>{{ $item->nama }}</td>
-                                                    <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->institusi }}</td>
-                                                    <td>{{ $item->prodi->nama }}</td>
-                                                    <td>
-                                                        @if ($item->jns_kelamin == 'P')
-                                                            Pria
-                                                        @else
-                                                            Wanita
-                                                        @endif
-                                                    </td>
-                                                    </td>
-                                                    <td>{{ $item->jabatan }}</td>
-                                                    <td>{{ $item->no_hp }}</td>
-                                                </tr>
-                                            @empty
-                                            @endforelse
-                                        </tbody>
-                                    </table> --}}
-
                                 </div>
                             </div>
                         </div> <!-- end col -->

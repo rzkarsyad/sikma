@@ -15,8 +15,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn bg-white text-dark waves-effect waves-light shadow mb-3"
-                                onclick="javascript:history.back()">Kembali</button>
+                            <a href="{{ url()->previous() }}"
+                                class="btn bg-white text-dark waves-effect waves-light shadow mb-3">
+                                <i class="ri-arrow-left-line"></i>
+                                Kembali
+                            </a>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="mb-4">
@@ -27,31 +30,31 @@
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" data-bs-toggle="tab" href="#profil" role="tab">
-                                                <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                                <span class="d-block d-sm-none"><i class="ri-user-line"></i></span>
                                                 <span class="d-none d-sm-block">Profil</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#aktivitas" role="tab">
-                                                <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                                <span class="d-block d-sm-none"><i class="ri-file-list-2-line"></i></span>
                                                 <span class="d-none d-sm-block">Aktivitas Mahasiswa</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#mandiri" role="tab">
-                                                <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                <span class="d-block d-sm-none"><i class="ri-book-line"></i></span>
                                                 <span class="d-none d-sm-block">Kegiatan Mandiri</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#prestasi" role="tab">
-                                                <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                                                <span class="d-block d-sm-none"><i class="ri-trophy-line"></i></i></span>
                                                 <span class="d-none d-sm-block">Prestasi</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#ormawa" role="tab">
-                                                <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                                <span class="d-block d-sm-none"><i class="ri-team-line"></i></span>
                                                 <span class="d-none d-sm-block">Kegiatan Ormawa</span>
                                             </a>
                                         </li>
@@ -62,7 +65,7 @@
                                         <div class="tab-pane active" id="profil" role="tabpanel">
                                             <div class="col-8">
                                                 <h5>Data Mahasiswa</h5>
-                                                <table class="table table-borderless">
+                                                <table class="table mt-3 table-responsive">
                                                     <tbody>
                                                         <tr>
                                                             <td align="left">NIM</td>
@@ -156,52 +159,7 @@
                                         </div>
                                         <div class="tab-pane" id="aktivitas" role="tabpanel">
                                             <h5 class="mb-4">Data Aktivitas</h5>
-                                            <table id="tb-aktivitas" class="table dt-responsive nowrap"
-                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Nama Kegiatan</th>
-                                                        <th>Kategori</th>
-                                                        <th>Tahun</th>
-                                                        <th>Sertifikat</th>
-                                                        <th>Foto</th>
-                                                        <th>URL Penyelenggara</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($mahasiswa->aktivitas as $item)
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $item->kegiatan->nama }}</td>
-                                                            <td>{{ $item->kategori->nama }}</td>
-                                                            <td>{{ $item->tahun }}</td>
-                                                            <td>
-                                                                @if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf')
-                                                                    <!-- Display a button to download PDF -->
-                                                                    <a href="{{ asset('storage/' . $item->sertifikat) }}"
-                                                                        class="btn btn-primary" download>Download PDF</a>
-                                                                @else
-                                                                    <img src="{{ asset('storage/' . $item->sertifikat) }}"
-                                                                        class="rounded image-clickable"
-                                                                        data-bs-toggle="modal" data-bs-target="#myModal"
-                                                                        data-image="{{ asset('storage/' . $item->sertifikat) }}"
-                                                                        style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <img src="{{ asset('storage/' . $item->foto) }}"
-                                                                    class="rounded image-clickable" data-bs-toggle="modal"
-                                                                    data-bs-target="#myModal"
-                                                                    data-image="{{ asset('storage/' . $item->foto) }}"
-                                                                    style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
-                                                            </td>
-                                                            <td>{{ $item->url_penyelenggara }}</td>
-                                                        </tr>
-                                                    @empty
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
+                                            {!! $dataTable->table(['class' => 'table dt-responsive nowrap align-middle', 'style' => 'width:100%;']) !!}
                                         </div>
                                         <div class="tab-pane" id="mandiri" role="tabpanel">
                                             <h5 class="mb-4">Data Kegiatan Mandiri</h5>
@@ -413,3 +371,13 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+            $($.fn.dataTable.tables(true)).DataTable()
+                .columns.adjust();
+        });
+    </script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

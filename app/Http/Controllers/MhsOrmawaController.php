@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\MhsOrmawa;
 use App\Models\ListOrmawa;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
+use App\DataTables\Mahasiswa\MhsOrmawaDataTable;
 
 class MhsOrmawaController extends Controller
 {
@@ -15,11 +16,9 @@ class MhsOrmawaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MhsOrmawaDataTable $dataTable)
     {
-        $id = auth()->user()->id;
-        $mhsOrmawa = MhsOrmawa::where('user_id', $id)->get();
-        return view('mahasiswa.ormawa', compact('mhsOrmawa'));
+        return $dataTable->render('mahasiswa.ormawa.index');
     }
 
     /**
@@ -30,7 +29,7 @@ class MhsOrmawaController extends Controller
     public function create()
     {
         $ormawa = ListOrmawa::pluck('nama', 'id');
-        return view('mahasiswa.ormawa-create', compact('ormawa'));
+        return view('mahasiswa.ormawa.create', compact('ormawa'));
     }
 
     /**
@@ -79,9 +78,11 @@ class MhsOrmawaController extends Controller
      * @param  \App\Models\MhsOrmawa  $mhsOrmawa
      * @return \Illuminate\Http\Response
      */
-    public function edit(MhsOrmawa $mhsOrmawa)
+    public function edit($id)
     {
-        //
+        $mhsOrmawa = MhsOrmawa::findOrFail($id);
+        $ormawa = ListOrmawa::pluck('nama', 'id');
+        return view('mahasiswa.ormawa.edit', compact('mhsOrmawa', 'ormawa'));
     }
 
     /**
@@ -91,9 +92,30 @@ class MhsOrmawaController extends Controller
      * @param  \App\Models\MhsOrmawa  $mhsOrmawa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MhsOrmawa $mhsOrmawa)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validateAktivitas($request, false);
+
+        $mhsOrmawa = MhsOrmawa::findOrFail($id);
+
+        $mhsOrmawa->id_jenis_ormawa = $request->id_jenis_ormawa;
+        $mhsOrmawa->nama_ormawa = $request->nama_ormawa;
+        $mhsOrmawa->jabatan = $request->jabatan;
+        $mhsOrmawa->masa_jabatan = $request->masa_jabatan;
+        $mhsOrmawa->url_media_ormawa = $request->url_media_ormawa;
+
+        if ($request->hasFile('sk')) {
+            $pathS = $mhsOrmawa->sk;
+            if ($pathS != null || $pathS != '') {
+                Storage::disk('public')->delete($pathS);
+            }
+            $sk = $request->file('sk')->store('sk', 'public');
+            $mhsOrmawa->sk = $sk;
+        }
+
+        $mhsOrmawa->save();
+
+        return redirect()->route('m.ormawa')->with('success', 'Data ormawa & UKM berhasil diubah.');
     }
 
     /**

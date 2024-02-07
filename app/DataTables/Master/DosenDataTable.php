@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Master;
 
 use App\Models\Dosen;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -64,7 +64,15 @@ class DosenDataTable extends DataTable
                         Button::make('print'),
                         Button::make('reset'),
                         Button::make('reload')
-                    ]);
+                    ])
+                    ->initComplete('function(settings, json) {
+                        // Apply custom styling after DataTable initialization
+                        $(".dataTables_wrapper").addClass("mb-3"); // Add margin-bottom to the entire DataTable container
+                        $(".dataTables_filter").addClass("mb-2"); // Add margin-bottom to the search bar
+                        $(".dataTables_length").addClass("mb-2"); // Add margin-bottom to the show entries dropdown
+                        $(".dataTables_paginate").addClass("mt-3"); // Add margin-top to the pagination container
+                        $(".dataTables_info").addClass("mt-3"); // Add margin-top to the showing text
+                    }');
     }
 
     /**
@@ -75,7 +83,11 @@ class DosenDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('DT_RowIndex')->title('No.'),
+            Column::make('DT_RowIndex')->title('No.')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
             Column::make('nidn')->title('NIDN'),
             Column::make('nama')->title('Nama Dosen'),
             Column::make('email')->title('Email'),

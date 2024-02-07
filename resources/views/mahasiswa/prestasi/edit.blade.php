@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Kegiatan Mandiri
+    Prestasi
 @endsection
 
 @section('content')
@@ -11,11 +11,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Edit Kegiatan</h4>
+                        <h4 class="mb-sm-0">Edit Prestasi</h4>
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('m.mandiri-update', $mhsKegiatan->id) }}" method="POST"
+                            <form action="{{ route('m.prestasi-update', $mhsPrestasi->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -24,10 +24,10 @@
                                         <label for="list_tingkat">Tingkat Kegiatan</label>
                                         <select name="id_kegiatan"
                                             class="form-select @error('id_kegiatan') is-invalid @enderror">
-                                            <option value="">Pilih Kegiatan</option>
+                                            <option value="">Pilih Tingkat</option>
                                             @foreach ($tingkat as $id => $nama)
                                                 <option value="{{ $id }}"
-                                                    {{ $id == $mhsKegiatan->id_kegiatan ? 'selected' : null }}>
+                                                    {{ $id == $mhsPrestasi->id_kegiatan ? 'selected' : null }}>
                                                     {{ $nama }}</option>
                                             @endforeach
                                         </select>
@@ -36,32 +36,16 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mt-3">
-                                        <label for="list_jenis">Jenis Kepesertaan</label>
-                                        <select name="id_jenis" class="form-select @error('id_jenis') is-invalid @enderror">
-                                            <option value="">Pilih Kategori</option>
-                                            @foreach ($jenis as $id => $nama)
-                                                <option value="{{ $id }}"
-                                                    {{ $id == $mhsKegiatan->id_jenis ? 'selected' : null }}>
-                                                    {{ $nama }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('id_jenis')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-6 mt-3">
                                         <label for="nama">Nama Kegiatan</label>
-                                        <input name="nama" type="text" value="{{ $mhsKegiatan->nama }}"
-                                            class="form-control @error('nama_kegiatan') is-invalid @enderror"
-                                            id="nama_kegiatan">
-                                        @error('nama_kegiatan')
+                                        <input name="nama" type="text" value="{{ $mhsPrestasi->nama }}"
+                                            class="form-control @error('nama') is-invalid @enderror" id="nama">
+                                        @error('nama')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="penyelenggara">Penyelenggara</label>
-                                        <input name="penyelenggara" type="text"
-                                            value="{{ $mhsKegiatan->penyelenggara }}"
+                                        <input name="penyelenggara" type="text" value="{{ $mhsPrestasi->penyelenggara }}"
                                             class="form-control @error('penyelenggara') is-invalid @enderror"
                                             id="penyelenggara">
                                         @error('penyelenggara')
@@ -70,16 +54,34 @@
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="jumlah">Jumlah Peserta</label>
-                                        <input name="jumlah" type="text" value="{{ $mhsKegiatan->jumlah }}"
+                                        <input name="jumlah" type="text" value="{{ $mhsPrestasi->jumlah }}"
                                             class="form-control @error('jumlah') is-invalid @enderror" id="jumlah">
                                         @error('jumlah')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mt-3">
+                                        <label for="capaian">Capaian</label>
+                                        <input name="capaian" type="text" value="{{ $mhsPrestasi->capaian }}"
+                                            class="form-control @error('capaian') is-invalid @enderror" id="capaian">
+                                        @error('capaian')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <label for="url_penyelenggara">URL Penyelenggara</label>
+                                        <input name="url_penyelenggara" type="text"
+                                            value="{{ $mhsPrestasi->url_penyelenggara }}"
+                                            class="form-control @error('url_penyelenggara') is-invalid @enderror"
+                                            id="url_penyelenggara">
+                                        @error('url_penyelenggara')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 mt-3">
                                         <label for="tanggal_mulai">Tanggal Mulai Pelaksanaan</label>
                                         <input name="tanggal_mulai" type="date"
-                                            value="{{ $mhsKegiatan->tanggal_mulai }}"
+                                            value="{{ $mhsPrestasi->tanggal_mulai }}"
                                             class="form-control @error('tanggal_mulai') is-invalid @enderror"
                                             id="tanggal_mulai">
                                         @error('tanggal_mulai')
@@ -89,43 +91,40 @@
                                     <div class="col-md-6 mt-3">
                                         <label for="tanggal_selesai">Tanggal Selesai Pelaksanaan</label>
                                         <input name="tanggal_selesai" type="date"
-                                            value="{{ $mhsKegiatan->tanggal_selesai }}"
+                                            value="{{ $mhsPrestasi->tanggal_selesai }}"
                                             class="form-control @error('tanggal_selesai') is-invalid @enderror"
                                             id="tanggal_selesai">
                                         @error('tanggal_selesai')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-
-                                    <div class="col-md-6 mt-3">
-                                        <label for="url_penyelenggara">URL Penyelenggara</label>
-                                        <input name="url_penyelenggara" type="text"
-                                            value="{{ $mhsKegiatan->url_penyelenggara }}"
-                                            class="form-control @error('url_penyelenggara') is-invalid @enderror"
-                                            id="url_penyelenggara">
-                                        @error('url_penyelenggara')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
                                     <div class="col-md-4 mt-3">
-                                        <label for="sertifikat" class="form-label">Sertifikat</label>
+                                        <label for="tropi" class="form-label">Sertifikat/Foto Medali/Piala</label>
                                         <table>
                                             <tr>
                                                 <td>
-                                                    @if ($mhsKegiatan->sertifikat)
-                                                        <img src="{{ asset('storage/' . $mhsKegiatan->sertifikat) }}"
-                                                            class="img-thumbnail" alt="" style="width: 200px">
+                                                    @if ($mhsPrestasi->tropi)
+                                                        @if (pathinfo($mhsPrestasi->tropi, PATHINFO_EXTENSION) == 'pdf')
+                                                            <a href="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
+                                                                class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
+                                                                Berkas</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
+                                                                style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-danger">Belum ada foto</span>
+                                                        <span class="badge badge-danger">Belum ada SK</span>
                                                     @endif
                                                 </td>
                                             </tr>
                                         </table>
                                         <br>
-                                        <input name="sertifikat"
-                                            class="form-control @error('sertifikat') is-invalid @enderror" type="file"
-                                            id="sertifikat">
-                                        @error('sertifikat')
+                                        <input name="tropi" class="form-control @error('tropi') is-invalid @enderror"
+                                            type="file" id="tropi">
+                                        @error('tropi')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -134,8 +133,8 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    @if ($mhsKegiatan->foto)
-                                                        <img src="{{ asset('storage/' . $mhsKegiatan->foto) }}"
+                                                    @if ($mhsPrestasi->foto)
+                                                        <img src="{{ asset('storage/' . $mhsPrestasi->foto) }}"
                                                             class="img-thumbnail" alt="" style="width: 200px">
                                                     @else
                                                         <span class="badge badge-danger">Belum ada foto</span>
@@ -151,15 +150,24 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mt-3">
-                                        <label for="undangan" class="form-label">Surat Tugas / Undangan</label>
+                                        <label for="undangan" class="form-label">Surat Tugas/Undangan</label>
                                         <table>
                                             <tr>
                                                 <td>
-                                                    @if ($mhsKegiatan->undangan)
-                                                        <img src="{{ asset('storage/' . $mhsKegiatan->undangan) }}"
-                                                            class="img-thumbnail" alt="" style="width: 200px">
+                                                    @if ($mhsPrestasi->undangan)
+                                                        @if (pathinfo($mhsPrestasi->undangan, PATHINFO_EXTENSION) == 'pdf')
+                                                            <a href="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
+                                                                class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
+                                                                Berkas</a>
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
+                                                                class="rounded image-clickable" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal"
+                                                                data-image="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
+                                                                style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-danger">Belum ada foto</span>
+                                                        <span class="badge badge-danger">Belum ada SK</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -172,8 +180,9 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-12 mt-3">
-                                        <a href="{{ route('m.mandiri') }}" class="btn btn-outline-primary px-3">Batal</a>
+                                    <div class="col-auto mt-4">
+                                        <a href="{{ route('m.prestasi') }}"
+                                            class="btn btn-outline-primary px-3">Batal</a>
                                         <button class="btn btn-primary ms-2 waves-effect px-3"
                                             type="submit">Simpan</button>
                                     </div>

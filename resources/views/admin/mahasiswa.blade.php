@@ -62,60 +62,6 @@
 
                                     {!! $dataTable->table(['class' => 'table dt-responsive nowrap']) !!}
 
-                                    {{-- <table id="example" class="table dt-responsive nowrap"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>NIM</th>
-                                                <th>Nama</th>
-                                                <th>Institusi</th>
-                                                <th>Fakultas</th>
-                                                <th>Program Studi</th>
-                                                <th>Jalur Masuk</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Tempat Lahir</th>
-                                                <th>Tanggal Lahir</th>
-                                                <th>NIK</th>
-                                                <th>No. HP</th>
-                                                <th>Email</th>
-                                                <th>Alamat</th>
-                                                <th>Tahun Masuk</th>
-                                                <th>No. HP Ortu</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($mahasiswa as $item)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $item->nim }}</td>
-                                                    <td>{{ $item->nama }}</td>
-                                                    <td>{{ $item->institusi }}</td>
-                                                    <td>{{ $item->prodi->fakultas->nama }}</td>
-                                                    <td>{{ $item->prodi->nama }}</td>
-                                                    <td>{{ $item->jalur->nama }}</td>
-                                                    <td>
-                                                        @if ($item->jns_kelamin == 'P')
-                                                            Pria
-                                                        @else
-                                                            Wanita
-                                                        @endif
-                                                    </td>
-                                                    </td>
-                                                    <td>{{ $item->tempat_lahir }}</td>
-                                                    <td>{{ $item->tgl_lahir }}</td>
-                                                    <td>{{ $item->nik }}</td>
-                                                    <td>{{ $item->no_hp }}</td>
-                                                    <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->alamat }}</td>
-                                                    <td>{{ $item->tahun_masuk }}</td>
-                                                    <td>{{ $item->no_hp_ortu }}</td>
-                                                </tr>
-                                            @empty
-                                            @endforelse
-                                        </tbody>
-                                    </table> --}}
-
                                 </div>
                             </div>
                         </div> <!-- end col -->
