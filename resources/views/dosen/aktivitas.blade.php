@@ -122,5 +122,10 @@
         $('#filter-angkatan, #filter-prodi, #filter-kegiatan, #filter-kategori, #filter-tahun').on('change', function() {
             table.DataTable().ajax.reload();
         });
+
+        $('#btnReset').on('click', function() {
+                $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').val('');
+                table.DataTable().ajax.reload();
+            });
     </script>
 @endpush
