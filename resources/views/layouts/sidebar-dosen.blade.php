@@ -43,8 +43,15 @@
     <li class="menu-title">LAINNYA</li>
     <li>
         <a href="{{ route('dosen.mahasiswa') }}" class=" waves-effect">
-            <i class="ri-user-3-line"></i>
+            <i class="ri-group-line"></i>
             <span>Mahasiswa</span>
+        </a>
+    </li>
+    <li class="menu-title">Pengaturan</li>
+    <li>
+        <a href="{{ route('dosen.profile') }}" class=" waves-effect">
+            <i class="ri-user-3-line"></i>
+            <span>Profil</span>
         </a>
     </li>
     <li>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Prodi;
 use App\Models\ListJenis;
@@ -18,6 +19,8 @@ use App\Models\ListKegiatan;
 use App\Models\MhsAktivitas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\DataTables\Dosen\AgendaDataTable;
 use App\DataTables\Dosen\OrmawaDataTable;
 use App\DataTables\Dosen\MandiriDataTable;
@@ -216,7 +219,48 @@ class DosenController extends Controller
         $dataTable->setUserId($mahasiswa->user_id);
 
         return $dataTable->render('dosen.detail-mahasiswa', compact('mahasiswa'));
-    }        
+    }
+
+    public function profile()
+    {
+        $dosen = Auth::user()->dosen;
+        return view('dosen.profile', compact('dosen'));
+    }
+
+    public function changeContact(Request $request)
+    {
+        $request->validate( [
+            'no_hp' => 'required',
+        ]);
+
+        $kPribadi = User::find(Auth::id());
+        $kPribadi->dosen->no_hp = $request->input('no_hp');
+
+        $kPribadi->dosen->save();
+        
+        return redirect()->back()->with('successUpdatePribadi', 'Kontak pribadi berhasil diupdate');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+        $user = User::find(Auth::id());
+
+        $current = $user->password;
+
+        if (!Hash::check($request->old_password, $current)) {
+            return back()->with('error', 'Current password is incorrect.');
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password berhasil diubah.');
+    }
 
     public function validateAgenda(Request $request)
     {

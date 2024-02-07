@@ -38,7 +38,7 @@ class MahasiswaController extends Controller
         //
     }
 
-    public function profil()
+    public function profile()
     {
         $months = $this->monthsIND();
         $tanggalLahir = Auth::user()->mahasiswa->tgl_lahir;
@@ -178,6 +178,5 @@ class MahasiswaController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Password berhasil diubah.');
-
     }
 }

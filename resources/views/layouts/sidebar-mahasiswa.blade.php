@@ -42,7 +42,7 @@
     </li>
     <li class="menu-title">Pengaturan</li>
     <li>
-        <a href="{{ route('m.profil') }}" class=" waves-effect">
+        <a href="{{ route('m.profile') }}" class=" waves-effect">
             <i class="ri-user-3-line"></i>
             <span>Profil</span>
         </a>
