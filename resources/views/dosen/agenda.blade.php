@@ -23,8 +23,8 @@
                                             ditambahkan oleh mahasiswa.
                                         </p>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
+                                    <div class="row align-items-end">
+                                        <div class="col-md">
                                             <div class="mb-2">
                                                 <label for="filter-angkatan">Angkatan</label>
                                                 <select id="filter-angkatan" class="form-select">
@@ -35,7 +35,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md">
                                             <div class="mb-2">
                                                 <label for="filter-prodi">Program Studi</label>
                                                 <select id="filter-prodi" class="form-select">
@@ -46,7 +46,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md">
                                             <div class="mb-2">
                                                 <label for="filter-bimbingan">Bimbingan</label>
                                                 <select id="filter-bimbingan" class="form-select">
@@ -57,7 +57,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md">
                                             <div class="mb-2">
                                                 <label for="filter-status-agenda">Status</label>
                                                 <select id="filter-status-agenda" class="form-select">
@@ -66,6 +66,11 @@
                                                         <option value="{{ $value }}">{{ $label }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <button id="btnReset" class="btn btn-primary px-3">Reset Filter</button>
                                             </div>
                                         </div>
                                     </div>
@@ -100,6 +105,11 @@
             });
 
             $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').on('change', function() {
+                table.DataTable().ajax.reload();
+            });
+
+            $('#btnReset').on('click', function() {
+                $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').val('');
                 table.DataTable().ajax.reload();
             });
         </script>

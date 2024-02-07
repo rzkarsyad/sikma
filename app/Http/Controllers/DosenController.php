@@ -8,6 +8,7 @@ use App\Models\ListJenis;
 use App\Models\Mahasiswa;
 use App\Models\MhsAgenda;
 use App\Models\MhsOrmawa;
+use App\Models\JalurMasuk;
 use App\Models\ListOrmawa;
 use App\Models\ListTingkat;
 use App\Models\MhsKegiatan;
@@ -200,7 +201,12 @@ class DosenController extends Controller
 
     public function listMahasiswa(MahasiswaDataTable $dataTable)
     {
-        return $dataTable->render('dosen.mahasiswa');
+        $angkatan = $this->getAngkatan();
+        $prodi = Prodi::pluck('nama', 'id');
+
+        $jalur = JalurMasuk::pluck('nama', 'id');
+        
+        return $dataTable->render('dosen.mahasiswa', compact('angkatan', 'prodi', 'jalur'));
     }
 
     public function showMhs($id, AktivitasDataTable $dataTable)

@@ -23,7 +23,7 @@
                                             diraih oleh mahasiswa.
                                         </p>
                                     </div>
-                                    <div class="row">
+                                    <div class="row align-items-end">
                                         <div class="col-md-2">
                                             <div class="mb-2">
                                                 <label for="filter-angkatan">Angkatan</label>
@@ -55,6 +55,11 @@
                                                         <option value="{{ $id }}">{{ $nama }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-2">
+                                                <button id="btnReset" class="btn btn-primary px-3">Reset Filter</button>
                                             </div>
                                         </div>
                                     </div>
