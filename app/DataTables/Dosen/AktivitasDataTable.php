@@ -21,8 +21,11 @@ class AktivitasDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->addColumn('actions', function ($item) {
-                return view('dosen.aktivitas.action', compact('item'));
-            })
+                return view('components.lib.action-show', [
+                    'item' => $item,
+                    'routeName' => 'dosen.aktivitas.show',
+                ]);
+            })            
             ->addColumn('url_penyelenggara', function ($item) {
                 $url = $item->url_penyelenggara;
                 if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
@@ -124,11 +127,11 @@ class AktivitasDataTable extends DataTable
                 ->exportable(false)
                 ->printable(false),
             Column::computed('actions')
-            ->title('Detail')
-            ->orderable(false)
-            ->searchable(false)
-            ->exportable(false)
-            ->printable(false),
+                ->title('Detail')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
             Column::make('mahasiswa.nim')->title('NIM'),
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
             Column::make('mahasiswa.prodi.nama')->title('Program Studi'),

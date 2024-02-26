@@ -22,6 +22,12 @@ class MandiriDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('actions', function ($item) {
+                return view('components.lib.action-show', [
+                    'item' => $item,
+                    'routeName' => 'dosen.mandiri.show',
+                ]);
+            })
             ->addColumn('url_penyelenggara', function ($item) {
                 $url = $item->url_penyelenggara;
                 if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
@@ -47,10 +53,10 @@ class MandiriDataTable extends DataTable
                 return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
             })
             ->addColumn('tanggal_mulai', function ($item) {
-                return Carbon::parse($item->tanggal_mulai)->format('d M Y');
+                return Carbon::parse($item->tanggal_mulai)->locale('id')->isoFormat('D MMM YYYY');
             })
             ->addColumn('tanggal_selesai', function ($item) {
-                return Carbon::parse($item->tanggal_selesai)->format('d M Y');
+                return Carbon::parse($item->tanggal_selesai)->locale('id')->isoFormat('D MMM YYYY');
             })
             ->rawColumns(['url_penyelenggara','sertifikat', 'foto', 'undangan']);
     }
@@ -126,6 +132,12 @@ class MandiriDataTable extends DataTable
     {
         $columns = [
             Column::make('DT_RowIndex')->title('No.')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
+            Column::computed('actions')
+                ->title('Detail')
                 ->orderable(false)
                 ->searchable(false)
                 ->exportable(false)

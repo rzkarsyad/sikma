@@ -95,16 +95,24 @@ Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
 Route::middleware(['auth', 'user-access:dosen'])->group(function () {
    
     Route::get('/dosen/dashboard', [HomeController::class, 'dosenHome'])->name('dosen.home');
+    
     Route::get('/dosen/agenda', [DosenController::class, 'agenda'])->name('dosen.agenda');
     Route::get('/dosen/agenda/show/{id}', [DosenController::class, 'showAgenda'])->name('dosen.agenda.show');
     Route::put('/dosen/agenda/update/{id}', [DosenController::class, 'updateAgenda'])->name('dosen.agenda.update');
+    
     Route::get('/dosen/aktivitas', [DosenController::class, 'aktivitas'])->name('dosen.aktivitas');
     Route::get('/dosen/aktivitas/show/{id}', [DosenController::class, 'showAktivitas'])->name('dosen.aktivitas.show');
+    
     Route::get('/dosen/mandiri', [DosenController::class, 'mandiri'])->name('dosen.mandiri');
+    Route::get('/dosen/mandiri/show/{id}', [DosenController::class, 'showMandiri'])->name('dosen.mandiri.show');
+    
     Route::get('/dosen/prestasi', [DosenController::class, 'prestasi'])->name('dosen.prestasi');
+    Route::get('/dosen/prestasi/show/{id}', [DosenController::class, 'showPrestasi'])->name('dosen.prestasi.show');
+    
     Route::get('/dosen/ormawa', [DosenController::class, 'ormawa'])->name('dosen.ormawa');
+    Route::get('/dosen/ormawa/show/{id}', [DosenController::class, 'showOrmawa'])->name('dosen.ormawa.show');
+    
     Route::get('/dosen/mahasiswa', [DosenController::class, 'listMahasiswa'])->name('dosen.mahasiswa');
-
     Route::get('/dosen/mahasiswa/{id}', [DosenController::class, 'showMhs'])->name('dosen.show.mahasiswa');
     
     Route::get('/dosen/profile', [DosenController::class, 'profile'])->name('dosen.profile');

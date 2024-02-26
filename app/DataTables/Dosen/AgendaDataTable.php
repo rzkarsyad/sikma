@@ -21,7 +21,7 @@ class AgendaDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->addColumn('actions', function ($item) {
-                return view('dosen.actions.action-agenda', compact('item'));
+                return view('components.lib.action-agenda', compact('item'));
             })
             ->addColumn('type', function ($item) {
                 $type = [
@@ -55,7 +55,7 @@ class AgendaDataTable extends DataTable
                 return '<span class="badge rounded-pill ' . $badgeClass . '">' . $statusText . '</span>';
             })
             ->addColumn('agenda_date', function ($item) {
-                return Carbon::parse($item->agenda_date)->format('d M Y');
+                return Carbon::parse($item->agenda_date)->locale('id')->isoFormat('D MMM YYYY');
             })
             ->rawColumns(['status']);
     }
@@ -148,6 +148,13 @@ class AgendaDataTable extends DataTable
                 ->exportable(false)
                 ->printable(false),
         ];
+
+        if ($this->user_id) {
+            $columns = array_filter($columns, function ($column) {
+                return !in_array($column->name, ['mahasiswa.nim', 'mahasiswa.nama']);
+            });
+        }
+        return $columns;
     }
 
     protected function filename(): string

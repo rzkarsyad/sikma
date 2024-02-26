@@ -20,13 +20,14 @@
                                 @method('PUT')
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <a href="{{ route('dosen.agenda') }}" class="text-dark">
+                                        <a href="javascript:history.back()" class="text-dark">
                                             <i class="ri-arrow-left-line font-size-24"></i>
                                         </a>
                                         <h4 class="ms-2 my-auto w-100 overflow-hidden" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="{{ $mhsAgenda->topic }}">
                                             {!! strlen($mhsAgenda->topic) > 100 ? substr($mhsAgenda->topic, 0, 100) . '...' : $mhsAgenda->topic !!}
                                         </h4>
+                                        <span class="ms-2 badge rounded-pill {{ $badgeClass }}">{{ $statusText }}</span>
                                     </div>
                                 </div>
 
@@ -51,7 +52,7 @@
                                         <table class="table">
                                             <tr>
                                                 <td style="width: 32%" class="text-primary fw-bold">Tanggal</td>
-                                                <td>{{ $mhsAgenda->agenda_date }}</td>
+                                                <td>{{ $agendaDate }}</td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 32%" class="text-primary fw-bold">Waktu</td>

@@ -15,6 +15,12 @@ class PrestasiDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('actions', function ($item) {
+                return view('components.lib.action-show', [
+                    'item' => $item,
+                    'routeName' => 'dosen.prestasi.show',
+                ]);
+            })
             ->addColumn('url_penyelenggara', function ($item) {
                 $url = $item->url_penyelenggara;
                 if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
@@ -40,10 +46,10 @@ class PrestasiDataTable extends DataTable
                 }
             })
             ->addColumn('tanggal_mulai', function ($item) {
-                return Carbon::parse($item->tanggal_mulai)->format('d M Y');
+                return Carbon::parse($item->tanggal_mulai)->locale('id')->isoFormat('D MMM YYYY');
             })
             ->addColumn('tanggal_selesai', function ($item) {
-                return Carbon::parse($item->tanggal_selesai)->format('d M Y');
+                return Carbon::parse($item->tanggal_selesai)->locale('id')->isoFormat('D MMM YYYY');
             })
             ->rawColumns(['url_penyelenggara','tropi', 'foto', 'undangan']);
     }
@@ -111,10 +117,17 @@ class PrestasiDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')->title('No.')
-            ->orderable(false)
-            ->searchable(false)
-            ->exportable(false),
+            Column::make('DT_RowIndex')
+                ->title('No.')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false),
+            Column::computed('actions')
+                ->title('Detail')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
             Column::make('mahasiswa.nim')->title('NIM'),
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
             Column::make('mahasiswa.prodi.nama')->title('Program Studi'),
@@ -131,6 +144,13 @@ class PrestasiDataTable extends DataTable
             Column::computed('foto')->title('Foto'),
             Column::computed('undangan')->title('Surat Undangan'),
         ];
+
+        if ($this->user_id) {
+            $columns = array_filter($columns, function ($column) {
+                return !in_array($column->name, ['mahasiswa.nim', 'mahasiswa.nama']);
+            });
+        }
+        return $columns;
     }
 
     protected function filename(): string

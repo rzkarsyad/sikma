@@ -124,8 +124,8 @@
         });
 
         $('#btnReset').on('click', function() {
-                $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').val('');
-                table.DataTable().ajax.reload();
-            });
+            $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').val('');
+            table.DataTable().ajax.reload();
+        });
     </script>
 @endpush

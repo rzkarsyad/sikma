@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Prodi;
@@ -132,16 +133,39 @@ class DosenController extends Controller
             2 => 'Bimbingan Pembina Ormawa',
         ];
 
+        $status = [
+            1 => 'Belum diterima',
+            2 => 'Diterima',
+        ];
+
+        $statusText = $status[$mhsAgenda->status] ?? $mhsAgenda->status;
+        $badgeClass = '';
+        switch ($mhsAgenda->status) {
+            case 1:
+                $badgeClass = 'text-bg-danger';
+                break;
+            case 2:
+                $badgeClass = 'text-bg-success';
+                break;
+            default:
+                $badgeClass = 'text-bg-secondary';
+                break;
+        }
+
         $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
         
         $mahasiswa = $mhsAgenda->mahasiswa;
         $dosen = $mhsAgenda->dosen;
+        $agendaDate = Carbon::createFromFormat('Y-m-d', $mhsAgenda->agenda_date)->locale('id')->isoFormat('D MMMM YYYY');
 
-        return view('dosen.show-agenda')->with([
+        return view('dosen.agenda-show')->with([
             'mhsAgenda' => $mhsAgenda,
             'type' => $type,
             'mahasiswa' => $mahasiswa,
             'dosen' => $dosen,
+            'statusText' => $statusText,
+            'badgeClass' => $badgeClass,
+            'agendaDate' => $agendaDate,
         ]);
     }
 
@@ -179,7 +203,7 @@ class DosenController extends Controller
         if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
             $url = 'http://' . $url;
         }
-        return view('dosen.aktivitas.show', compact('mhsAktivitas', 'mahasiswa', 'url'));
+        return view('dosen.aktivitas-show', compact('mhsAktivitas', 'mahasiswa', 'url'));
     }
 
     public function mandiri(MandiriDataTable $dataTable)
@@ -193,6 +217,21 @@ class DosenController extends Controller
         return $dataTable->render('dosen.mandiri', compact('angkatan', 'prodi', 'tingkat', 'jenis'));
     }
 
+    public function showMandiri($id)
+    {
+        $mhsKegiatan = MhsKegiatan::findOrFail($id);
+        $mahasiswa = $mhsKegiatan->mahasiswa;
+        $url = $mhsKegiatan->url_penyelenggara;
+        if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
+            $url = 'http://' . $url;
+        }
+
+        $tgl_mulai = Carbon::createFromFormat('Y-m-d', $mhsKegiatan->tanggal_mulai)->locale('id')->isoFormat('D MMMM YYYY');
+        $tgl_selesai = Carbon::createFromFormat('Y-m-d', $mhsKegiatan->tanggal_selesai)->locale('id')->isoFormat('D MMMM YYYY');
+
+        return view('dosen.mandiri-show', compact('mhsKegiatan', 'mahasiswa', 'url', 'tgl_mulai', 'tgl_selesai'));
+    }
+
     public function prestasi(PrestasiDataTable $dataTable)
     {
         $angkatan = $this->getAngkatan();
@@ -203,6 +242,21 @@ class DosenController extends Controller
         return $dataTable->render('dosen.prestasi', compact('angkatan', 'prodi', 'tingkat'));
     }
 
+    public function showPrestasi($id)
+    {
+        $mhsPrestasi = MhsPrestasi::findOrFail($id);
+        $mahasiswa = $mhsPrestasi->mahasiswa;
+        $url = $mhsPrestasi->url_penyelenggara;
+        if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
+            $url = 'http://' . $url;
+        }
+
+        $tgl_mulai = Carbon::createFromFormat('Y-m-d', $mhsPrestasi->tanggal_mulai)->locale('id')->isoFormat('D MMMM YYYY');
+        $tgl_selesai = Carbon::createFromFormat('Y-m-d', $mhsPrestasi->tanggal_selesai)->locale('id')->isoFormat('D MMMM YYYY');
+
+        return view('dosen.prestasi-show', compact('mhsPrestasi', 'mahasiswa', 'url', 'tgl_mulai', 'tgl_selesai'));
+    }
+
     public function ormawa(OrmawaDataTable $dataTable)
     {
         $angkatan = $this->getAngkatan();
@@ -211,6 +265,17 @@ class DosenController extends Controller
         $ormawa = ListOrmawa::pluck('nama', 'id');
         
         return $dataTable->render('dosen.ormawa', compact('angkatan', 'prodi', 'ormawa'));
+    }
+
+    public function showOrmawa($id)
+    {
+        $mhsOrmawa = MhsOrmawa::findOrFail($id);
+        $mahasiswa = $mhsOrmawa->mahasiswa;
+        $url = $mhsOrmawa->url_media_ormawa;
+        if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
+            $url = 'http://' . $url;
+        }
+        return view('dosen.ormawa-show', compact('mhsOrmawa', 'mahasiswa', 'url'));
     }
 
     public function listMahasiswa(MahasiswaDataTable $dataTable)
