@@ -21,7 +21,7 @@
                                 @method('PUT')
                                 <div class="container">
                                     <div class="row gx-3 gy-2">
-                                        <div class="col-md-6">
+                                        <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="list_kegiatan">Nama Kegiatan</label>
                                                 <select name="id_aktivitas"
@@ -52,30 +52,8 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="foto" class="form-label">Foto</label>
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            @if ($mhsAktivitas->foto)
-                                                                <img src="{{ asset('storage/' . $mhsAktivitas->foto) }}"
-                                                                    class="img-thumbnail" alt=""
-                                                                    style="width: 300px">
-                                                            @else
-                                                                <span class="badge badge-danger">Belum ada foto</span>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <input name="foto"
-                                                    class="form-control @error('foto') is-invalid @enderror" type="file"
-                                                    id="foto" accept="image/*">
-                                                @error('foto')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="url_penyelenggara">URL Penyelenggara</label>
                                                 <input name="url_penyelenggara" type="text"
@@ -102,31 +80,47 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
+                                        </div>
+                                    </div>
+                                    <div class="row gx-3 gy-2 mb-3">
+                                        <div class="col-md">
+                                            <div class="mb-3">
+                                                <label for="foto" class="form-label">Foto</label>
+                                                <div class="mb-3">
+                                                    @if ($mhsAktivitas->foto)
+                                                        @include('components.lib.img-thumbnail', [
+                                                            'thumb_path' => $mhsAktivitas->foto,
+                                                        ])
+                                                    @else
+                                                        <span class="badge badge-danger">Belum ada foto</span>
+                                                    @endif
+                                                </div>
+                                                <input name="foto"
+                                                    class="form-control @error('foto') is-invalid @enderror" type="file"
+                                                    id="foto" accept="image/*">
+                                                @error('foto')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="sertifikat" class="form-label">Sertifikat</label>
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            @if ($mhsAktivitas->sertifikat)
-                                                                @if (pathinfo($mhsAktivitas->sertifikat, PATHINFO_EXTENSION) == 'pdf')
-                                                                    <a href="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
-                                                                        class="btn btn-sm btn-primary mb-2"
-                                                                        target="_blank">Lihat
-                                                                        Berkas</a>
-                                                                @else
-                                                                    <img src="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
-                                                                        class="rounded image-clickable"
-                                                                        data-bs-toggle="modal" data-bs-target="#myModal"
-                                                                        data-image="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
-                                                                        style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">
-                                                                @endif
-                                                            @else
-                                                                <span class="badge badge-danger">Belum ada sertifikat</span>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                                <div class="mb-3">
+                                                    @if ($mhsAktivitas->sertifikat)
+                                                        @if (pathinfo($mhsAktivitas->sertifikat, PATHINFO_EXTENSION) == 'pdf')
+                                                            <a href="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
+                                                                class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
+                                                                Berkas</a>
+                                                        @else
+                                                            @include('components.lib.img-thumbnail', [
+                                                                'thumb_path' => $mhsAktivitas->sertifikat,
+                                                            ])
+                                                        @endif
+                                                    @else
+                                                        <span class="badge badge-danger">Belum ada sertifikat</span>
+                                                    @endif
+                                                </div>
                                                 <input name="sertifikat"
                                                     class="form-control @error('sertifikat') is-invalid @enderror"
                                                     type="file" id="sertifikat">
@@ -136,17 +130,7 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="mb-3">
-                                                <a href="{{ route('m.aktivitas') }}"
-                                                    class="btn btn-outline-primary px-3">Batal</a>
-                                                <button class="btn btn-primary ms-2 waves-effect px-3"
-                                                    type="submit">Simpan</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('components.lib.action-modal')
                                 </div>
                             </form>
                         </div>
@@ -157,4 +141,5 @@
         </div>
 
     </div>
+    @include('components.lib.modal-img')
 @endsection
