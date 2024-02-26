@@ -99,11 +99,9 @@
                                                         <a href="{{ asset('storage/' . $mhsOrmawa->sk) }}"
                                                             class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
                                                     @else
-                                                        <img src="{{ asset('storage/' . $mhsOrmawa->sk) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $mhsOrmawa->sk) }}"
-                                                            style="width: 120px; height: 64px; cursor: pointer; object-fit: cover;">
+                                                        @include('components.lib.img-thumbnail', [
+                                                            'thumb_path' => $mhsOrmawa->sk,
+                                                        ])
                                                     @endif
                                                 </td>
                                             </tr>

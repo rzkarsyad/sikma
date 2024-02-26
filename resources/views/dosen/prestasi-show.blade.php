@@ -110,23 +110,19 @@
                                                         <a href="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
                                                             class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
                                                     @else
-                                                        <img src="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
-                                                            style="width: 120px; height: 64px; cursor: pointer; object-fit: cover;">
+                                                        @include('components.lib.img-thumbnail', [
+                                                            'thumb_path' => $mhsPrestasi->tropi,
+                                                        ])
                                                     @endif
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="align-middle text-primary"><strong>Foto</strong></td>
                                                 <td class="align-middle">:</td>
-                                                <td class="align-middle"><img
-                                                        src="{{ asset('storage/' . $mhsPrestasi->foto) }}"
-                                                        class="rounded image-clickable" data-bs-toggle="modal"
-                                                        data-bs-target="#myModal"
-                                                        data-image="{{ asset('storage/' . $mhsPrestasi->foto) }}"
-                                                        style="width: 120px; height: 64px; cursor: pointer; object-fit: cover;">
+                                                <td class="align-middle">
+                                                    @include('components.lib.img-thumbnail', [
+                                                        'thumb_path' => $mhsPrestasi->foto,
+                                                    ])
                                                 </td>
                                             </tr>
                                             <tr>
@@ -137,11 +133,9 @@
                                                         <a href="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
                                                             class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
                                                     @else
-                                                        <img src="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
-                                                            style="width: 120px; height: 64px; cursor: pointer; object-fit: cover;">
+                                                        @include('components.lib.img-thumbnail', [
+                                                            'thumb_path' => $mhsPrestasi->undangan,
+                                                        ])
                                                     @endif
                                                 </td>
                                             </tr>

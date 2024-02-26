@@ -133,10 +133,10 @@ class AgendaDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
-                Column::make('mahasiswa.nim')->title('NIM'),
-                Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
-                Column::make('mahasiswa.prodi.nama')->title('Program Studi'),
-                Column::make('mahasiswa.tahun_masuk')->title('Angkatan'),
+            Column::make('mahasiswa.nim')->title('NIM'),
+            Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
+            Column::make('mahasiswa.prodi.nama')->title('Program Studi'),
+            Column::make('mahasiswa.tahun_masuk')->title('Angkatan'),
             Column::make('type')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
             Column::make('agenda_date')->title('Tanggal'),

@@ -14,8 +14,12 @@ class MhsAktivitasDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->addColumn('actions', function ($item) {
-                return view('mahasiswa.actions.mhs-aktivitas', compact('item'));
-            })
+                return view('components.lib.action-mhs', [
+                    'item' => $item,
+                    'routeEdit' => 'm.aktivitas-edit',
+                    'routeDelete' => 'm.aktivitas-delete',
+                ]);
+            })            
             ->editColumn('sertifikat', function ($item) {
                 if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->sertifikat) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';

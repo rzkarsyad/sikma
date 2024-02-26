@@ -203,6 +203,7 @@ class DosenController extends Controller
         if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
             $url = 'http://' . $url;
         }
+        
         return view('dosen.aktivitas-show', compact('mhsAktivitas', 'mahasiswa', 'url'));
     }
 

@@ -110,23 +110,19 @@
                                                         <a href="{{ asset('storage/' . $mhsKegiatan->sertifikat) }}"
                                                             class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
                                                     @else
-                                                        <img src="{{ asset('storage/' . $mhsKegiatan->sertifikat) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $mhsKegiatan->sertifikat) }}"
-                                                            style="width: 120px; height: 64px; cursor: pointer; object-fit: cover;">
+                                                        @include('components.lib.img-thumbnail', [
+                                                            'thumb_path' => $mhsKegiatan->sertifikat,
+                                                        ])
                                                     @endif
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="align-middle text-primary"><strong>Foto</strong></td>
                                                 <td class="align-middle">:</td>
-                                                <td class="align-middle"><img
-                                                        src="{{ asset('storage/' . $mhsKegiatan->foto) }}"
-                                                        class="rounded image-clickable" data-bs-toggle="modal"
-                                                        data-bs-target="#myModal"
-                                                        data-image="{{ asset('storage/' . $mhsKegiatan->foto) }}"
-                                                        style="width: 120px; height: 64px; cursor: pointer; object-fit: cover;">
+                                                <td class="align-middle">
+                                                    @include('components.lib.img-thumbnail', [
+                                                        'thumb_path' => $mhsKegiatan->foto,
+                                                    ])
                                                 </td>
                                             </tr>
                                             <tr>
@@ -137,11 +133,9 @@
                                                         <a href="{{ asset('storage/' . $mhsKegiatan->undangan) }}"
                                                             class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
                                                     @else
-                                                        <img src="{{ asset('storage/' . $mhsKegiatan->undangan) }}"
-                                                            class="rounded image-clickable" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal"
-                                                            data-image="{{ asset('storage/' . $mhsKegiatan->undangan) }}"
-                                                            style="width: 120px; height: 64px; cursor: pointer; object-fit: cover;">
+                                                        @include('components.lib.img-thumbnail', [
+                                                            'thumb_path' => $mhsKegiatan->undangan,
+                                                        ])
                                                     @endif
                                                 </td>
                                             </tr>

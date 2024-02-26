@@ -15,7 +15,11 @@ class MhsPrestasiDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->addColumn('actions', function ($item) {
-                return view('mahasiswa.actions.mhs-prestasi', compact('item'));
+                return view('components.lib.action-mhs', [
+                    'item' => $item,
+                    'routeEdit' => 'm.prestasi-edit',
+                    'routeDelete' => 'm.prestasi-delete',
+                ]);
             })
             ->editColumn('tropi', function ($item) {
                 if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf') {
