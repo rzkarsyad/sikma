@@ -15,6 +15,9 @@ class MahasiswaDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->setRowId('id')
+            ->addColumn('action', function ($item) {
+                return view('components.lib.action-mhs-admin', ['item' => $item]);
+            })
             ->addColumn('actions', function ($item) {
                 return view('mahasiswa.datatables_actions', compact('item'));
             })
@@ -34,7 +37,7 @@ class MahasiswaDataTable extends DataTable
             'mahasiswa.id_prodi as prodi_id',
         ])
         ->addSelect(\DB::raw('CASE WHEN mahasiswa.jns_kelamin = "P" THEN "Pria" ELSE "Wanita" END as formatted_jenis_kelamin'));
-        
+
         $angkatan = request('angkatan');
         $prodi = request('prodi');
         $jalur = request('jalur');
@@ -86,7 +89,7 @@ class MahasiswaDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false),
         ];
-    
+
         if (Auth::user()->type == 'dosen') {
             $columns[] = Column::computed('actions')
                 ->title('Detail')
@@ -95,7 +98,7 @@ class MahasiswaDataTable extends DataTable
                 ->exportable(false)
                 ->printable(false);
         }
-    
+
         $columns[] = Column::make('nama')->title('Nama Lengkap');
         $columns[] = Column::make('prodi.nama')->title('Program Studi');
         $columns[] = Column::make('nim')->title('NIM');
@@ -107,9 +110,18 @@ class MahasiswaDataTable extends DataTable
         $columns[] = Column::make('no_hp')->title('Nomor HP');
         $columns[] = Column::make('email')->title('Email');
         $columns[] = Column::make('alamat')->title('Alamat');
-    
+
+        if (Auth::user()->type == 'admin') {
+            $columns[] = Column::computed('action')
+                ->title('Aksi')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false);
+        }
+
         return $columns;
-    }    
+    }
 
     protected function filename(): string
     {

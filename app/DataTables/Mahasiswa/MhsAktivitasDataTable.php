@@ -19,14 +19,14 @@ class MhsAktivitasDataTable extends DataTable
                     'routeEdit' => 'm.aktivitas-edit',
                     'routeDelete' => 'm.aktivitas-delete',
                 ]);
-            })            
+            })
             ->editColumn('sertifikat', function ($item) {
                 if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->sertifikat) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
                     return '<img src="' . asset('storage/' . $item->sertifikat) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
                 }
-            })               
+            })
             ->editColumn('foto', function ($item) {
                 return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
             })

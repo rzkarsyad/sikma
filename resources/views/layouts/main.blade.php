@@ -191,6 +191,26 @@
             });
         }
     </script>
+    <script>
+        function resetConfirmation(button) {
+            Swal.fire({
+                title: 'Apakah Anda yakin ingin menyetel ulang kata sandi?',
+                text: 'Tindakan ini tidak bisa dikembalikan!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, reset!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form
+                    button.form.submit();
+                }
+            });
+        }
+    </script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

@@ -42,7 +42,7 @@ Auth::routes(['register' => false]);
 
 // Mahasiswa Route List
 Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
-   
+
     Route::get('/dashboard', [MahasiswaController::class, 'index'])->name('m.dashboard');
 
     Route::get('/agenda', [MhsAgendaController::class, 'index'])->name('m.agenda');
@@ -67,7 +67,7 @@ Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
     Route::get('/kegiatan-mandiri/edit/{id}', [MhsKegiatanController::class, 'edit'])->name('m.mandiri-edit');
     Route::put('/kegiatan-mandiri/update/{id}', [MhsKegiatanController::class, 'update'])->name('m.mandiri-update');
     Route::delete('/kegiatan-mandiri/delete/{id}', [MhsKegiatanController::class, 'destroy'])->name('m.mandiri-delete');
-    
+
     Route::get('/prestasi', [MhsPrestasiController::class, 'index'])->name('m.prestasi');
     Route::get('/prestasi/show/{id}', [MhsPrestasiController::class, 'show'])->name('m.prestasi-show');
     Route::get('/prestasi/create', [MhsPrestasiController::class, 'create'])->name('m.prestasi-create');
@@ -90,31 +90,31 @@ Route::middleware(['auth', 'user-access:mahasiswa'])->group(function () {
     Route::post('/ubah-kontak-darurat', [MahasiswaController::class, 'ubahKontakDarurat'])->name('ubah.kontak.darurat');
 
 });
-   
+
 // Dosen Routes List
 Route::middleware(['auth', 'user-access:dosen'])->group(function () {
-   
+
     Route::get('/dosen/dashboard', [HomeController::class, 'dosenHome'])->name('dosen.home');
-    
+
     Route::get('/dosen/agenda', [DosenController::class, 'agenda'])->name('dosen.agenda');
     Route::get('/dosen/agenda/show/{id}', [DosenController::class, 'showAgenda'])->name('dosen.agenda.show');
     Route::put('/dosen/agenda/update/{id}', [DosenController::class, 'updateAgenda'])->name('dosen.agenda.update');
-    
+
     Route::get('/dosen/aktivitas', [DosenController::class, 'aktivitas'])->name('dosen.aktivitas');
     Route::get('/dosen/aktivitas/show/{id}', [DosenController::class, 'showAktivitas'])->name('dosen.aktivitas.show');
-    
+
     Route::get('/dosen/mandiri', [DosenController::class, 'mandiri'])->name('dosen.mandiri');
     Route::get('/dosen/mandiri/show/{id}', [DosenController::class, 'showMandiri'])->name('dosen.mandiri.show');
-    
+
     Route::get('/dosen/prestasi', [DosenController::class, 'prestasi'])->name('dosen.prestasi');
     Route::get('/dosen/prestasi/show/{id}', [DosenController::class, 'showPrestasi'])->name('dosen.prestasi.show');
-    
+
     Route::get('/dosen/ormawa', [DosenController::class, 'ormawa'])->name('dosen.ormawa');
     Route::get('/dosen/ormawa/show/{id}', [DosenController::class, 'showOrmawa'])->name('dosen.ormawa.show');
-    
+
     Route::get('/dosen/mahasiswa', [DosenController::class, 'listMahasiswa'])->name('dosen.mahasiswa');
     Route::get('/dosen/mahasiswa/{id}', [DosenController::class, 'showMhs'])->name('dosen.show.mahasiswa');
-    
+
     Route::get('/dosen/profile', [DosenController::class, 'profile'])->name('dosen.profile');
     Route::post('/dosen/change-password', [DosenController::class, 'changePassword'])->name('dosen.change.password');
     Route::post('/dosen/change-contact', [DosenController::class, 'changeContact'])->name('dosen.contact.update');
@@ -123,19 +123,23 @@ Route::middleware(['auth', 'user-access:dosen'])->group(function () {
 
 // Admin Route List
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
-  
+
     Route::get('/admin/dashboard', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::get('/admin/kegiatan', [AdminController::class, 'kegiatan'])->name('admin.kegiatan');
     Route::get('/admin/ormawa', [AdminController::class, 'ormawa'])->name('admin.ormawa');
     Route::get('/admin/jalur-masuk', [AdminController::class, 'jalurMasuk'])->name('admin.jalur-masuk');
     Route::get('/admin/prodi', [AdminController::class, 'prodi'])->name('admin.prodi');
     Route::get('/admin/fakultas', [AdminController::class, 'fakultas'])->name('admin.fakultas');
+
     Route::get('/admin/mahasiswa', [AdminController::class, 'mahasiswa'])->name('admin.mahasiswa');
     Route::get('/admin/mahasiswa/export', [AdminController::class, 'mahasiswaExport'])->name('admin.mahasiswa.export');
     Route::post('/admin/mahasiswa/import', [AdminController::class, 'mahasiswaImport'])->name('admin.mahasiswa.import');
     Route::get('/admin/mahasiswa/generate', [AdminController::class, 'generateMhs'])->name('admin.mahasiswa.generate');
+
     Route::get('/admin/dosen', [AdminController::class, 'dosen'])->name('admin.dosen');
     Route::get('/admin/dosen/export', [AdminController::class, 'dosenExport'])->name('admin.dosen.export');
     Route::post('/admin/dosen/import', [AdminController::class, 'dosenImport'])->name('admin.dosen.import');
     Route::get('/admin/dosen/generate', [AdminController::class, 'generateDosen'])->name('admin.dosen.generate');
+
+    Route::post('/admin/user/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('admin.reset.password');
 });

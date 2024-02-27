@@ -11,6 +11,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
 
 class DosenDataTable extends DataTable
 {
@@ -24,7 +25,10 @@ class DosenDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->setRowId('id');
+            ->setRowId('id')
+            ->addColumn('action', function ($item) {
+                return view('components.lib.action-mhs-admin', ['item' => $item]);
+            });
     }
 
     /**
@@ -82,7 +86,7 @@ class DosenDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
+        $columns = [
             Column::make('DT_RowIndex')->title('No.')
                 ->orderable(false)
                 ->searchable(false)
@@ -92,20 +96,33 @@ class DosenDataTable extends DataTable
             Column::make('nama')->title('Nama Dosen'),
             Column::make('email')->title('Email'),
             Column::make('institusi')->title('Institusi'),
-            
+
             Column::make('id_prodi')->title('Program Studi')
-            ->data('prodi.nama')
-            ->orderable(true),
+                ->data('prodi.nama')
+                ->orderable(true),
 
             Column::computed('formatted_jenis_kelamin')
-            ->title('Jenis Kelamin')
-            ->data('formatted_jenis_kelamin')
-            ->orderable(true),
+                ->title('Jenis Kelamin')
+                ->data('formatted_jenis_kelamin')
+                ->orderable(true),
 
             Column::make('jabatan')->title('Jabatan'),
             Column::make('no_hp')->title('Nomor HP'),
         ];
-    }
+
+        // Tambahkan kolom aksi jika user adalah admin
+        if (Auth::user()->type == 'admin') {
+            $columns[] = Column::computed('action')
+                ->title('Aksi')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false);
+        }
+
+        return $columns;
+}
+
 
     /**
      * Get filename for export.
