@@ -18,10 +18,9 @@
                             <form action="{{ route('m.aktivitas-store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
-
                                 <div class="container">
                                     <div class="row gx-3 gy-2">
-                                        <div class="col-md-6">
+                                        <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="list_kegiatan">Nama Kegiatan</label>
                                                 <select name="id_aktivitas"
@@ -52,17 +51,8 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="foto" class="form-label">Foto</label>
-                                                <input name="foto"
-                                                    class="form-control @error('foto') is-invalid @enderror" type="file"
-                                                    id="foto" accept="image/*">
-                                                @error('foto')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="url_penyelenggara">URL Penyelenggara</label>
                                                 <input name="url_penyelenggara" type="text"
@@ -89,7 +79,21 @@
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
+                                        </div>
+                                    </div>
+                                    <div class="row gx-3 gy-2 mb-3">
+                                        <div class="col-md">
+                                            <div class="mb-3">
+                                                <label for="foto" class="form-label">Foto</label>
+                                                <input name="foto"
+                                                    class="form-control @error('foto') is-invalid @enderror" type="file"
+                                                    id="foto" accept="image/*">
+                                                @error('foto')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="sertifikat" class="form-label">Sertifikat</label>
                                                 <input name="sertifikat"
@@ -101,17 +105,7 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="mb-3">
-                                                <a href="{{ route('m.aktivitas') }}"
-                                                    class="btn btn-outline-primary px-3">Batal</a>
-                                                <button class="btn btn-primary ms-2 waves-effect px-3"
-                                                    type="submit">Simpan</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('components.lib.action-modal')
                                 </div>
                             </form>
                         </div>

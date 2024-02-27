@@ -13,6 +13,13 @@
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0">Agenda Mahasiswa</h4>
                     </div>
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <div class="row">
                         <div class="col-12">
                             <div class="card">

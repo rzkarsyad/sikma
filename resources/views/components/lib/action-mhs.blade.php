@@ -4,7 +4,7 @@
     </a>
     <ul class="dropdown-menu dropdown-menu-end">
         <li>
-            <form id="editForm" action="{{ route('m.aktivitas-edit', ['id' => $item->id]) }}" method="GET"
+            <form id="editForm" action="{{ route($routeEdit, ['id' => $item->id]) }}" method="GET"
                 style="display: inline;">
                 <button type="submit" class="btn dropdown-item">
                     <i class="ri-pencil-line font-size-16 me-2"></i>Edit
@@ -12,7 +12,7 @@
             </form>
         </li>
         <li>
-            <form id="deleteForm" action="{{ route('m.aktivitas-delete', ['id' => $item->id]) }}" method="POST"
+            <form id="deleteForm" action="{{ route($routeDelete, ['id' => $item->id]) }}" method="POST"
                 style="display: inline;">
                 @csrf
                 @method('DELETE')

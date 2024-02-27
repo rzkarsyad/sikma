@@ -43,7 +43,7 @@ class MahasiswaController extends Controller
         $months = $this->monthsIND();
         $tanggalLahir = Auth::user()->mahasiswa->tgl_lahir;
         $tglLahir = date('d', strtotime($tanggalLahir)).' '.$months[date('n', strtotime($tanggalLahir))].' '.date('Y', strtotime($tanggalLahir));
-        
+
         return view('mahasiswa.change-profile', compact('tglLahir'));
     }
 
@@ -134,7 +134,7 @@ class MahasiswaController extends Controller
         $kPribadi->mahasiswa->alamat = $request->input('alamat');
 
         $kPribadi->mahasiswa->save();
-        
+
         return redirect()->back()->with('successUpdatePribadi', 'Kontak pribadi berhasil diupdate');
     }
 
@@ -146,7 +146,7 @@ class MahasiswaController extends Controller
             'hubungan_ortu' => 'required',
             'no_hp_ortu' => 'nullable',
         ]);
-        
+
         $kDarurat = User::find(Auth::id());
 
         $kDarurat->mahasiswa->nama_ortu = $request->input('nama_ortu');
@@ -154,7 +154,7 @@ class MahasiswaController extends Controller
         $kDarurat->mahasiswa->no_hp_ortu = $request->input('no_hp_ortu');
 
         $kDarurat->mahasiswa->save();
-        
+
         return redirect()->back()->with('successUpdateDarurat', 'Kontak darurat berhasil diupdate');
     }
 
@@ -171,12 +171,12 @@ class MahasiswaController extends Controller
         $current = $user->password;
 
         if (!Hash::check($request->old_password, $current)) {
-            return back()->with('error', 'Current password is incorrect.');
+            return back()->with('error', 'Kata sandi saat ini salah.');
         }
 
         $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return redirect()->back()->with('success', 'Password berhasil diubah.');
+        return redirect()->back()->with('success', 'Kata sandi berhasil diubah.');
     }
 }

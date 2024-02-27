@@ -18,7 +18,11 @@ class MhsOrmawaDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->addColumn('actions', function ($item) {
-                return view('mahasiswa.actions.mhs-ormawa', compact('item'));
+                return view('components.lib.action-mhs', [
+                    'item' => $item,
+                    'routeEdit' => 'm.ormawa-edit',
+                    'routeDelete' => 'm.ormawa-delete',
+                ]);
             })
             ->editColumn('sk', function ($item) {
                 if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf') {

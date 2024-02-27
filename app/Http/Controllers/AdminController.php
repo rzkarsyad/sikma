@@ -112,7 +112,7 @@ class AdminController extends Controller
     public function fakultas(){
         return view('admin.fakultas');
     }
-    
+
     public function mahasiswa(MahasiswaDataTable $dataTable)
     {
         return $dataTable->render('admin.mahasiswa');
@@ -144,7 +144,7 @@ class AdminController extends Controller
     }
 
     public function generateMhs(){
-    
+
     $mahasiswa = Mahasiswa::all();
 
     foreach ($mahasiswa as $mhs) {
@@ -228,5 +228,24 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('success', 'Data dosen berhasil digenerate user.');;
+    }
+
+    public function resetPassword($id) {
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Mahasiswa tidak ditemukan.');
+        }
+
+        $password = $user->nim_nidn;
+
+        $hashedPassword = Hash::make($password);
+
+        $user->password = $hashedPassword;
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Kata sandi berhasil disetel ulang.');
     }
 }

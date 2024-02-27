@@ -22,6 +22,19 @@ class MandiriDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('actions', function ($item) {
+                return view('components.lib.action-show', [
+                    'item' => $item,
+                    'routeName' => 'dosen.mandiri.show',
+                ]);
+            })
+            ->addColumn('url_penyelenggara', function ($item) {
+                $url = $item->url_penyelenggara;
+                if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                    $url = "http://" . $url;
+                }
+                return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
+            })
             ->editColumn('sertifikat', function ($item) {
                 if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->sertifikat) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
@@ -40,12 +53,12 @@ class MandiriDataTable extends DataTable
                 return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
             })
             ->addColumn('tanggal_mulai', function ($item) {
-                return Carbon::parse($item->tanggal_mulai)->format('d M Y');
+                return Carbon::parse($item->tanggal_mulai)->locale('id')->isoFormat('D MMM YYYY');
             })
             ->addColumn('tanggal_selesai', function ($item) {
-                return Carbon::parse($item->tanggal_selesai)->format('d M Y');
+                return Carbon::parse($item->tanggal_selesai)->locale('id')->isoFormat('D MMM YYYY');
             })
-            ->rawColumns(['sertifikat', 'foto', 'undangan']);
+            ->rawColumns(['url_penyelenggara','sertifikat', 'foto', 'undangan']);
     }
 
     public function query(MhsKegiatan $model)
@@ -123,6 +136,12 @@ class MandiriDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
+            Column::computed('actions')
+                ->title('Detail')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
             Column::make('mahasiswa.nim')->title('NIM'),
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
             Column::make('mahasiswa.prodi.nama')->title('Program Studi'),
@@ -134,7 +153,6 @@ class MandiriDataTable extends DataTable
             Column::make('jumlah')->title('Jumlah Peserta'),
             Column::make('tanggal_mulai')->title('Tanggal Mulai'),
             Column::make('tanggal_selesai')->title('Tanggal Selesai'),
-            Column::make('url_penyelenggara')->title('URL Penyelenggara'),
             Column::computed('sertifikat')
                 ->title('Sertifikat')
                 ->orderable(false)

@@ -20,7 +20,7 @@ class MhsAgendaDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->addColumn('actions', function ($item) {
-                return view('mahasiswa.actions.mhs-agenda', compact('item'));
+                return view('components.lib.action-mhsAgenda', compact('item'));
             })
             ->addColumn('type', function ($item) {
                 $type = [

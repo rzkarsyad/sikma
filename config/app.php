@@ -187,6 +187,7 @@ return [
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Laravolt\Avatar\ServiceProvider::class,
 
         /*
          * Application Service Providers...

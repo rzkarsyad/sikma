@@ -17,6 +17,19 @@ class OrmawaDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('actions', function ($item) {
+                return view('components.lib.action-show', [
+                    'item' => $item,
+                    'routeName' => 'dosen.ormawa.show',
+                ]);
+            })
+            ->addColumn('url_media_ormawa', function ($item) {
+                $url = $item->url_media_ormawa;
+                if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                    $url = "http://" . $url;
+                }
+                return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
+            })
             ->editColumn('sk', function ($item) {
                 if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->sk) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
@@ -24,7 +37,7 @@ class OrmawaDataTable extends DataTable
                     return '<img src="' . asset('storage/' . $item->sk) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sk) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
                 }
             })
-            ->rawColumns(['sk']);
+            ->rawColumns(['url_media_ormawa','sk']);
     }
 
     public function query(MhsOrmawa $model)
@@ -95,6 +108,12 @@ class OrmawaDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
+            Column::computed('actions')
+                ->title('Detail')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false),
             Column::make('mahasiswa.nim')->title('NIM'),
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
             Column::make('mahasiswa.prodi.nama')->title('Program Studi'),
@@ -106,6 +125,13 @@ class OrmawaDataTable extends DataTable
             Column::make('url_media_ormawa')->title('URL Sosial Media Ormawa'),
             Column::computed('sk')->title('SK Kepengurusan'),
         ];
+        
+        if ($this->user_id) {
+            $columns = array_filter($columns, function ($column) {
+                return !in_array($column->name, ['mahasiswa.nim', 'mahasiswa.nama']);
+            });
+        }
+        return $columns;
     }
 
     protected function filename(): string

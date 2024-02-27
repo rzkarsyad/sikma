@@ -10,12 +10,14 @@
             </a>
         </li>
         <li>
-            <form id="editForm" action="{{ route('m.agenda-edit', ['id' => $item->id]) }}" method="GET"
-                style="display: inline;">
-                <button type="submit" class="btn dropdown-item">
-                    <i class="ri-pencil-line font-size-16 me-2"></i>Edit
-                </button>
-            </form>
+            @if ($item->status != 2)
+                <form id="editForm" action="{{ route('m.agenda-edit', ['id' => $item->id]) }}" method="GET"
+                    style="display: inline;">
+                    <button type="submit" class="btn dropdown-item">
+                        <i class="ri-pencil-line font-size-16 me-2"></i>Edit
+                    </button>
+                </form>
+            @endif
         </li>
         <li>
             <form id="deleteForm" action="{{ route('m.agenda-delete', ['id' => $item->id]) }}" method="POST"

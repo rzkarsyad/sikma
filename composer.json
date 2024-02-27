@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "laravelcollective/html": "^6.4",
+        "laravolt/avatar": "^5.0",
         "livewire/livewire": "^2.11",
         "maatwebsite/excel": "^3.1",
         "nesbot/carbon": "^2.72",

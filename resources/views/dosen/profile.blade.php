@@ -22,8 +22,8 @@
                             <div class="card shadow-none">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('assets/images/users/avatar.jpeg') }}" alt="foto profil"
-                                            class="rounded-circle avatar">
+                                        <img src="{{ Avatar::create(Auth::user()->dosen->nama)->setDimension(72)->setFontSize(32)->toBase64() }}"
+                                            alt="Avatar">
                                         <div class="col ms-2">
                                             <div class="col ms-2">
                                                 <span class="h4">{{ $dosen->nama }}</span>
