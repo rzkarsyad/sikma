@@ -114,17 +114,17 @@
         table.on('preXhr.dt', function(e, settings, data) {
             data.angkatan = $('#filter-angkatan').val();
             data.prodi = $('#filter-prodi').val();
-            data.kegiatan = $('#filter-kegiatan').val();
             data.kategori = $('#filter-kategori').val();
             data.tahun = $('#filter-tahun').val();
+            data.kegiatan = $('#filter-kegiatan').val();
         });
 
-        $('#filter-angkatan, #filter-prodi, #filter-kegiatan, #filter-kategori, #filter-tahun').on('change', function() {
+        $('#filter-angkatan, #filter-prodi, #filter-kategori, #filter-tahun, #filter-kegiatan').on('change', function() {
             table.DataTable().ajax.reload();
         });
 
         $('#btnReset').on('click', function() {
-            $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').val('');
+            $('#filter-angkatan, #filter-prodi, #filter-kategori, #filter-tahun, #filter-kegiatan').val('');
             table.DataTable().ajax.reload();
         });
     </script>

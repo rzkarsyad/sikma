@@ -98,7 +98,7 @@
         });
 
         $('#btnReset').on('click', function() {
-            $('#filter-angkatan, #filter-prodi, #filter-bimbingan, #filter-status-agenda').val('');
+            $('#filter-angkatan, #filter-prodi, #filter-jalur').val('');
             table.DataTable().ajax.reload();
         });
     </script>
