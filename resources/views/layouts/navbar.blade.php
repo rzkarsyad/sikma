@@ -35,58 +35,6 @@
         <div class="d-flex">
 
             <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="ri-apps-2-line"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                    <div class="px-lg-2">
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="../../assets/images/brands/github.png" alt="Github">
-                                    <span>GitHub</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="../../assets/images/brands/bitbucket.png" alt="bitbucket">
-                                    <span>Bitbucket</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="../../assets/images/brands/dribbble.png" alt="dribbble">
-                                    <span>Dribbble</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="../../assets/images/brands/dropbox.png" alt="dropbox">
-                                    <span>Dropbox</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="../../assets/images/brands/mail_chimp.png" alt="mail_chimp">
-                                    <span>Mail Chimp</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="../../assets/images/brands/slack.png" alt="slack">
-                                    <span>Slack</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
                     <i class="ri-fullscreen-line"></i>
                 </button>
@@ -129,8 +77,8 @@
                         </a>
                         <a href="" class="text-reset notification-item">
                             <div class="d-flex">
-                                <img src="../../assets/images/users/avatar-3.jpg"
-                                    class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                <img src="../../assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs"
+                                    alt="user-pic">
                                 <div class="flex-1">
                                     <h6 class="mb-1">James Lemire</h6>
                                     <div class="font-size-12 text-muted">
@@ -160,8 +108,8 @@
 
                         <a href="" class="text-reset notification-item">
                             <div class="d-flex">
-                                <img src="../../assets/images/users/avatar-4.jpg"
-                                    class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                <img src="../../assets/images/users/avatar-4.jpg" class="me-3 rounded-circle avatar-xs"
+                                    alt="user-pic">
                                 <div class="flex-1">
                                     <h6 class="mb-1">Salena Layfield</h6>
                                     <div class="font-size-12 text-muted">

@@ -126,6 +126,7 @@
                                             </div>
                                         </div>
 
+                                        @include('components.lib.btn-download')
                                         @include('components.lib.btn-reset')
 
                                     </div>
@@ -148,6 +149,8 @@
                 @include('components.lib.modal-img')
             </div>
         </div>
+
+        @include('components.lib.modal-download')
     @endsection
 
     @push('scripts')

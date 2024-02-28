@@ -91,3 +91,8 @@
 .filter-chip i {
     margin-left: 8px;
 }
+
+.download-modal .modal-dialog {
+    max-width: 700px; /* Set your desired width */
+    width: 100%;
+  }
