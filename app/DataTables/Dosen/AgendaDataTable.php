@@ -28,7 +28,7 @@ class AgendaDataTable extends DataTable
                     1 => 'Bimbingan Konseling',
                     2 => 'Bimbingan Pembina Ormawa',
                 ];
-    
+
                 return $type[$item->type] ?? $item->type;
             })
             ->addColumn('status', function ($item) {
@@ -36,10 +36,10 @@ class AgendaDataTable extends DataTable
                     1 => 'Belum diterima',
                     2 => 'Diterima',
                 ];
-    
+
                 $statusText = $status[$item->status] ?? $item->status;
                 $badgeClass = '';
-    
+
                 switch ($item->status) {
                     case 1:
                         $badgeClass = 'text-bg-danger';
@@ -51,7 +51,7 @@ class AgendaDataTable extends DataTable
                         $badgeClass = 'text-bg-secondary';
                         break;
                 }
-    
+
                 return '<span class="badge rounded-pill ' . $badgeClass . '">' . $statusText . '</span>';
             })
             ->addColumn('agenda_date', function ($item) {
@@ -81,22 +81,22 @@ class AgendaDataTable extends DataTable
 
         if (!empty($angkatan)) {
             $query->whereHas('mahasiswa', function ($query) use ($angkatan) {
-                $query->where('tahun_masuk', $angkatan);
+                $query->whereIn('tahun_masuk', $angkatan);
             });
         }
 
         if (!empty($prodi)) {
             $query->whereHas('mahasiswa', function ($query) use ($prodi) {
-                $query->where('id_prodi', $prodi);
+                $query->whereIn('id_prodi', $prodi);
             });
         }
 
         if (!empty($bimbingan)) {
-            $query->where('type', $bimbingan);
+            $query->whereIn('type', $bimbingan);
         }
 
         if (!empty($status)) {
-            $query->where('status', $status);
+            $query->whereIn('status', $status);
         }
 
         return $query;

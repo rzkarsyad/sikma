@@ -70,26 +70,26 @@ class AktivitasDataTable extends DataTable
 
         if ($angkatan) {
             $query->whereHas('mahasiswa', function ($subquery) use ($angkatan) {
-                $subquery->where('tahun_masuk', $angkatan);
+                $subquery->whereIn('tahun_masuk', $angkatan);
             });
         }
 
         if ($prodi) {
             $query->whereHas('mahasiswa', function ($subquery) use ($prodi) {
-                $subquery->where('id_prodi', $prodi);
+                $subquery->whereIn('id_prodi', $prodi);
             });
         }
 
         if ($kategori) {
-            $query->where('id_kategori', $kategori);
+            $query->whereIn('id_kategori', $kategori);
         }
 
         if ($kegiatan) {
-            $query->where('id_aktivitas', $kegiatan);
+            $query->whereIn('id_aktivitas', $kegiatan);
         }
 
         if ($tahun) {
-            $query->where('tahun', $tahun);
+            $query->whereIn('tahun', $tahun);
         }
 
         return $query;

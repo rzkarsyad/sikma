@@ -43,15 +43,15 @@ class MahasiswaDataTable extends DataTable
         $jalur = request('jalur');
 
         if ($angkatan) {
-            $query->where('tahun_masuk', $angkatan);
+            $query->whereIn('tahun_masuk', $angkatan);
         }
 
         if ($prodi) {
-            $query->where('id_prodi', $prodi);
+            $query->whereIn('id_prodi', $prodi);
         }
 
         if ($jalur) {
-            $query->where('id_jalur', $jalur);
+            $query->whereIn('id_jalur', $jalur);
         }
 
         return $query;

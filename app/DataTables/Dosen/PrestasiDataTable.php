@@ -75,18 +75,18 @@ class PrestasiDataTable extends DataTable
 
             if ($angkatan) {
                 $query->whereHas('mahasiswa', function ($subquery) use ($angkatan) {
-                    $subquery->where('tahun_masuk', $angkatan);
+                    $subquery->whereIn('tahun_masuk', $angkatan);
                 });
             }
 
             if ($prodi) {
                 $query->whereHas('mahasiswa', function ($subquery) use ($prodi) {
-                    $subquery->where('id_prodi', $prodi);
+                    $subquery->whereIn('id_prodi', $prodi);
                 });
             }
 
             if ($tingkat) {
-                $query->where('id_kegiatan', $tingkat);
+                $query->whereIn('id_kegiatan', $tingkat);
             }
 
             return $query;
