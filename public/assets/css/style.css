@@ -40,7 +40,21 @@
     font-size: 14px;
 }
 
+.btn-reset-filter {
+    border-radius: 8px;
+    padding: 4px 12px;
+    border: 2px solid #0c57a6;
+    background-color: #0c57a6;
+    color: black;
+    cursor: pointer;
+    border-color: #0c57a6;
+    color: white;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
 .btn-filter {
+    border-radius: 8px;
+    padding: 4px 12px;
     border: 2px solid black;
     background-color: white;
     color: black;
@@ -64,8 +78,6 @@
     display: inline-block;
     padding: 6px 12px;
     font-size: 14px;
-    margin-right: 8px;
-    margin-top: 8px;
     background-color: #F2F4F7;
     color: #333;
     border-radius: 20px;
