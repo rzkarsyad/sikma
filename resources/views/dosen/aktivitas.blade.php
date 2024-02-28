@@ -24,68 +24,252 @@
                                             diikuti oleh mahasiswa.
                                         </p>
                                     </div>
-                                    <div class="row align-items-end">
-                                        <div class="col-md">
-                                            <div class="mb-2">
-                                                <label for="filter-angkatan">Angkatan</label>
-                                                <select id="filter-angkatan" class="form-select">
-                                                    <option value="" selected>Pilih</option>
-                                                    @foreach ($angkatan as $angkatan)
-                                                        <option value="{{ $angkatan }}">{{ $angkatan }}</option>
-                                                    @endforeach
-                                                </select>
+                                    <div class="row justify-content-start">
+                                        <div class="col-md-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-filter dropdown-toggle" type="button"
+                                                    id="dropdownAngkatan" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="width: fit-content;">
+                                                    Pilih Angkatan <i class="ri-arrow-down-s-line"></i>
+                                                </button>
+
+                                                <div class="container">
+                                                    <ul class="dropdown-menu py-0" aria-labelledby="dropdownAngkatan"
+                                                        style="max-height: 230px; overflow-y: auto; width: 200px;">
+                                                        <div class="container pt-3 px-3">
+                                                            <span class="text-muted">Pilih Tahun Angkatan</span>
+                                                            <li class="mb-2 mt-2">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="filter-angkatan-all" value="">
+                                                                <label class="form-check-label ms-1"
+                                                                    for="filter-angkatan-all">Semua</label>
+                                                            </li>
+                                                            @foreach ($angkatan as $angkatanItem)
+                                                                <li class="mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input filter-angkatan"
+                                                                            type="checkbox"
+                                                                            id="filter-angkatan-{{ $angkatanItem }}"
+                                                                            value="{{ $angkatanItem }}"
+                                                                            data-filter-type="angkatan">
+                                                                        <label class="form-check-label"
+                                                                            for="filter-angkatan-{{ $angkatanItem }}">{{ $angkatanItem }}</label>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </div>
+                                                        <li class="dropdown-divider"></li>
+                                                        <li class="sticky-bottom bg-white mt-2">
+                                                            <button
+                                                                class="btn text-primary fw-bold w-100 d-block text-start"
+                                                                id="resetAngkatan">
+                                                                Reset Filter
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md">
-                                            <div class="mb-2">
-                                                <label for="filter-prodi">Program Studi</label>
-                                                <select id="filter-prodi" class="form-select">
-                                                    <option value="" selected>Pilih</option>
-                                                    @foreach ($prodi as $id => $nama)
-                                                        <option value="{{ $id }}">{{ $nama }}</option>
-                                                    @endforeach
-                                                </select>
+                                        <div class="col-md-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-filter dropdown-toggle" type="button"
+                                                    id="dropdownProdi" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="width: fit-content;">
+                                                    Pilih Program Studi <i class="ri-arrow-down-s-line"></i>
+                                                </button>
+
+                                                <div class="container">
+                                                    <ul class="dropdown-menu py-0" aria-labelledby="dropdownProdi"
+                                                        style="max-height: 230px; overflow-y: auto; width: 200px;">
+                                                        <div class="container pt-3 px-3">
+                                                            <span class="text-muted">Pilih Program Studi</span>
+                                                            <li class="mb-2 mt-2">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="filter-prodi-all" value="">
+                                                                <label class="form-check-label ms-1"
+                                                                    for="filter-prodi-all">Semua</label>
+                                                            </li>
+                                                            @foreach ($prodi as $id => $nama)
+                                                                <li class="mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input filter-prodi"
+                                                                            type="checkbox"
+                                                                            id="filter-prodi-{{ $id }}"
+                                                                            value="{{ $id }}"
+                                                                            data-filter-type="prodi">
+                                                                        <label class="form-check-label"
+                                                                            for="filter-prodi-{{ $id }}">{{ $nama }}</label>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </div>
+                                                        <li class="dropdown-divider"></li>
+                                                        <li class="sticky-bottom bg-white mt-2">
+                                                            <button
+                                                                class="btn text-primary fw-bold w-100 d-block text-start"
+                                                                id="resetProdi">
+                                                                Reset Filter
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md">
-                                            <div class="mb-2">
-                                                <label for="filter-kategori">Tingkat</label>
-                                                <select id="filter-kategori" class="form-select">
-                                                    <option value="" selected>Pilih</option>
-                                                    @foreach ($kategori as $id => $nama)
-                                                        <option value="{{ $id }}">{{ $nama }}</option>
-                                                    @endforeach
-                                                </select>
+                                        <!-- Tingkat -->
+                                        <div class="col-md-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-filter dropdown-toggle" type="button"
+                                                    id="dropdownTingkat" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="width: fit-content;">
+                                                    Pilih Tingkat <i class="ri-arrow-down-s-line"></i>
+                                                </button>
+
+                                                <div class="container">
+                                                    <ul class="dropdown-menu py-0" aria-labelledby="dropdownTingkat"
+                                                        style="max-height: 200px; overflow-y: auto; width: 200px;">
+                                                        <div class="container pt-3 px-3">
+                                                            <span class="text-muted">Pilih Tingkat</span>
+                                                            <li class="mb-2 mt-2">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="filter-kategori-all" value="">
+                                                                <label class="form-check-label ms-1"
+                                                                    for="filter-kategori-all">Semua</label>
+                                                            </li>
+                                                            @foreach ($kategori as $kategoriItem)
+                                                                <li class="mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input filter-kategori"
+                                                                            type="checkbox"
+                                                                            id="filter-kategori-{{ $kategoriItem }}"
+                                                                            value="{{ $kategoriItem }}"
+                                                                            data-filter-type="kategori">
+                                                                        <label class="form-check-label"
+                                                                            for="filter-kategori-{{ $kategoriItem }}">{{ $kategoriItem }}</label>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </div>
+                                                        <li class="dropdown-divider"></li>
+                                                        <li class="sticky-bottom bg-white mt-2">
+                                                            <button
+                                                                class="btn text-primary fw-bold w-100 d-block text-start"
+                                                                id="resetKategori">
+                                                                Reset Filter
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md">
-                                            <div class="mb-2">
-                                                <label for="filter-tahun">Tahun</label>
-                                                <select id="filter-tahun" class="form-select">
-                                                    <option value="" selected>Pilih</option>
-                                                    @foreach ($tahun as $thn)
-                                                        <option value="{{ $thn }}">{{ $thn }}</option>
-                                                    @endforeach
-                                                </select>
+
+                                        <!-- Kegiatan -->
+                                        <div class="col-md-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-filter dropdown-toggle" type="button"
+                                                    id="dropdownKegiatan" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="width: fit-content;">
+                                                    Pilih Kegiatan <i class="ri-arrow-down-s-line"></i>
+                                                </button>
+
+                                                <div class="container">
+                                                    <ul class="dropdown-menu py-0" aria-labelledby="dropdownKegiatan"
+                                                        style="max-height: 250px; overflow-y: auto; width: 250px;">
+                                                        <div class="container pt-3 px-3">
+                                                            <span class="text-muted">Pilih Kegiatan</span>
+                                                            <li class="mb-2 mt-2">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="filter-kegiatan-all" value="">
+                                                                <label class="form-check-label ms-1"
+                                                                    for="filter-kegiatan-all">Semua</label>
+                                                            </li>
+                                                            @foreach ($kegiatan as $id => $nama)
+                                                                <li class="mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input filter-kegiatan"
+                                                                            type="checkbox"
+                                                                            id="filter-kegiatan-{{ $id }}"
+                                                                            value="{{ $id }}"
+                                                                            data-filter-type="kegiatan">
+                                                                        <label class="form-check-label"
+                                                                            for="filter-kegiatan-{{ $id }}">{{ $nama }}</label>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </div>
+                                                        <li class="dropdown-divider"></li>
+                                                        <li class="sticky-bottom bg-white mt-2">
+                                                            <button
+                                                                class="btn text-primary fw-bold w-100 d-block text-start"
+                                                                id="resetKegiatan">
+                                                                Reset Filter
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md">
-                                            <div class="mb-2">
-                                                <label for="filter-kegiatan">Kegiatan</label>
-                                                <select id="filter-kegiatan" class="form-select">
-                                                    <option value="" selected>Pilih</option>
-                                                    @foreach ($kegiatan as $id => $nama)
-                                                        <option value="{{ $id }}">{{ $nama }}</option>
-                                                    @endforeach
-                                                </select>
+
+                                        <!-- Tahun -->
+                                        <div class="col-md-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-filter dropdown-toggle" type="button"
+                                                    id="dropdownTahun" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="width: fit-content;">
+                                                    Pilih Tahun Kegiatan<i class="ri-arrow-down-s-line"></i>
+                                                </button>
+
+                                                <div class="container">
+                                                    <ul class="dropdown-menu py-0" aria-labelledby="dropdownTahun"
+                                                        style="max-height: 230px; overflow-y: auto; width: 200px;">
+                                                        <div class="container pt-3 px-3">
+                                                            <span class="text-muted">Pilih Tahun</span>
+                                                            <li class="mb-2 mt-2">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="filter-tahun-all" value="">
+                                                                <label class="form-check-label ms-1"
+                                                                    for="filter-tahun-all">Semua</label>
+                                                            </li>
+                                                            @foreach ($tahun as $tahunItem)
+                                                                <li class="mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input filter-tahun"
+                                                                            type="checkbox"
+                                                                            id="filter-tahun-{{ $tahunItem }}"
+                                                                            value="{{ $tahunItem }}"
+                                                                            data-filter-type="tahun">
+                                                                        <label class="form-check-label"
+                                                                            for="filter-tahun-{{ $tahunItem }}">{{ $tahunItem }}</label>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </div>
+                                                        <li class="dropdown-divider"></li>
+                                                        <li class="sticky-bottom bg-white mt-2">
+                                                            <button
+                                                                class="btn text-primary fw-bold w-100 d-block text-start"
+                                                                id="resetTahun">
+                                                                Reset Filter
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md">
+
+                                        <div class="col-md-auto ms-n1">
                                             <div class="mb-2">
-                                                <button id="btnReset" class="btn btn-primary px-3">Reset Filter</button>
+                                                <button id="btnReset" class="btn btn-primary px-3">Reset Semua
+                                                    Filter</button>
                                             </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <div class="d-flex flex-wrap" id="filterTags">
                                         </div>
                                     </div>
+
                                     <hr>
                                     <div class="mt-4">
                                         {!! $dataTable->table([
@@ -108,24 +292,5 @@
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-
-    <script>
-        const table = $('#aktivitas-table');
-        table.on('preXhr.dt', function(e, settings, data) {
-            data.angkatan = $('#filter-angkatan').val();
-            data.prodi = $('#filter-prodi').val();
-            data.kategori = $('#filter-kategori').val();
-            data.tahun = $('#filter-tahun').val();
-            data.kegiatan = $('#filter-kegiatan').val();
-        });
-
-        $('#filter-angkatan, #filter-prodi, #filter-kategori, #filter-tahun, #filter-kegiatan').on('change', function() {
-            table.DataTable().ajax.reload();
-        });
-
-        $('#btnReset').on('click', function() {
-            $('#filter-angkatan, #filter-prodi, #filter-kategori, #filter-tahun, #filter-kegiatan').val('');
-            table.DataTable().ajax.reload();
-        });
-    </script>
+    <script src="{{ asset('assets/js/filter-aktivitas.js') }}"></script>
 @endpush

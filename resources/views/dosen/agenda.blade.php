@@ -29,7 +29,7 @@
                                             ditambahkan oleh mahasiswa.
                                         </p>
                                     </div>
-                                    <div class="row justify-content-start mb-2">
+                                    <div class="row justify-content-start">
 
                                         <div class="col-md-auto">
                                             <div class="dropdown">
@@ -42,7 +42,7 @@
                                                 <div class="container">
                                                     <ul class="dropdown-menu py-0" aria-labelledby="dropdownAngkatan"
                                                         style="max-height: 230px; overflow-y: auto; width: 200px;">
-                                                        <div class="container py-3 px-3">
+                                                        <div class="container pt-3 px-3">
                                                             <span class="text-muted">Pilih Tahun Angkatan</span>
                                                             <li class="mb-2 mt-2">
                                                                 <input class="form-check-input" type="checkbox"
@@ -87,7 +87,7 @@
                                                 <div class="container">
                                                     <ul class="dropdown-menu py-0" aria-labelledby="dropdownProdi"
                                                         style="max-height: 250px; overflow-y: auto; width: 250px;">
-                                                        <div class="container py-3 px-3">
+                                                        <div class="container pt-3 px-3">
                                                             <span class="text-muted">Pilih Program Studi</span>
                                                             <li class="mb-2 mt-2">
                                                                 <input class="form-check-input" type="checkbox"
@@ -130,7 +130,7 @@
                                                 <div class="container">
                                                     <ul class="dropdown-menu py-0" aria-labelledby="dropdownBimbingan"
                                                         style="max-height: 200px; overflow-y: auto; width: 250px;">
-                                                        <div class="container py-3 px-3">
+                                                        <div class="container pt-3 px-3">
                                                             <span class="text-muted">Pilih Jenis Bimbingan</span>
                                                             <li class="mb-2 mt-2">
                                                                 <input class="form-check-input" type="checkbox"
@@ -175,7 +175,7 @@
                                                 <div class="container">
                                                     <ul class="dropdown-menu py-0" aria-labelledby="dropdownStatus"
                                                         style="max-height: 175px; overflow-y: auto; width: 200px;">
-                                                        <div class="container py-3 px-3">
+                                                        <div class="container pt-3 px-3">
                                                             <span class="text-muted">Pilih Status Agenda</span>
                                                             <li class="mb-2 mt-2">
                                                                 <input class="form-check-input" type="checkbox"
@@ -245,5 +245,5 @@
     @push('scripts')
         {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
-        <script src="{{ asset('assets/js/filter.js') }}"></script>
+        <script src="{{ asset('assets/js/filter-agenda.js') }}"></script>
     @endpush

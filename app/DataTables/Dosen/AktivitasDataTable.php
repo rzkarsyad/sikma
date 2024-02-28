@@ -25,7 +25,7 @@ class AktivitasDataTable extends DataTable
                     'item' => $item,
                     'routeName' => 'dosen.aktivitas.show',
                 ]);
-            })            
+            })
             ->addColumn('url_penyelenggara', function ($item) {
                 $url = $item->url_penyelenggara;
                 if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
@@ -39,7 +39,7 @@ class AktivitasDataTable extends DataTable
                 } else {
                     return '<img src="' . asset('storage/' . $item->sertifikat) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
                 }
-            })               
+            })
             ->editColumn('foto', function ($item) {
                 return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
             })
@@ -64,8 +64,8 @@ class AktivitasDataTable extends DataTable
 
         $angkatan = request('angkatan');
         $prodi = request('prodi');
-        $kegiatan = request('kegiatan');
         $kategori = request('kategori');
+        $kegiatan = request('kegiatan');
         $tahun = request('tahun');
 
         if ($angkatan) {
@@ -80,12 +80,12 @@ class AktivitasDataTable extends DataTable
             });
         }
 
-        if ($kegiatan) {
-            $query->where('id_aktivitas', $kegiatan);
-        }
-        
         if ($kategori) {
             $query->where('id_kategori', $kategori);
+        }
+
+        if ($kegiatan) {
+            $query->where('id_aktivitas', $kegiatan);
         }
 
         if ($tahun) {
@@ -94,7 +94,7 @@ class AktivitasDataTable extends DataTable
 
         return $query;
     }
-    
+
     public function html()
     {
         return $this->builder()
@@ -110,10 +110,10 @@ class AktivitasDataTable extends DataTable
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
             ])
             ->initComplete('function(settings, json) {
-                $(".dataTables_wrapper").addClass("mb-3"); 
-                $(".dataTables_filter").addClass("mb-2"); 
-                $(".dataTables_length").addClass("mb-2"); 
-                $(".dataTables_paginate").addClass("mt-3"); 
+                $(".dataTables_wrapper").addClass("mb-3");
+                $(".dataTables_filter").addClass("mb-2");
+                $(".dataTables_length").addClass("mb-2");
+                $(".dataTables_paginate").addClass("mt-3");
                 $(".dataTables_info").addClass("mt-3");
             }');
     }

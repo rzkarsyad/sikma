@@ -72,23 +72,23 @@ class PrestasiDataTable extends DataTable
             $angkatan = request('angkatan');
             $prodi = request('prodi');
             $tingkat = request('tingkat');
-    
+
             if ($angkatan) {
                 $query->whereHas('mahasiswa', function ($subquery) use ($angkatan) {
                     $subquery->where('tahun_masuk', $angkatan);
                 });
             }
-    
+
             if ($prodi) {
                 $query->whereHas('mahasiswa', function ($subquery) use ($prodi) {
                     $subquery->where('id_prodi', $prodi);
                 });
             }
-    
+
             if ($tingkat) {
                 $query->where('id_kegiatan', $tingkat);
             }
-    
+
             return $query;
     }
 
@@ -106,11 +106,11 @@ class PrestasiDataTable extends DataTable
             'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
         ])
         ->initComplete('function(settings, json) {
-            $(".dataTables_wrapper").addClass("mb-3"); 
-            $(".dataTables_filter").addClass("mb-2"); 
-            $(".dataTables_length").addClass("mb-2"); 
-            $(".dataTables_paginate").addClass("mt-3"); 
-            $(".dataTables_info").addClass("mt-3"); 
+            $(".dataTables_wrapper").addClass("mb-3");
+            $(".dataTables_filter").addClass("mb-2");
+            $(".dataTables_length").addClass("mb-2");
+            $(".dataTables_paginate").addClass("mt-3");
+            $(".dataTables_info").addClass("mt-3");
         }');
     }
 
