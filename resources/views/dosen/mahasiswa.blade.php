@@ -23,46 +23,64 @@
                                             universitas.
                                         </p>
                                     </div>
-                                    <div class="row align-items-end">
-                                        <div class="col-md-2">
-                                            <div class="mb-2">
-                                                <label for="filter-angkatan">Angkatan</label>
-                                                <select id="filter-angkatan" class="form-select">
-                                                    <option value="" selected>Pilih</option>
-                                                    @foreach ($angkatan as $angkatan)
-                                                        <option value="{{ $angkatan }}">{{ $angkatan }}</option>
-                                                    @endforeach
-                                                </select>
+                                    <div class="row g-3 justify-content-start">
+
+                                        @include('components.lib.filter-angkatan')
+
+                                        @include('components.lib.filter-prodi')
+
+                                        <div class="col-md-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-filter dropdown-toggle" type="button"
+                                                    id="dropdownJalur" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="width: fit-content;">
+                                                    Pilih Jalur Masuk <i class="ri-arrow-down-s-line"></i>
+                                                </button>
+
+                                                <div class="container">
+                                                    <ul class="dropdown-menu py-0" aria-labelledby="dropdownJalur"
+                                                        style="max-height: 250px; overflow-y: auto; width: 300px;">
+                                                        <div class="container pt-3 px-3">
+                                                            <span class="text-muted">Pilih Jalur</span>
+                                                            <li class="mb-2 mt-2">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="filter-jalur-all" value="">
+                                                                <label class="form-check-label ms-1"
+                                                                    for="filter-jalur-all">Semua</label>
+                                                            </li>
+                                                            @foreach ($jalur as $id => $nama)
+                                                                <li class="mb-2">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input filter-jalur"
+                                                                            type="checkbox"
+                                                                            id="filter-jalur-{{ $id }}"
+                                                                            value="{{ $id }}"
+                                                                            data-filter-type="jalur">
+                                                                        <label class="form-check-label"
+                                                                            for="filter-jalur-{{ $id }}">{{ $nama }}</label>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </div>
+                                                        <li class="dropdown-divider"></li>
+                                                        <li class="sticky-bottom bg-white mt-2">
+                                                            <button
+                                                                class="btn text-primary fw-bold w-100 d-block text-start"
+                                                                id="resetJalur">
+                                                                Reset Filter
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="mb-2">
-                                                <label for="filter-prodi">Program Studi</label>
-                                                <select id="filter-prodi" class="form-select">
-                                                    <option value="" selected>Pilih</option>
-                                                    @foreach ($prodi as $id => $nama)
-                                                        <option value="{{ $id }}">{{ $nama }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="mb-2">
-                                                <label for="filter-jalur">Jalur Masuk</label>
-                                                <select id="filter-jalur" class="form-select">
-                                                    <option value="" selected>Pilih</option>
-                                                    @foreach ($jalur as $id => $nama)
-                                                        <option value="{{ $id }}">{{ $nama }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="mb-2">
-                                                <button id="btnReset" class="btn btn-primary px-3">Reset Filter</button>
-                                            </div>
-                                        </div>
+
+                                        @include('components.lib.btn-reset')
+
                                     </div>
+
+                                    @include('components.lib.chip-filter')
+
                                     <hr>
                                     <div class="mt-4">
                                         {!! $dataTable->table([
@@ -85,21 +103,5 @@
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
-    <script>
-        const table = $('#mahasiswa-table');
-        table.on('preXhr.dt', function(e, settings, data) {
-            data.angkatan = $('#filter-angkatan').val();
-            data.prodi = $('#filter-prodi').val();
-            data.jalur = $('#filter-jalur').val();
-        });
-
-        $('#filter-angkatan, #filter-prodi, #filter-jalur').on('change', function() {
-            table.DataTable().ajax.reload();
-        });
-
-        $('#btnReset').on('click', function() {
-            $('#filter-angkatan, #filter-prodi, #filter-jalur').val('');
-            table.DataTable().ajax.reload();
-        });
-    </script>
+    <script src="{{ asset('assets/js/filter-mhs.js') }}"></script>
 @endpush

@@ -41,14 +41,14 @@ class MandiriDataTable extends DataTable
                 } else {
                     return '<img src="' . asset('storage/' . $item->sertifikat) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
                 }
-            })               
+            })
             ->editColumn('undangan', function ($item) {
                 if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->undangan) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
                     return '<img src="' . asset('storage/' . $item->undangan) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
                 }
-            })               
+            })
             ->editColumn('foto', function ($item) {
                 return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
             })
@@ -84,22 +84,22 @@ class MandiriDataTable extends DataTable
 
         if ($angkatan) {
             $query->whereHas('mahasiswa', function ($subquery) use ($angkatan) {
-                $subquery->where('tahun_masuk', $angkatan);
+                $subquery->whereIn('tahun_masuk', $angkatan);
             });
         }
 
         if ($prodi) {
             $query->whereHas('mahasiswa', function ($subquery) use ($prodi) {
-                $subquery->where('id_prodi', $prodi);
+                $subquery->whereIn('id_prodi', $prodi);
             });
         }
 
         if ($tingkat) {
-            $query->where('id_kegiatan', $tingkat);
+            $query->whereIn('id_kegiatan', $tingkat);
         }
 
         if ($jenis) {
-            $query->where('id_jenis', $jenis);
+            $query->whereIn('id_jenis', $jenis);
         }
 
         return $query;
@@ -114,7 +114,7 @@ class MandiriDataTable extends DataTable
             ->scrollX(true)
             ->responsive(true)
             ->autoWidth(true)
-            ->orderBy(0) 
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'

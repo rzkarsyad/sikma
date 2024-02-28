@@ -48,7 +48,7 @@ class OrmawaDataTable extends DataTable
                 'mhs_ormawa.*',
                 'mhs_ormawa.id as ormawa_id',
             ]);
-        
+
         if ($this->user_id) {
             $query->whereHas('mahasiswa', function ($subquery) {
                 $subquery->where('user_id', $this->user_id);
@@ -61,18 +61,18 @@ class OrmawaDataTable extends DataTable
 
         if ($angkatan) {
             $query->whereHas('mahasiswa', function ($subquery) use ($angkatan) {
-                $subquery->where('tahun_masuk', $angkatan);
+                $subquery->whereIn('tahun_masuk', $angkatan);
             });
         }
 
         if ($prodi) {
             $query->whereHas('mahasiswa', function ($subquery) use ($prodi) {
-                $subquery->where('id_prodi', $prodi);
+                $subquery->whereIn('id_prodi', $prodi);
             });
         }
 
         if ($ormawa) {
-            $query->where('id_jenis_ormawa', $ormawa);
+            $query->whereIn('id_jenis_ormawa', $ormawa);
         }
 
         return $query;
@@ -125,7 +125,7 @@ class OrmawaDataTable extends DataTable
             Column::make('url_media_ormawa')->title('URL Sosial Media Ormawa'),
             Column::computed('sk')->title('SK Kepengurusan'),
         ];
-        
+
         if ($this->user_id) {
             $columns = array_filter($columns, function ($column) {
                 return !in_array($column->name, ['mahasiswa.nim', 'mahasiswa.nama']);

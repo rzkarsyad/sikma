@@ -153,7 +153,7 @@ class DosenController extends Controller
         }
 
         $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
-        
+
         $mahasiswa = $mhsAgenda->mahasiswa;
         $dosen = $mhsAgenda->dosen;
         $agendaDate = Carbon::createFromFormat('Y-m-d', $mhsAgenda->agenda_date)->locale('id')->isoFormat('D MMMM YYYY');
@@ -172,7 +172,7 @@ class DosenController extends Controller
     public function updateAgenda(Request $request, $id)
     {
         $this->validateAgenda($request);
-        
+
         $mhsAgenda = MhsAgenda::findOrFail($id);
 
         $mhsAgenda->result = $request->result;
@@ -203,7 +203,7 @@ class DosenController extends Controller
         if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
             $url = 'http://' . $url;
         }
-        
+
         return view('dosen.aktivitas-show', compact('mhsAktivitas', 'mahasiswa', 'url'));
     }
 
@@ -264,7 +264,7 @@ class DosenController extends Controller
         $prodi = Prodi::pluck('nama', 'id');
 
         $ormawa = ListOrmawa::pluck('nama', 'id');
-        
+
         return $dataTable->render('dosen.ormawa', compact('angkatan', 'prodi', 'ormawa'));
     }
 
@@ -285,14 +285,14 @@ class DosenController extends Controller
         $prodi = Prodi::pluck('nama', 'id');
 
         $jalur = JalurMasuk::pluck('nama', 'id');
-        
+
         return $dataTable->render('dosen.mahasiswa', compact('angkatan', 'prodi', 'jalur'));
     }
 
     public function showMhs($id, AktivitasDataTable $dataTable)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
-        
+
         $dataTable->setUserId($mahasiswa->user_id);
 
         return $dataTable->render('dosen.detail-mahasiswa', compact('mahasiswa'));
@@ -314,7 +314,7 @@ class DosenController extends Controller
         $kPribadi->dosen->no_hp = $request->input('no_hp');
 
         $kPribadi->dosen->save();
-        
+
         return redirect()->back()->with('successUpdatePribadi', 'Kontak pribadi berhasil diupdate');
     }
 
