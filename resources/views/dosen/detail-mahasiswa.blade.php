@@ -36,7 +36,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#agenda" role="tab">
-                                                <span class="d-block d-sm-none"><i class="ri-file-list-2-line"></i></span>
+                                                <span class="d-block d-sm-none"><i class="ri-survey-line"></i></span>
                                                 <span class="d-none d-sm-block">Agenda</span>
                                             </a>
                                         </li>
@@ -245,44 +245,39 @@
                                                             <td>
                                                                 @if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf')
                                                                     @include(
-                                                                        'components.lib.buttons.view-file',
+                                                                        'components.lib.buttons.btn-view-file',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'sertifikat'),
+                                                                            'path' => $item->sertifikat,
                                                                         ]
                                                                     )
                                                                 @else
                                                                     @include(
-                                                                        'components.lib.thumbnails.img-sm',
+                                                                        'components.lib.thumbnails.img',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'sertifikat'),
+                                                                            'path' => $item->sertifikat,
                                                                         ]
                                                                     )
                                                                 @endif
 
                                                             </td>
                                                             <td>
-                                                                @include(
-                                                                    'components.lib.thumbnails.img-sm',
-                                                                    ['item' => $item, 'path' => ($path = 'foto')]
-                                                                )
+                                                                @include('components.lib.thumbnails.img', [
+                                                                    'path' => $item->foto,
+                                                                ])
                                                             </td>
                                                             <td>
                                                                 @if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf')
                                                                     @include(
-                                                                        'components.lib.buttons.view-file',
+                                                                        'components.lib.buttons.btn-view-file',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'undangan'),
+                                                                            'path' => $item->undangan,
                                                                         ]
                                                                     )
                                                                 @else
                                                                     @include(
-                                                                        'components.lib.thumbnails.img-sm',
+                                                                        'components.lib.thumbnails.img',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'undangan'),
+                                                                            'path' => $item->undangan,
                                                                         ]
                                                                     )
                                                                 @endif
@@ -328,46 +323,38 @@
                                                             <td>
                                                                 @if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf')
                                                                     @include(
-                                                                        'components.lib.buttons.view-file',
+                                                                        'components.lib.buttons.btn-view-file',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'tropi'),
+                                                                            'path' => $item->tropi,
                                                                         ]
                                                                     )
                                                                 @else
                                                                     @include(
-                                                                        'components.lib.thumbnails.img-sm',
+                                                                        'components.lib.thumbnails.img',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'tropi'),
+                                                                            'path' => $item->tropi,
                                                                         ]
                                                                     )
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                @include(
-                                                                    'components.lib.thumbnails.img-sm',
-                                                                    [
-                                                                        'item' => $item,
-                                                                        'path' => ($path = 'foto'),
-                                                                    ]
-                                                                )
+                                                                @include('components.lib.thumbnails.img', [
+                                                                    'path' => $item->foto,
+                                                                ])
                                                             </td>
                                                             <td>
                                                                 @if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf')
                                                                     @include(
-                                                                        'components.lib.buttons.view-file',
+                                                                        'components.lib.buttons.btn-view-file',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'undangan'),
+                                                                            'path' => $item->undangan,
                                                                         ]
                                                                     )
                                                                 @else
                                                                     @include(
-                                                                        'components.lib.thumbnails.img-sm',
+                                                                        'components.lib.thumbnails.img',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'undangan'),
+                                                                            'path' => $item->undangan,
                                                                         ]
                                                                     )
                                                                 @endif
@@ -404,18 +391,16 @@
                                                             <td>
                                                                 @if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf')
                                                                     @include(
-                                                                        'components.lib.buttons.view-file',
+                                                                        'components.lib.buttons.btn-view-file',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'sk'),
+                                                                            'path' => $item->sk,
                                                                         ]
                                                                     )
                                                                 @else
                                                                     @include(
-                                                                        'components.lib.thumbnails.img-sm',
+                                                                        'components.lib.thumbnails.img',
                                                                         [
-                                                                            'item' => $item,
-                                                                            'path' => ($path = 'sk'),
+                                                                            'path' => $item->sk,
                                                                         ]
                                                                     )
                                                                 @endif
