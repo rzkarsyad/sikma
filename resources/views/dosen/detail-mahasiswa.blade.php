@@ -35,9 +35,15 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#agenda" role="tab">
+                                                <span class="d-block d-sm-none"><i class="ri-file-list-2-line"></i></span>
+                                                <span class="d-none d-sm-block">Agenda</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#aktivitas" role="tab">
                                                 <span class="d-block d-sm-none"><i class="ri-file-list-2-line"></i></span>
-                                                <span class="d-none d-sm-block">Aktivitas Mahasiswa</span>
+                                                <span class="d-none d-sm-block">Aktivitas</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
@@ -160,6 +166,47 @@
                                         <div class="tab-pane" id="aktivitas" role="tabpanel">
                                             <h5 class="mb-4">Data Aktivitas</h5>
                                             {!! $dataTable->table(['class' => 'table dt-responsive nowrap align-middle', 'style' => 'width:100%;']) !!}
+                                        </div>
+                                        <div class="tab-pane" id="agenda" role="tabpanel">
+                                            <h5 class="mb-4">Data Agenda</h5>
+                                            <table id="tb-agenda" class="table dt-responsive nowrap"
+                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Jenis Bimbingan</th>
+                                                        <th>Topik</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse ($mahasiswa->agenda as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            @if ($item->type == 1)
+                                                                <td>Bimbingan Konseling</td>
+                                                            @elseif ($item->type == 2)
+                                                                <td>Bimbingan Pembina Ormawa</td>
+                                                            @endif
+                                                            <td>{{ $item->topic }}</td>
+                                                            <td>{{ $item->agenda_date }}</td>
+                                                            @if ($item->status == 1)
+                                                                <td>
+                                                                    <span class="badge text-bg-danger">Belum
+                                                                        diterima</span>
+                                                                </td>
+                                                            @elseif ($item->status == 2)
+                                                                <td>
+                                                                    <span class="badge text-bg-success">
+                                                                        diterima</span>
+                                                                </td>
+                                                            @endif
+                                                        </tr>
+                                                    @empty
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
                                         </div>
                                         <div class="tab-pane" id="mandiri" role="tabpanel">
                                             <h5 class="mb-4">Data Kegiatan Mandiri</h5>
