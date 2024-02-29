@@ -163,10 +163,6 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="aktivitas" role="tabpanel">
-                                            <h5 class="mb-4">Data Aktivitas</h5>
-                                            {!! $dataTable->table(['class' => 'table dt-responsive nowrap align-middle', 'style' => 'width:100%;']) !!}
-                                        </div>
                                         <div class="tab-pane" id="agenda" role="tabpanel">
                                             <h5 class="mb-4">Data Agenda</h5>
                                             <table id="tb-agenda" class="table dt-responsive nowrap"
@@ -178,6 +174,7 @@
                                                         <th>Topik</th>
                                                         <th>Tanggal</th>
                                                         <th>Status</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -202,11 +199,16 @@
                                                                         diterima</span>
                                                                 </td>
                                                             @endif
+                                                            <td>@include('components.lib.action-agenda')</td>
                                                         </tr>
                                                     @empty
                                                     @endforelse
                                                 </tbody>
                                             </table>
+                                        </div>
+                                        <div class="tab-pane" id="aktivitas" role="tabpanel">
+                                            <h5 class="mb-4">Data Aktivitas</h5>
+                                            {!! $dataTable->table(['class' => 'table dt-responsive nowrap align-middle', 'style' => 'width:100%;']) !!}
                                         </div>
                                         <div class="tab-pane" id="mandiri" role="tabpanel">
                                             <h5 class="mb-4">Data Kegiatan Mandiri</h5>
@@ -242,35 +244,47 @@
                                                             <td>{{ $item->url_penyelenggara }}</td>
                                                             <td>
                                                                 @if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf')
-                                                                    <!-- Display a button to download PDF -->
-                                                                    <a href="{{ asset('storage/' . $item->sertifikat) }}"
-                                                                        class="btn btn-primary" download>Download PDF</a>
+                                                                    @include(
+                                                                        'components.lib.buttons.view-file',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'sertifikat'),
+                                                                        ]
+                                                                    )
                                                                 @else
-                                                                    <img src="{{ asset('storage/' . $item->sertifikat) }}"
-                                                                        class="rounded image-clickable"
-                                                                        data-bs-toggle="modal" data-bs-target="#myModal"
-                                                                        data-image="{{ asset('storage/' . $item->sertifikat) }}"
-                                                                        style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                                    @include(
+                                                                        'components.lib.thumbnails.img-sm',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'sertifikat'),
+                                                                        ]
+                                                                    )
                                                                 @endif
+
                                                             </td>
                                                             <td>
-                                                                <img src="{{ asset('storage/' . $item->foto) }}"
-                                                                    class="rounded image-clickable" data-bs-toggle="modal"
-                                                                    data-bs-target="#myModal"
-                                                                    data-image="{{ asset('storage/' . $item->foto) }}"
-                                                                    style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                                @include(
+                                                                    'components.lib.thumbnails.img-sm',
+                                                                    ['item' => $item, 'path' => ($path = 'foto')]
+                                                                )
                                                             </td>
                                                             <td>
                                                                 @if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf')
-                                                                    <!-- Display a button to download PDF -->
-                                                                    <a href="{{ asset('storage/' . $item->undangan) }}"
-                                                                        class="btn btn-primary" download>Download PDF</a>
+                                                                    @include(
+                                                                        'components.lib.buttons.view-file',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'undangan'),
+                                                                        ]
+                                                                    )
                                                                 @else
-                                                                    <img src="{{ asset('storage/' . $item->undangan) }}"
-                                                                        class="rounded image-clickable"
-                                                                        data-bs-toggle="modal" data-bs-target="#myModal"
-                                                                        data-image="{{ asset('storage/' . $item->undangan) }}"
-                                                                        style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                                    @include(
+                                                                        'components.lib.thumbnails.img-sm',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'undangan'),
+                                                                        ]
+                                                                    )
                                                                 @endif
                                                             </td>
                                                         </tr>
@@ -313,35 +327,49 @@
                                                             <td>{{ $item->url_penyelenggara }}</td>
                                                             <td>
                                                                 @if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf')
-                                                                    <!-- Display a button to download PDF -->
-                                                                    <a href="{{ asset('storage/' . $item->tropi) }}"
-                                                                        class="btn btn-primary" download>Download PDF</a>
+                                                                    @include(
+                                                                        'components.lib.buttons.view-file',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'tropi'),
+                                                                        ]
+                                                                    )
                                                                 @else
-                                                                    <img src="{{ asset('storage/' . $item->tropi) }}"
-                                                                        class="rounded image-clickable"
-                                                                        data-bs-toggle="modal" data-bs-target="#myModal"
-                                                                        data-image="{{ asset('storage/' . $item->tropi) }}"
-                                                                        style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                                    @include(
+                                                                        'components.lib.thumbnails.img-sm',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'tropi'),
+                                                                        ]
+                                                                    )
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                <img src="{{ asset('storage/' . $item->foto) }}"
-                                                                    class="rounded image-clickable" data-bs-toggle="modal"
-                                                                    data-bs-target="#myModal"
-                                                                    data-image="{{ asset('storage/' . $item->foto) }}"
-                                                                    style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                                @include(
+                                                                    'components.lib.thumbnails.img-sm',
+                                                                    [
+                                                                        'item' => $item,
+                                                                        'path' => ($path = 'foto'),
+                                                                    ]
+                                                                )
                                                             </td>
                                                             <td>
                                                                 @if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf')
-                                                                    <!-- Display a button to download PDF -->
-                                                                    <a href="{{ asset('storage/' . $item->undangan) }}"
-                                                                        class="btn btn-primary" download>Download PDF</a>
+                                                                    @include(
+                                                                        'components.lib.buttons.view-file',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'undangan'),
+                                                                        ]
+                                                                    )
                                                                 @else
-                                                                    <img src="{{ asset('storage/' . $item->undangan) }}"
-                                                                        class="rounded image-clickable"
-                                                                        data-bs-toggle="modal" data-bs-target="#myModal"
-                                                                        data-image="{{ asset('storage/' . $item->undangan) }}"
-                                                                        style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                                    @include(
+                                                                        'components.lib.thumbnails.img-sm',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'undangan'),
+                                                                        ]
+                                                                    )
                                                                 @endif
                                                             </td>
                                                         </tr>
@@ -375,15 +403,21 @@
                                                             <td>{{ $item->url_media_ormawa }}</td>
                                                             <td>
                                                                 @if (pathinfo($item->sk, PATHINFO_EXTENSION) == 'pdf')
-                                                                    <!-- Display a button to download PDF -->
-                                                                    <a href="{{ asset('storage/' . $item->sk) }}"
-                                                                        class="btn btn-primary" download>Download PDF</a>
+                                                                    @include(
+                                                                        'components.lib.buttons.view-file',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'sk'),
+                                                                        ]
+                                                                    )
                                                                 @else
-                                                                    <img src="{{ asset('storage/' . $item->sk) }}"
-                                                                        class="rounded image-clickable"
-                                                                        data-bs-toggle="modal" data-bs-target="#myModal"
-                                                                        data-image="{{ asset('storage/' . $item->sk) }}"
-                                                                        style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">
+                                                                    @include(
+                                                                        'components.lib.thumbnails.img-sm',
+                                                                        [
+                                                                            'item' => $item,
+                                                                            'path' => ($path = 'sk'),
+                                                                        ]
+                                                                    )
                                                                 @endif
                                                             </td>
                                                         </tr>
@@ -403,20 +437,7 @@
         </div>
     </div>
 
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Lihat Gambar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img id="modalImage" src="" class="img-fluid w-100">
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('components.lib.modal-img')
 @endsection
 
 @push('scripts')
