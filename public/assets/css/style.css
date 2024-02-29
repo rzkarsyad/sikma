@@ -92,6 +92,24 @@
     margin-left: 8px;
 }
 
+.download-filter-chip {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #F2F4F7;
+    color: #333;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.download-filter-chip:hover {
+    background-color: #EAECF0;
+}
+
+.download-filter-chip i {
+    margin-left: 8px;
+}
+
 .download-modal .modal-dialog {
     max-width: 700px; /* Set your desired width */
     width: 100%;

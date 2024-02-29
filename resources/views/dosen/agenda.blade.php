@@ -54,7 +54,7 @@
                                                                 <label class="form-check-label ms-1"
                                                                     for="filter-bimbingan-all">Semua</label>
                                                             </li>
-                                                            @foreach ($jenis_bimbingan as $value => $label)
+                                                            @foreach ($bimbingan as $value => $label)
                                                                 <li class="mb-2">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input filter-bimbingan"
@@ -157,4 +157,5 @@
         {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
         <script src="{{ asset('assets/js/filter-agenda.js') }}"></script>
+        <script src="{{ asset('assets/js/download-agenda.js') }}"></script>
     @endpush

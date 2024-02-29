@@ -28,6 +28,7 @@ use App\DataTables\Dosen\MandiriDataTable;
 use App\DataTables\Dosen\PrestasiDataTable;
 use App\DataTables\Dosen\AktivitasDataTable;
 use App\DataTables\Master\MahasiswaDataTable;
+use Dompdf\Dompdf;
 
 class DosenController extends Controller
 {
@@ -112,7 +113,7 @@ class DosenController extends Controller
         $angkatan = $this->getAngkatan();
         $prodi = Prodi::pluck('nama', 'id');
 
-        $jenis_bimbingan = [
+        $bimbingan = [
             1 => 'Bimbingan Konseling',
             2 => 'Bimbingan Pembina Ormawa',
         ];
@@ -121,7 +122,7 @@ class DosenController extends Controller
             2 => 'Diterima',
         ];
 
-        return $dataTable->render('dosen.agenda', compact('angkatan', 'prodi', 'jenis_bimbingan', 'status'));
+        return $dataTable->render('dosen.agenda', compact('angkatan', 'prodi', 'bimbingan', 'status'));
     }
 
     public function showAgenda($id)
@@ -296,6 +297,66 @@ class DosenController extends Controller
         $dataTable->setUserId($mahasiswa->user_id);
 
         return $dataTable->render('dosen.detail-mahasiswa', compact('mahasiswa'));
+    }
+
+    public function downloadAgendaPDF(Request $request)
+    {
+        $angkatan = $request->input('angkatan');
+        $prodi = $request->input('prodi');
+        $bimbingan = $request->input('bimbingan');
+        $status = $request->input('status');
+
+        $angkatan = $angkatan ?? [];
+        $prodi = $prodi ?? [];
+        $bimbingan = $bimbingan ?? [];
+        $status = $status ?? [];
+
+        $query = MhsAgenda::query();
+
+        $query->whereHas('dosen', function ($query) {
+            $query->where('dosen_id', auth()->user()->nim_nidn);
+        })
+        ->with(['mahasiswa.prodi'])
+        ->select([
+            'mhs_agenda.*',
+            'mhs_agenda.id as agenda_id',
+        ]);
+
+        if (!empty($angkatan)) {
+            $query->whereHas('mahasiswa', function ($query) use ($angkatan) {
+                $query->whereIn('tahun_masuk', $angkatan);
+            });
+        }
+
+        if (!empty($prodi)) {
+            $query->whereHas('mahasiswa', function ($query) use ($prodi) {
+                $query->whereIn('id_prodi', $prodi);
+            });
+        }
+
+        if (!empty($bimbingan)) {
+            $query->whereIn('type', $bimbingan);
+        }
+
+        if (!empty($status)) {
+            $query->whereIn('status', $status);
+        }
+
+        $data = $query->get();
+
+        $compactData = compact('data', 'angkatan', 'prodi', 'bimbingan', 'status');
+
+        $html = view('dosen.agenda', $compactData)->render();
+
+        $dompdf = new Dompdf();
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->render();
+
+        $date = date('Y-m-d');
+        $filename = "Rekap Data Agenda Mahasiswa - {$date}.pdf";
+        $dompdf->stream($filename);
     }
 
     public function profile()

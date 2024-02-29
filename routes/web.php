@@ -99,6 +99,7 @@ Route::middleware(['auth', 'user-access:dosen'])->group(function () {
     Route::get('/dosen/agenda', [DosenController::class, 'agenda'])->name('dosen.agenda');
     Route::get('/dosen/agenda/show/{id}', [DosenController::class, 'showAgenda'])->name('dosen.agenda.show');
     Route::put('/dosen/agenda/update/{id}', [DosenController::class, 'updateAgenda'])->name('dosen.agenda.update');
+    Route::get('/dosen/agenda/download-pdf', [DosenController::class, 'downloadAgendaPDF'])->name('dosen.agenda.pdf');
 
     Route::get('/dosen/aktivitas', [DosenController::class, 'aktivitas'])->name('dosen.aktivitas');
     Route::get('/dosen/aktivitas/show/{id}', [DosenController::class, 'showAktivitas'])->name('dosen.aktivitas.show');
