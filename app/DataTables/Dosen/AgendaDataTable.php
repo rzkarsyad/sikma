@@ -15,6 +15,13 @@ use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class AgendaDataTable extends DataTable
 {
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
     public function dataTable($query)
     {
         return datatables()

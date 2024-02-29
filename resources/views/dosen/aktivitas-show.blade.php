@@ -89,11 +89,12 @@
                                                 <td class="align-middle">:</td>
                                                 <td class="align-middle">
                                                     @if (pathinfo($mhsAktivitas->sertifikat, PATHINFO_EXTENSION) == 'pdf')
-                                                        <a href="{{ asset('storage/' . $mhsAktivitas->sertifikat) }}"
-                                                            class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
+                                                        @include('components.lib.buttons.btn-view-file', [
+                                                            'path' => $mhsAktivitas->sertifikat,
+                                                        ])
                                                     @else
-                                                        @include('components.lib.img-thumbnail', [
-                                                            'thumb_path' => $mhsAktivitas->sertifikat,
+                                                        @include('components.lib.thumbnails.img', [
+                                                            'path' => $mhsAktivitas->sertifikat,
                                                         ])
                                                     @endif
                                                 </td>
@@ -102,8 +103,8 @@
                                                 <td class="align-middle text-primary"><strong>Foto</strong></td>
                                                 <td class="align-middle">:</td>
                                                 <td class="align-middle">
-                                                    @include('components.lib.img-thumbnail', [
-                                                        'thumb_path' => $mhsAktivitas->foto,
+                                                    @include('components.lib.thumbnails.img', [
+                                                        'path' => $mhsAktivitas->foto,
                                                     ])
                                                 </td>
                                             </tr>
