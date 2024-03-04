@@ -120,10 +120,6 @@ class AgendaDataTable extends DataTable
             ->responsive(true)
             ->orderBy(0)
             ->selectStyleSingle()
-            ->parameters([
-                'dom' => 'Bfrtip',
-                'buttons' => ['pdf'],
-            ])
             ->buttons([
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
             ])

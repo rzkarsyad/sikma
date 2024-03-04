@@ -126,6 +126,7 @@
                                             </div>
                                         </div>
 
+                                        @include('components.lib.buttons.btn-download')
                                         @include('components.lib.buttons.btn-reset')
 
                                     </div>
