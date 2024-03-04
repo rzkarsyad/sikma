@@ -126,6 +126,11 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [HomeController::class, 'adminHome'])->name('admin.home');
 
+    Route::get('/admin/agenda', [AdminController::class, 'agenda'])->name('admin.agenda');
+    Route::get('/admin/agenda/edit/{id}', [AdminController::class, 'editAgenda'])->name('admin.agenda.edit');
+    Route::get('/admin/agenda/update/{id}', [AdminController::class, 'updateAgenda'])->name('admin.agenda.update');
+    Route::get('/admin/agenda/delete/{id}', [AdminController::class, 'deleteAgenda'])->name('admin.agenda.delete');
+
     Route::get('/admin/kegiatan', [AdminController::class, 'kegiatan'])->name('admin.kegiatan');
     Route::get('/admin/kegiatan/edit/{id}', [AdminController::class, 'editKegiatan'])->name('admin.kegiatan.edit');
     Route::get('/admin/kegiatan/update/{id}', [AdminController::class, 'updateKegiatan'])->name('admin.kegiatan.update');
@@ -137,8 +142,19 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/ormawa/delete/{id}', [AdminController::class, 'deleteOrganisasi'])->name('admin.ormawa.delete');
 
     Route::get('/admin/jalur-masuk', [AdminController::class, 'jalurMasuk'])->name('admin.jalur-masuk');
+    Route::get('/admin/jalur/edit/{id}', [AdminController::class, 'jalurMasuk'])->name('admin.jalur.edit');
+    Route::get('/admin/jalur/update/{id}', [AdminController::class, 'jalurMasuk'])->name('admin.jalur.update');
+    Route::get('/admin/jalur/delete/{id}', [AdminController::class, 'jalurMasuk'])->name('admin.jalur.delete');
+
     Route::get('/admin/prodi', [AdminController::class, 'prodi'])->name('admin.prodi');
+    Route::get('/admin/prodi/edit/{id}', [AdminController::class, 'prodi'])->name('admin.prodi.edit');
+    Route::get('/admin/prodi/update/{id}', [AdminController::class, 'prodi'])->name('admin.prodi.update');
+    Route::get('/admin/prodi/delete/{id}', [AdminController::class, 'prodi'])->name('admin.prodi.delete');
+
     Route::get('/admin/fakultas', [AdminController::class, 'fakultas'])->name('admin.fakultas');
+    Route::get('/admin/fakultas/edit/{id}', [AdminController::class, 'fakultas'])->name('admin.fakultas.edit');
+    Route::get('/admin/fakultas/update/{id}', [AdminController::class, 'fakultas'])->name('admin.fakultas.update');
+    Route::get('/admin/fakultas/delete/{id}', [AdminController::class, 'fakultas'])->name('admin.fakultas.delete');
 
     Route::get('/admin/mahasiswa', [AdminController::class, 'mahasiswa'])->name('admin.mahasiswa');
     Route::get('/admin/mahasiswa/export', [AdminController::class, 'mahasiswaExport'])->name('admin.mahasiswa.export');

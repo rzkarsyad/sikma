@@ -50,10 +50,10 @@ class KegiatanDataTable extends DataTable
                     ->setTableId('list-kegiatan-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->orderBy(1)
+                    ->selectStyleSingle()
+                    ->orderBy(1, 'asc')
                     ->scrollX(true)
                     ->responsive(true)
-                    ->selectStyleSingle()
                     ->initComplete('function(settings, json) {
                         $(".dataTables_wrapper").addClass("mb-3");
                         $(".dataTables_filter").addClass("mb-2");

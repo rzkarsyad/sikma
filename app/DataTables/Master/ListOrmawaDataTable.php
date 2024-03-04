@@ -50,8 +50,10 @@ class ListOrmawaDataTable extends DataTable
                     ->setTableId('list-ormawa-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->orderBy(1)
+                    ->orderBy(1, 'asc')
                     ->selectStyleSingle()
+                    ->scrollX(true)
+                    ->responsive(true)
                     ->initComplete('function(settings, json) {
                         $(".dataTables_wrapper").addClass("mb-3");
                         $(".dataTables_filter").addClass("mb-2");

@@ -32,7 +32,10 @@
                                                 </a>
                                             </div>
                                         </div>
-
+                                        {!! $dataTable->table([
+                                            'class' => 'table nowrap align-middle',
+                                            'style' => 'width:100%;',
+                                        ]) !!}
                                     </div>
                                 </div>
                             </div>
@@ -45,3 +48,7 @@
 
     </div>
 @endsection
+
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

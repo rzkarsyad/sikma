@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\ListAgenda;
 use App\Exports\DosenExport;
 use App\Imports\DosenImport;
 use Illuminate\Http\Request;
@@ -13,8 +14,12 @@ use App\Imports\MahasiswaImport;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\DataTables\Master\DosenDataTable;
+use App\DataTables\Master\ProdiDataTable;
+use App\DataTables\Master\FakultasDataTable;
 use App\DataTables\Master\KegiatanDataTable;
 use App\DataTables\Master\MahasiswaDataTable;
+use App\DataTables\Master\JalurMasukDataTable;
+use App\DataTables\Master\ListAgendaDataTable;
 use App\DataTables\Master\ListOrmawaDataTable;
 
 class AdminController extends Controller
@@ -95,6 +100,25 @@ class AdminController extends Controller
         //
     }
 
+    public function agenda(ListAgendaDataTable $dataTable){
+        return $dataTable->render('admin.agenda');
+    }
+
+    public function editAgenda($id)
+    {
+        //
+    }
+
+    public function updateAgenda(Request $request, $id)
+    {
+        //
+    }
+
+    public function deleteAgenda($id)
+    {
+        //
+    }
+
     public function kegiatan(KegiatanDataTable $dataTable){
         return $dataTable->render('admin.kegiatan');
     }
@@ -133,16 +157,16 @@ class AdminController extends Controller
         //
     }
 
-    public function jalurMasuk(){
-        return view('admin.jalur-masuk');
+    public function jalurMasuk(JalurMasukDataTable $dataTable){
+        return $dataTable->render('admin.jalur-masuk');
     }
 
-    public function prodi(){
-        return view('admin.prodi');
+    public function prodi(ProdiDataTable $dataTable){
+        return $dataTable->render('admin.prodi');
     }
 
-    public function fakultas(){
-        return view('admin.fakultas');
+    public function fakultas(FakultasDataTable $dataTable){
+        return $dataTable->render('admin.fakultas');
     }
 
     public function mahasiswa(MahasiswaDataTable $dataTable)

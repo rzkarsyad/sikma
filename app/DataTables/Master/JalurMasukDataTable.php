@@ -22,8 +22,15 @@ class JalurMasukDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'jalurmasuk.action')
-            ->setRowId('id');
+            ->addIndexColumn()
+            ->setRowId('id')
+            ->addColumn('actions', function ($item) {
+                return view('components.lib.actions.action-master', [
+                    'item' => $item,
+                    'editRouteName' => 'admin.jalur.edit',
+                    'deleteRouteName' => 'admin.jalur.delete',
+                ]);
+        });
     }
 
     /**
@@ -43,17 +50,17 @@ class JalurMasukDataTable extends DataTable
                     ->setTableId('jalurmasuk-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
                     ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+                    ->orderBy(1, 'asc')
+                    ->scrollX(true)
+                    ->responsive(true)
+                    ->initComplete('function(settings, json) {
+                        $(".dataTables_wrapper").addClass("mb-3");
+                        $(".dataTables_filter").addClass("mb-2");
+                        $(".dataTables_length").addClass("mb-2");
+                        $(".dataTables_paginate").addClass("mt-3");
+                        $(".dataTables_info").addClass("mt-3");
+                    }');
     }
 
     /**
@@ -62,15 +69,19 @@ class JalurMasukDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('DT_RowIndex')->title('No.')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->width('32px'),
+            Column::make('nama')->title('Nama Jalur'),
+            Column::computed('actions')
+                ->title('Aksi')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false)
+                ->width('150px'),
         ];
     }
 

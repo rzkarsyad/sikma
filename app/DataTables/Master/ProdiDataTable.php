@@ -22,8 +22,15 @@ class ProdiDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'prodi.action')
-            ->setRowId('id');
+            ->addIndexColumn()
+            ->setRowId('id')
+            ->addColumn('actions', function ($item) {
+                return view('components.lib.actions.action-master', [
+                    'item' => $item,
+                    'editRouteName' => 'admin.prodi.edit',
+                    'deleteRouteName' => 'admin.prodi.delete',
+                ]);
+        });
     }
 
     /**
@@ -31,7 +38,16 @@ class ProdiDataTable extends DataTable
      */
     public function query(Prodi $model): QueryBuilder
     {
-        return $model->newQuery();
+        $query = $model->newQuery()
+            ->with(['jenjang', 'fakultas'])
+            ->select([
+                'prodi.*',
+                'prodi.id as prodi_id',
+                'prodi.id_jenjang as jenjang_id',
+                'prodi.id_fakultas as fakultas_id',
+            ]);
+
+        return $query;
     }
 
     /**
@@ -43,17 +59,17 @@ class ProdiDataTable extends DataTable
                     ->setTableId('prodi-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
                     ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+                    ->orderBy(1, 'asc')
+                    ->scrollX(true)
+                    ->responsive(true)
+                    ->initComplete('function(settings, json) {
+                        $(".dataTables_wrapper").addClass("mb-3");
+                        $(".dataTables_filter").addClass("mb-2");
+                        $(".dataTables_length").addClass("mb-2");
+                        $(".dataTables_paginate").addClass("mt-3");
+                        $(".dataTables_info").addClass("mt-3");
+                    }');
     }
 
     /**
@@ -62,15 +78,21 @@ class ProdiDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('DT_RowIndex')->title('No.')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->width('32px'),
+            Column::make('jenjang.nama')->title('Jenjang'),
+            Column::make('fakultas.nama')->title('Fakultas'),
+            Column::make('nama')->title('Program Studi'),
+            Column::computed('actions')
+                ->title('Aksi')
+                ->orderable(false)
+                ->searchable(false)
+                ->exportable(false)
+                ->printable(false)
+                ->width('150px'),
         ];
     }
 

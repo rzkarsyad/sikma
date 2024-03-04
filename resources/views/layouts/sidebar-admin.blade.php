@@ -9,6 +9,13 @@
     </li>
 
     <li>
+        <a href="{{ route('admin.agenda') }}" class=" waves-effect">
+            <i class="ri-book-2-line"></i>
+            <span>Agenda</span>
+        </a>
+    </li>
+
+    <li>
         <a href="{{ route('admin.kegiatan') }}" class=" waves-effect">
             <i class="ri-book-line"></i>
             <span>Kegiatan</span>
