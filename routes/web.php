@@ -125,8 +125,17 @@ Route::middleware(['auth', 'user-access:dosen'])->group(function () {
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [HomeController::class, 'adminHome'])->name('admin.home');
+
     Route::get('/admin/kegiatan', [AdminController::class, 'kegiatan'])->name('admin.kegiatan');
+    Route::get('/admin/kegiatan/edit/{id}', [AdminController::class, 'editKegiatan'])->name('admin.kegiatan.edit');
+    Route::get('/admin/kegiatan/update/{id}', [AdminController::class, 'updateKegiatan'])->name('admin.kegiatan.update');
+    Route::get('/admin/kegiatan/delete/{id}', [AdminController::class, 'deleteKegiatan'])->name('admin.kegiatan.delete');
+
     Route::get('/admin/ormawa', [AdminController::class, 'ormawa'])->name('admin.ormawa');
+    Route::get('/admin/ormawa/edit/{id}', [AdminController::class, 'editOrganisasi'])->name('admin.ormawa.edit');
+    Route::get('/admin/ormawa/update/{id}', [AdminController::class, 'updateOrganisasi'])->name('admin.ormawa.update');
+    Route::get('/admin/ormawa/delete/{id}', [AdminController::class, 'deleteOrganisasi'])->name('admin.ormawa.delete');
+
     Route::get('/admin/jalur-masuk', [AdminController::class, 'jalurMasuk'])->name('admin.jalur-masuk');
     Route::get('/admin/prodi', [AdminController::class, 'prodi'])->name('admin.prodi');
     Route::get('/admin/fakultas', [AdminController::class, 'fakultas'])->name('admin.fakultas');

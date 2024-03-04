@@ -12,8 +12,10 @@ use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
-use App\DataTables\Master\MahasiswaDataTable;
 use App\DataTables\Master\DosenDataTable;
+use App\DataTables\Master\KegiatanDataTable;
+use App\DataTables\Master\MahasiswaDataTable;
+use App\DataTables\Master\ListOrmawaDataTable;
 
 class AdminController extends Controller
 {
@@ -93,12 +95,42 @@ class AdminController extends Controller
         //
     }
 
-    public function kegiatan(){
-        return view('admin.kegiatan');
+    public function kegiatan(KegiatanDataTable $dataTable){
+        return $dataTable->render('admin.kegiatan');
     }
 
-    public function ormawa(){
-        return view('admin.ormawa');
+    public function editKegiatan($id)
+    {
+        //
+    }
+
+    public function updateKegiatan(Request $request, $id)
+    {
+        //
+    }
+
+    public function deleteKegiatan($id)
+    {
+        //
+    }
+
+    public function ormawa(ListOrmawaDataTable $dataTable){
+        return $dataTable->render('admin.ormawa');
+    }
+
+    public function editOrganisasi($id)
+    {
+        //
+    }
+
+    public function updateOrganisasi(Request $request, $id)
+    {
+        //
+    }
+
+    public function deleteOrganisasi($id)
+    {
+        //
     }
 
     public function jalurMasuk(){
