@@ -107,11 +107,12 @@
                                                 <td class="align-middle">:</td>
                                                 <td class="align-middle">
                                                     @if (pathinfo($mhsPrestasi->tropi, PATHINFO_EXTENSION) == 'pdf')
-                                                        <a href="{{ asset('storage/' . $mhsPrestasi->tropi) }}"
-                                                            class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
+                                                        @include('components.lib.buttons.btn-view-file', [
+                                                            'path' => $mhsPrestasi->tropi,
+                                                        ])
                                                     @else
-                                                        @include('components.lib.img-thumbnail', [
-                                                            'thumb_path' => $mhsPrestasi->tropi,
+                                                        @include('components.lib.thumbnails.img', [
+                                                            'path' => $mhsPrestasi->tropi,
                                                         ])
                                                     @endif
                                                 </td>
@@ -120,8 +121,8 @@
                                                 <td class="align-middle text-primary"><strong>Foto</strong></td>
                                                 <td class="align-middle">:</td>
                                                 <td class="align-middle">
-                                                    @include('components.lib.img-thumbnail', [
-                                                        'thumb_path' => $mhsPrestasi->foto,
+                                                    @include('components.lib.thumbnails.img', [
+                                                        'path' => $mhsPrestasi->foto,
                                                     ])
                                                 </td>
                                             </tr>
@@ -130,11 +131,12 @@
                                                 <td class="align-middle">:</td>
                                                 <td class="align-middle">
                                                     @if (pathinfo($mhsPrestasi->undangan, PATHINFO_EXTENSION) == 'pdf')
-                                                        <a href="{{ asset('storage/' . $mhsPrestasi->undangan) }}"
-                                                            class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
+                                                        @include('components.lib.buttons.btn-view-file', [
+                                                            'path' => $mhsPrestasi->undangan,
+                                                        ])
                                                     @else
-                                                        @include('components.lib.img-thumbnail', [
-                                                            'thumb_path' => $mhsPrestasi->undangan,
+                                                        @include('components.lib.thumbnails.img', [
+                                                            'path' => $mhsPrestasi->undangan,
                                                         ])
                                                     @endif
                                                 </td>

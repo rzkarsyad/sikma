@@ -32,17 +32,17 @@ class PrestasiDataTable extends DataTable
                 if (pathinfo($item->tropi, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->tropi) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
-                    return '<img src="' . asset('storage/' . $item->tropi) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->tropi) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
+                    return '<img src="' . asset('storage/' . $item->tropi) . '" class="rounded img-thumb-sm image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->tropi) . '">';
                 }
             })
             ->editColumn('foto', function ($item) {
-                return '<img src="' . asset('storage/' . $item->foto) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->foto) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
+                return '<img src="' . asset('storage/' . $item->foto) . '" class="rounded img-thumb-sm image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->foto) . '">';
             })
             ->editColumn('undangan', function ($item) {
                 if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->undangan) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
-                    return '<img src="' . asset('storage/' . $item->undangan) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->undangan) . '" style="width: 64px; height:40px; cursor: pointer; object-fit: cover;">';
+                    return '<img src="' . asset('storage/' . $item->undangan) . '" class="rounded img-thumb-sm image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->undangan) . '">';
                 }
             })
             ->addColumn('tanggal_mulai', function ($item) {

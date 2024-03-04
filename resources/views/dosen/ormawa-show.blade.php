@@ -96,11 +96,12 @@
                                                 <td class="align-middle">:</td>
                                                 <td class="align-middle">
                                                     @if (pathinfo($mhsOrmawa->sk, PATHINFO_EXTENSION) == 'pdf')
-                                                        <a href="{{ asset('storage/' . $mhsOrmawa->sk) }}"
-                                                            class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>
+                                                        @include('components.lib.buttons.btn-view-file', [
+                                                            'path' => $mhsOrmawa->sk,
+                                                        ])
                                                     @else
-                                                        @include('components.lib.img-thumbnail', [
-                                                            'thumb_path' => $mhsOrmawa->sk,
+                                                        @include('components.lib.thumbnails.img', [
+                                                            'path' => $mhsOrmawa->sk,
                                                         ])
                                                     @endif
                                                 </td>

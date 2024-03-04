@@ -133,6 +133,14 @@
         });
 
         $(document).ready(function() {
+            $('#tb-agenda').DataTable({
+                "initComplete": function(settings, json) {
+                    $("#tb-agenda").wrap(
+                        "<div style='overflow:auto; width:100%;position:relative;'></div>");
+                },
+            });
+        });
+        $(document).ready(function() {
             $('#tb-kegiatan').DataTable({
                 "initComplete": function(settings, json) {
                     $("#tb-kegiatan").wrap(

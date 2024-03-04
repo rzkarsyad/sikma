@@ -39,18 +39,18 @@ class MandiriDataTable extends DataTable
                 if (pathinfo($item->sertifikat, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->sertifikat) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
-                    return '<img src="' . asset('storage/' . $item->sertifikat) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
+                    return '<img src="' . asset('storage/' . $item->sertifikat) . '" class="rounded img-thumb-sm image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '">';
                 }
             })
             ->editColumn('undangan', function ($item) {
                 if (pathinfo($item->undangan, PATHINFO_EXTENSION) == 'pdf') {
                     return '<a href="' . asset('storage/' . $item->undangan) . '" class="btn btn-sm btn-primary" target="_blank">Lihat Berkas</a>';
                 } else {
-                    return '<img src="' . asset('storage/' . $item->undangan) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
+                    return '<img src="' . asset('storage/' . $item->undangan) . '" class="rounded img-thumb-sm image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item->sertifikat) . '">';
                 }
             })
             ->editColumn('foto', function ($item) {
-                return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '" style="width: 64px; height: 40px; cursor: pointer; object-fit: cover;">';
+                return '<img src="' . asset('storage/' . $item['foto']) . '" class="rounded img-thumb-sm image-clickable" data-bs-toggle="modal" data-bs-target="#myModal" data-image="' . asset('storage/' . $item['foto']) . '">';
             })
             ->addColumn('tanggal_mulai', function ($item) {
                 return Carbon::parse($item->tanggal_mulai)->locale('id')->isoFormat('D MMM YYYY');

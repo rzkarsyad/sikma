@@ -32,9 +32,9 @@
 
                                     <div class="row g-3 justify-content-start">
 
-                                        @include('components.lib.filter-angkatan')
+                                        @include('components.lib.filters.filter-angkatan')
 
-                                        @include('components.lib.filter-prodi')
+                                        @include('components.lib.filters.filter-prodi')
 
                                         <div class="col-md-auto px-auto">
                                             <div class="dropdown">
@@ -126,8 +126,7 @@
                                             </div>
                                         </div>
 
-                                        @include('components.lib.btn-download')
-                                        @include('components.lib.btn-reset')
+                                        @include('components.lib.buttons.btn-reset')
 
                                     </div>
 
