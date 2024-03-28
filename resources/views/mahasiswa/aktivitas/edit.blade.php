@@ -88,8 +88,8 @@
                                                 <label for="foto" class="form-label">Foto</label>
                                                 <div class="mb-3">
                                                     @if ($mhsAktivitas->foto)
-                                                        @include('components.lib.img-thumbnail', [
-                                                            'thumb_path' => $mhsAktivitas->foto,
+                                                        @include('components.lib.thumbnails.img-md', [
+                                                            'path' => $mhsAktivitas->foto,
                                                         ])
                                                     @else
                                                         <span class="badge badge-danger">Belum ada foto</span>
@@ -113,8 +113,8 @@
                                                                 class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
                                                                 Berkas</a>
                                                         @else
-                                                            @include('components.lib.img-thumbnail', [
-                                                                'thumb_path' => $mhsAktivitas->sertifikat,
+                                                            @include('components.lib.thumbnails.img-md', [
+                                                                'path' => $mhsAktivitas->sertifikat,
                                                             ])
                                                         @endif
                                                     @else

@@ -98,3 +98,10 @@
     cursor: pointer;
     object-fit: cover;
 }
+
+.img-thumb-md{
+    width: 150px;
+    height: 100px;
+    cursor: pointer;
+    object-fit: cover;
+}
