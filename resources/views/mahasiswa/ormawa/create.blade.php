@@ -81,6 +81,7 @@
                                             @error('sk')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
+                                            <p class="text-mute mt-2">Maks. 2 MB</p>
                                         </div>
                                     </div>
                                     @include('components.lib.action-modal')

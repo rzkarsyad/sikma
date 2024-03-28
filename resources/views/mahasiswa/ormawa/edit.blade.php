@@ -91,8 +91,8 @@
                                                             class="btn btn-sm btn-primary mb-2" target="_blank">Lihat
                                                             Berkas</a>
                                                     @else
-                                                        @include('components.lib.img-thumbnail', [
-                                                            'thumb_path' => $mhsOrmawa->sk,
+                                                        @include('components.lib.thumbnails.img-md', [
+                                                            'path' => $mhsOrmawa->sk,
                                                         ])
                                                     @endif
                                                 @else

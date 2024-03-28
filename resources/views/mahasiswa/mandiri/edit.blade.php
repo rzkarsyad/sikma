@@ -129,10 +129,9 @@
                                                                         Berkas</a>
                                                                 @else
                                                                     @include(
-                                                                        'components.lib.img-thumbnail',
+                                                                        'components.lib.thumbnails.img-md',
                                                                         [
-                                                                            'thumb_path' =>
-                                                                                $mhsKegiatan->sertifikat,
+                                                                            'path' => $mhsKegiatan->sertifikat,
                                                                         ]
                                                                     )
                                                                 @endif
@@ -158,9 +157,12 @@
                                                     <tr>
                                                         <td>
                                                             @if ($mhsKegiatan->foto)
-                                                                @include('components.lib.img-thumbnail', [
-                                                                    'thumb_path' => $mhsKegiatan->foto,
-                                                                ])
+                                                                @include(
+                                                                    'components.lib.thumbnails.img-md',
+                                                                    [
+                                                                        'path' => $mhsKegiatan->foto,
+                                                                    ]
+                                                                )
                                                             @else
                                                                 <span class="badge badge-danger">Belum ada foto</span>
                                                             @endif
@@ -190,8 +192,8 @@
                                                                         Berkas</a>
                                                                 @else
                                                                     @include(
-                                                                        'components.lib.img-thumbnail',
-                                                                        ['thumb_path' => $mhsKegiatan->undangan]
+                                                                        'components.lib.thumbnails.img-md',
+                                                                        ['path' => $mhsKegiatan->undangan]
                                                                     )
                                                                 @endif
                                                             @else

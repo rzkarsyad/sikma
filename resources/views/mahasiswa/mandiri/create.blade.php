@@ -122,6 +122,7 @@
                                                 @error('sertifikat')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                <p class="text-mute mt-2">Maks. 2 MB</p>
                                             </div>
                                         </div>
                                         <div class="col-md">
@@ -133,6 +134,7 @@
                                                 @error('foto')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                <p class="text-mute mt-2">Maks. 2 MB</p>
                                             </div>
                                         </div>
                                         <div class="col-md">
@@ -144,6 +146,7 @@
                                                 @error('undangan')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                <p class="text-mute mt-2">Maks. 2 MB</p>
                                             </div>
                                         </div>
                                     </div>
