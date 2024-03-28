@@ -176,8 +176,13 @@ class MhsAktivitasController extends Controller
 
             $messages['sertifikat.required'] = 'Sertifikat tidak boleh kosong';
             $messages['sertifikat.mimes'] = 'Sertifikat harus memiliki format pdf, jpeg, png, jpg, webp';
+            $messages['sertifikat.max'] = 'Ukuran sertifikat tidak boleh melebihi 2 MB';
+            $messages['sertifikat.uploaded'] = 'Gagal mengunggah sertifikat';
+
             $messages['foto.required'] = 'Foto tidak boleh kosong';
-            $messages['foto.mimes'] = 'Foto harus memiliki format jpeg, png, jpg';
+            $messages['foto.mimes'] = 'Foto harus memiliki format jpeg, png, jpg, webp';
+            $messages['foto.max'] = 'Ukuran foto tidak boleh melebihi 2 MB';
+            $messages['foto.uploaded'] = 'Gagal mengunggah foto';
         }
 
         $request->validate($rules, $messages);
