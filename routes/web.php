@@ -127,9 +127,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'adminHome'])->name('admin.home');
 
     Route::get('/admin/agenda', [AdminController::class, 'agenda'])->name('admin.agenda');
+    Route::post('/admin/agenda/store', [AdminController::class, 'storeAgenda'])->name('admin.agenda.store');
     Route::get('/admin/agenda/edit/{id}', [AdminController::class, 'editAgenda'])->name('admin.agenda.edit');
-    Route::get('/admin/agenda/update/{id}', [AdminController::class, 'updateAgenda'])->name('admin.agenda.update');
-    Route::get('/admin/agenda/delete/{id}', [AdminController::class, 'deleteAgenda'])->name('admin.agenda.delete');
+    Route::put('/admin/agenda/update/{id}', [AdminController::class, 'updateAgenda'])->name('admin.agenda.update');
+    Route::delete('/admin/agenda/delete/{id}', [AdminController::class, 'deleteAgenda'])->name('admin.agenda.delete');
 
     Route::get('/admin/kegiatan', [AdminController::class, 'kegiatan'])->name('admin.kegiatan');
     Route::get('/admin/kegiatan/edit/{id}', [AdminController::class, 'editKegiatan'])->name('admin.kegiatan.edit');

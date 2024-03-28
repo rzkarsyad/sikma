@@ -27,7 +27,6 @@ class ListAgendaDataTable extends DataTable
             ->addColumn('actions', function ($item) {
                 return view('components.lib.actions.action-master', [
                     'item' => $item,
-                    'editRouteName' => 'admin.agenda.edit',
                     'deleteRouteName' => 'admin.agenda.delete',
                 ]);
             });

@@ -13,6 +13,13 @@
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0">Data Jenis Agenda</h4>
                     </div>
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -25,10 +32,11 @@
                                                 <p class="card-title-desc">Tabel ini berisi seluruh data jenis agenda</p>
                                             </div>
                                             <div class="d-flex mt-3 mt-md-0">
-                                                <a href=""
-                                                    class="btn btn-primary mb-2 mb-md-0 me-2 waves-effect waves-light">+
-                                                    Tambah data
-                                                </a>
+                                                <button type="button"
+                                                    class="btn btn-primary mb-2 mb-md-0 me-2 waves-effect waves-light"
+                                                    data-bs-toggle="modal" data-bs-target="#createModal"
+                                                    data-bs-title="Add"> Tambah data
+                                                </button>
                                             </div>
                                         </div>
                                         {!! $dataTable->table([
@@ -45,8 +53,9 @@
             </div>
             <!-- end page title -->
         </div>
-
     </div>
+
+    @include('components.lib.modals.agenda')
 @endsection
 
 @push('scripts')

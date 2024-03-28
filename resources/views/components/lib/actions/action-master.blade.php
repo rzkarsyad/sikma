@@ -1,15 +1,16 @@
 <div>
-    <a href="{{ route($editRouteName, ['id' => $item->id]) }}" class="btn text-mute d-inline" data-bs-toggle="tooltip"
-        data-bs-placement="top" data-bs-title="Edit">
+    <button type="button" class="btn text-muted d-inline edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
+        data-bs-id="{{ $item->id }}" data-bs-title="Edit"
+        onclick="fillModalData({{ $item->id }}, '{{ $item->nama }}')">
         <i class="ri-pencil-line font-size-16 me-2"></i>
-    </a>
-    <a href="{{ route($deleteRouteName, ['id' => $item->id]) }}" class="btn text-mute d-inline" data-bs-toggle="tooltip"
-        data-bs-placement="top" data-bs-title="Hapus">
-        <i class="ri-delete-bin-line font-size-16 me-2"></i>
-    </a>
-</div>
+    </button>
 
-<script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-</script>
+    <form id="deleteForm" action="{{ route($deleteRouteName, ['id' => $item->id]) }}" method="POST"
+        style="display: inline;">
+        @csrf
+        @method('DELETE')
+        <button type="button" class="btn text-muted d-inline" onclick="deleteConfirmation(this)">
+            <i class="ri-delete-bin-line font-size-16 me-2"></i>
+        </button>
+    </form>
+</div>

@@ -104,19 +104,41 @@ class AdminController extends Controller
         return $dataTable->render('admin.agenda');
     }
 
+    public function storeAgenda(Request $request)
+    {
+        $this->validateAgenda($request);
+
+        ListAgenda::create([
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->back()->with('success', 'Data Agenda Berhasil Ditambah.');
+    }
+
     public function editAgenda($id)
     {
-        //
+        $agenda = ListAgenda::findOrFail($id);
+        return response()->json($agenda);
     }
 
     public function updateAgenda(Request $request, $id)
     {
-        //
+        $this->validateAgenda($request);
+
+        $agenda = ListAgenda::find($id);
+
+        $agenda->update(['nama' => $request->nama]);
+
+        return redirect()->route('admin.agenda')->with('success', 'Data agenda berhasil diperbarui.');
     }
 
     public function deleteAgenda($id)
     {
-        //
+        $agenda = ListAgenda::findOrFail($id);
+
+        $agenda->delete();
+
+        return redirect()->route('admin.agenda')->with('success', 'Data agenda berhasil dihapus.');
     }
 
     public function kegiatan(KegiatanDataTable $dataTable){
@@ -303,5 +325,19 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Kata sandi berhasil disetel ulang.');
+    }
+
+    public function validateAgenda(Request $request)
+    {
+        $rules = [
+            'nama' => 'required|string|max:255|unique:list_agenda',
+        ];
+
+        $messages = [
+            'nama.required' => 'Nama agenda tidak boleh kosong',
+            'nama.unique' => 'Nama agenda sudah ada.',
+        ];
+
+        $request->validate($rules, $messages);
     }
 }
