@@ -112,7 +112,7 @@ class AdminController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return redirect()->back()->with('success', 'Data Agenda Berhasil Ditambah.');
+        return session()->flash('success', 'Data agenda berhasil ditambah.');
     }
 
     public function editAgenda($id)

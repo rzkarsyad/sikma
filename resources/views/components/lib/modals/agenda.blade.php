@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createModalLabel">Create Data Agenda</h5>
+                <h5 class="modal-title" id="createModalLabel">Tambah Agenda</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -19,7 +19,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary" id="submitButton">Simpan</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Simpan</button>
             </div>
             </form>
         </div>
@@ -54,43 +54,35 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const createModal = new bootstrap.Modal(document.getElementById('createModal'));
+        $(document).ready(function() {
+            $('#createForm').submit(function(e) {
+                e.preventDefault();
 
-
-            @if (session()->has('errors'))
-                createModal.show();
-            @endif
-
-            const createForm = document.getElementById('createForm');
-            createForm.addEventListener('submit', function(event) {
-                if (!this.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                } else {
-
-                    this.classList.add('was-validated');
-                }
-            });
-
-            const closeButton = document.querySelector('#createModal .btn-close');
-            closeButton.addEventListener('click', function(event) {
-
-                if (!createForm.classList.contains('was-validated')) {
-                    createModal.hide();
-                } else {
-                    event.preventDefault();
-                }
-            });
-
-            createModal.addEventListener('hidden.bs.modal', function() {
-                createForm.classList.remove('was-validated');
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#createModal').modal('hide');
+                        $('#createNama').val('');
+                        $('#createNama').removeClass('is-invalid');
+                        $('.alert-success').html(response.success).show();
+                        window.location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            var inputField = $('#createNama');
+                            inputField.addClass('is-invalid');
+                            inputField.next('.invalid-feedback').remove();
+                            inputField.after('<div class="invalid-feedback">' + value[
+                                0] + '</div>');
+                        });
+                    }
+                });
             });
         });
-    </script>
 
-
-    <script>
         function fillModalData(itemId, nama) {
             const editForm = document.getElementById('editForm');
             const namaInput = document.getElementById('nama');

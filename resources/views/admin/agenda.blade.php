@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -43,15 +42,13 @@
                                             'class' => 'table nowrap align-middle',
                                             'style' => 'width:100%;',
                                         ]) !!}
-
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- end col -->
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
         </div>
     </div>
 
