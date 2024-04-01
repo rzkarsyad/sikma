@@ -27,7 +27,6 @@ class FakultasDataTable extends DataTable
             ->addColumn('actions', function ($item) {
                 return view('components.lib.actions.action-master', [
                     'item' => $item,
-                    'editRouteName' => 'admin.fakultas.edit',
                     'deleteRouteName' => 'admin.fakultas.delete',
                 ]);
         });

@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    @include('components.lib.modals.agenda')
+    @include('components.lib.modals.modal-agenda')
 @endsection
 
 @push('scripts')

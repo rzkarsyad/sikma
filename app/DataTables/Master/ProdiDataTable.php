@@ -27,7 +27,6 @@ class ProdiDataTable extends DataTable
             ->addColumn('actions', function ($item) {
                 return view('components.lib.actions.action-master', [
                     'item' => $item,
-                    'editRouteName' => 'admin.prodi.edit',
                     'deleteRouteName' => 'admin.prodi.delete',
                 ]);
         });

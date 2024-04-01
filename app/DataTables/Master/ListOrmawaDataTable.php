@@ -27,7 +27,6 @@ class ListOrmawaDataTable extends DataTable
             ->addColumn('actions', function ($item) {
                 return view('components.lib.actions.action-master', [
                     'item' => $item,
-                    'editRouteName' => 'admin.ormawa.edit',
                     'deleteRouteName' => 'admin.ormawa.delete',
                 ]);
             });

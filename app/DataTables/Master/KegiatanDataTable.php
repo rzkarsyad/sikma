@@ -27,7 +27,6 @@ class KegiatanDataTable extends DataTable
             ->addColumn('actions', function ($item) {
                 return view('components.lib.actions.action-master', [
                     'item' => $item,
-                    'editRouteName' => 'admin.kegiatan.edit',
                     'deleteRouteName' => 'admin.kegiatan.delete',
                 ]);
             });

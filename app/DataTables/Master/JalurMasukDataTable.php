@@ -27,7 +27,6 @@ class JalurMasukDataTable extends DataTable
             ->addColumn('actions', function ($item) {
                 return view('components.lib.actions.action-master', [
                     'item' => $item,
-                    'editRouteName' => 'admin.jalur.edit',
                     'deleteRouteName' => 'admin.jalur.delete',
                 ]);
         });

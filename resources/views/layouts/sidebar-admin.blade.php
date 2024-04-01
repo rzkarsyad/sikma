@@ -39,16 +39,16 @@
     </li>
 
     <li>
-        <a href="{{ route('admin.prodi') }}" class=" waves-effect">
-            <i class="ri-booklet-line"></i>
-            <span>Program Studi</span>
+        <a href="{{ route('admin.fakultas') }}" class=" waves-effect">
+            <i class="ri-folder-line"></i>
+            <span>Fakultas</span>
         </a>
     </li>
 
     <li>
-        <a href="{{ route('admin.fakultas') }}" class=" waves-effect">
-            <i class="ri-folder-line"></i>
-            <span>Fakultas</span>
+        <a href="{{ route('admin.prodi') }}" class=" waves-effect">
+            <i class="ri-booklet-line"></i>
+            <span>Program Studi</span>
         </a>
     </li>
 

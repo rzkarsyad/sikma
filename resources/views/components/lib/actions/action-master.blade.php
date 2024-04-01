@@ -5,7 +5,6 @@
         <i class="ri-pencil-line font-size-16 me-2"></i>
     </button>
 
-
     <form id="deleteForm" action="{{ route($deleteRouteName, ['id' => $item->id]) }}" method="POST"
         style="display: inline;">
         @csrf

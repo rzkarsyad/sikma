@@ -133,29 +133,34 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::delete('/admin/agenda/delete/{id}', [AdminController::class, 'deleteAgenda'])->name('admin.agenda.delete');
 
     Route::get('/admin/kegiatan', [AdminController::class, 'kegiatan'])->name('admin.kegiatan');
+    Route::post('/admin/kegiatan/store', [AdminController::class, 'storeKegiatan'])->name('admin.kegiatan.store');
     Route::get('/admin/kegiatan/edit/{id}', [AdminController::class, 'editKegiatan'])->name('admin.kegiatan.edit');
-    Route::get('/admin/kegiatan/update/{id}', [AdminController::class, 'updateKegiatan'])->name('admin.kegiatan.update');
-    Route::get('/admin/kegiatan/delete/{id}', [AdminController::class, 'deleteKegiatan'])->name('admin.kegiatan.delete');
+    Route::put('/admin/kegiatan/update/{id}', [AdminController::class, 'updateKegiatan'])->name('admin.kegiatan.update');
+    Route::delete('/admin/kegiatan/delete/{id}', [AdminController::class, 'deleteKegiatan'])->name('admin.kegiatan.delete');
 
     Route::get('/admin/ormawa', [AdminController::class, 'ormawa'])->name('admin.ormawa');
+    Route::post('/admin/ormawa/store', [AdminController::class, 'storeOrmawa'])->name('admin.ormawa.store');
     Route::get('/admin/ormawa/edit/{id}', [AdminController::class, 'editOrganisasi'])->name('admin.ormawa.edit');
-    Route::get('/admin/ormawa/update/{id}', [AdminController::class, 'updateOrganisasi'])->name('admin.ormawa.update');
-    Route::get('/admin/ormawa/delete/{id}', [AdminController::class, 'deleteOrganisasi'])->name('admin.ormawa.delete');
+    Route::put('/admin/ormawa/update/{id}', [AdminController::class, 'updateOrganisasi'])->name('admin.ormawa.update');
+    Route::delete('/admin/ormawa/delete/{id}', [AdminController::class, 'deleteOrganisasi'])->name('admin.ormawa.delete');
 
     Route::get('/admin/jalur-masuk', [AdminController::class, 'jalurMasuk'])->name('admin.jalur-masuk');
-    Route::get('/admin/jalur/edit/{id}', [AdminController::class, 'jalurMasuk'])->name('admin.jalur.edit');
-    Route::get('/admin/jalur/update/{id}', [AdminController::class, 'jalurMasuk'])->name('admin.jalur.update');
-    Route::get('/admin/jalur/delete/{id}', [AdminController::class, 'jalurMasuk'])->name('admin.jalur.delete');
+    Route::post('/admin/jalur/store', [AdminController::class, 'storeJalur'])->name('admin.jalur.store');
+    Route::get('/admin/jalur/edit/{id}', [AdminController::class, 'editJalur'])->name('admin.jalur.edit');
+    Route::put('/admin/jalur/update/{id}', [AdminController::class, 'updateJalur'])->name('admin.jalur.update');
+    Route::delete('/admin/jalur/delete/{id}', [AdminController::class, 'deleteJalur'])->name('admin.jalur.delete');
 
     Route::get('/admin/prodi', [AdminController::class, 'prodi'])->name('admin.prodi');
-    Route::get('/admin/prodi/edit/{id}', [AdminController::class, 'prodi'])->name('admin.prodi.edit');
-    Route::get('/admin/prodi/update/{id}', [AdminController::class, 'prodi'])->name('admin.prodi.update');
-    Route::get('/admin/prodi/delete/{id}', [AdminController::class, 'prodi'])->name('admin.prodi.delete');
+    Route::post('/admin/prodi/store', [AdminController::class, 'storeProdi'])->name('admin.prodi.store');
+    Route::get('/admin/prodi/edit/{id}', [AdminController::class, 'editProdi'])->name('admin.prodi.edit');
+    Route::put('/admin/prodi/update/{id}', [AdminController::class, 'updateProdi'])->name('admin.prodi.update');
+    Route::delete('/admin/prodi/delete/{id}', [AdminController::class, 'deleteProdi'])->name('admin.prodi.delete');
 
     Route::get('/admin/fakultas', [AdminController::class, 'fakultas'])->name('admin.fakultas');
-    Route::get('/admin/fakultas/edit/{id}', [AdminController::class, 'fakultas'])->name('admin.fakultas.edit');
-    Route::get('/admin/fakultas/update/{id}', [AdminController::class, 'fakultas'])->name('admin.fakultas.update');
-    Route::get('/admin/fakultas/delete/{id}', [AdminController::class, 'fakultas'])->name('admin.fakultas.delete');
+    Route::post('/admin/fakultas/store', [AdminController::class, 'storeFakultas'])->name('admin.fakultas.store');
+    Route::get('/admin/fakultas/edit/{id}', [AdminController::class, 'editFakultas'])->name('admin.fakultas.edit');
+    Route::put('/admin/fakultas/update/{id}', [AdminController::class, 'updateFakultas'])->name('admin.fakultas.update');
+    Route::delete('/admin/fakultas/delete/{id}', [AdminController::class, 'deleteFakultas'])->name('admin.fakultas.delete');
 
     Route::get('/admin/mahasiswa', [AdminController::class, 'mahasiswa'])->name('admin.mahasiswa');
     Route::get('/admin/mahasiswa/export', [AdminController::class, 'mahasiswaExport'])->name('admin.mahasiswa.export');
