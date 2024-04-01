@@ -111,12 +111,6 @@
 
     <script>
         $(document).ready(function() {
-            new DataTable('#example', {
-                scrollX: true,
-            });
-        });
-
-        $(document).ready(function() {
             $('#tb-agenda').DataTable({
                 "initComplete": function(settings, json) {
                     $("#tb-agenda").wrap(
@@ -151,17 +145,6 @@
             });
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var myModal = new bootstrap.Modal(document.getElementById('myModal'));
-
-            $(document).on('click', '.image-clickable', function() {
-                var imageSrc = $(this).data('image');
-                $('#modalImage').attr('src', imageSrc);
-                myModal.show();
-            });
-        });
-    </script>
 
     <script>
         function deleteConfirmation(button) {
@@ -176,7 +159,6 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Submit the form
                     button.form.submit();
                 }
             });
@@ -195,13 +177,11 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Submit the form
                     button.form.submit();
                 }
             });
         }
     </script>
-
 
     @stack('scripts')
 
