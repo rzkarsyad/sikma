@@ -144,6 +144,12 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::put('/admin/ormawa/update/{id}', [AdminController::class, 'updateOrganisasi'])->name('admin.ormawa.update');
     Route::delete('/admin/ormawa/delete/{id}', [AdminController::class, 'deleteOrganisasi'])->name('admin.ormawa.delete');
 
+    Route::get('/admin/jenjang', [AdminController::class, 'jenjang'])->name('admin.jenjang');
+    Route::post('/admin/jenjang/store', [AdminController::class, 'storeJenjang'])->name('admin.jenjang.store');
+    Route::get('/admin/jenjang/edit/{id}', [AdminController::class, 'editJenjang'])->name('admin.jenjang.edit');
+    Route::put('/admin/jenjang/update/{id}', [AdminController::class, 'updateJenjang'])->name('admin.jenjang.update');
+    Route::delete('/admin/jenjang/delete/{id}', [AdminController::class, 'deleteJenjang'])->name('admin.jenjang.delete');
+
     Route::get('/admin/jalur-masuk', [AdminController::class, 'jalurMasuk'])->name('admin.jalur-masuk');
     Route::post('/admin/jalur/store', [AdminController::class, 'storeJalur'])->name('admin.jalur.store');
     Route::get('/admin/jalur/edit/{id}', [AdminController::class, 'editJalur'])->name('admin.jalur.edit');

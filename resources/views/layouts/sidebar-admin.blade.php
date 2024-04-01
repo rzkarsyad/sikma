@@ -39,6 +39,13 @@
     </li>
 
     <li>
+        <a href="{{ route('admin.jenjang') }}" class=" waves-effect">
+            <i class="ri-book-3-line"></i>
+            <span>Jenjang</span>
+        </a>
+    </li>
+
+    <li>
         <a href="{{ route('admin.fakultas') }}" class=" waves-effect">
             <i class="ri-folder-line"></i>
             <span>Fakultas</span>

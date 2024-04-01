@@ -17,6 +17,7 @@ use App\Models\ListKegiatan;
 use Illuminate\Http\Request;
 use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
+use App\DataTables\JenjangDataTable;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\DataTables\Master\DosenDataTable;
@@ -229,8 +230,45 @@ class AdminController extends Controller
         return redirect()->route('admin.ormawa')->with('success', 'Data organisasi berhasil dihapus.');
     }
 
+    public function jenjang(JenjangDataTable $dataTable){
+        return $dataTable->render('admin.jenjang');
+    }
+
+    public function storeJenjang(Request $request){
+        $this->validateJenjang($request);
+
+        Jenjang::create([
+            'nama' => $request->nama,
+        ]);
+
+        return session()->flash('success', 'Data jenjang berhasil ditambah.');
+    }
+
+    public function editJenjang($id){
+        $jalur = Jenjang::findOrFail($id);
+        return response()->json($jalur);
+    }
+
+    public function updateJenjang(Request $request, $id){
+        $this->validateJenjang($request);
+
+        $jalur = Jenjang::find($id);
+
+        $jalur->update(['nama' => $request->nama]);
+
+        return redirect()->route('admin.jenjang')->with('success', 'Data jenjang berhasil diperbarui.');
+    }
+
+    public function deleteJenjang($id){
+        $jalur = Jenjang::findOrFail($id);
+
+        $jalur->delete();
+
+        return redirect()->route('admin.jenjang')->with('success', 'Data jenjang berhasil dihapus.');
+    }
+
     public function jalurMasuk(JalurMasukDataTable $dataTable){
-        return $dataTable->render('admin.jalur-masuk');
+        return $dataTable->render('admin.jenjang');
     }
 
     public function storeJalur(Request $request){
@@ -513,6 +551,20 @@ class AdminController extends Controller
         $messages = [
             'nama.required' => 'Nama kegiatan tidak boleh kosong',
             'nama.unique' => 'Nama kegiatan sudah ada.',
+        ];
+
+        $request->validate($rules, $messages);
+    }
+
+    public function validateJenjang(Request $request)
+    {
+        $rules = [
+            'nama' => 'required|string|max:255|unique:jenjang',
+        ];
+
+        $messages = [
+            'nama.required' => 'Jenjang tidak boleh kosong',
+            'nama.unique' => 'Jenjang sudah ada.',
         ];
 
         $request->validate($rules, $messages);
