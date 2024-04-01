@@ -359,4 +359,18 @@
             <!-- end page title -->
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (session('success'))
+                document.getElementById('v-pills-password-tab').classList.add('show', 'active');
+            @elseif (session('successUpdatePribadi'))
+                document.getElementById('v-pills-kontak-tab').classList.add('show', 'active');
+            @elseif (session('successUpdateDarurat'))
+                document.getElementById('v-pills-darurat-tab').classList.add('show', 'active');
+            @else
+                document.getElementById('v-pills-data-tab').classList.add('show', 'active');
+            @endif
+        });
+    </script>
 @endsection

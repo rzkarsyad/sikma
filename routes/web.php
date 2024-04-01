@@ -125,11 +125,48 @@ Route::middleware(['auth', 'user-access:dosen'])->group(function () {
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [HomeController::class, 'adminHome'])->name('admin.home');
+
+    Route::get('/admin/agenda', [AdminController::class, 'agenda'])->name('admin.agenda');
+    Route::post('/admin/agenda/store', [AdminController::class, 'storeAgenda'])->name('admin.agenda.store');
+    Route::get('/admin/agenda/edit/{id}', [AdminController::class, 'editAgenda'])->name('admin.agenda.edit');
+    Route::put('/admin/agenda/update/{id}', [AdminController::class, 'updateAgenda'])->name('admin.agenda.update');
+    Route::delete('/admin/agenda/delete/{id}', [AdminController::class, 'deleteAgenda'])->name('admin.agenda.delete');
+
     Route::get('/admin/kegiatan', [AdminController::class, 'kegiatan'])->name('admin.kegiatan');
+    Route::post('/admin/kegiatan/store', [AdminController::class, 'storeKegiatan'])->name('admin.kegiatan.store');
+    Route::get('/admin/kegiatan/edit/{id}', [AdminController::class, 'editKegiatan'])->name('admin.kegiatan.edit');
+    Route::put('/admin/kegiatan/update/{id}', [AdminController::class, 'updateKegiatan'])->name('admin.kegiatan.update');
+    Route::delete('/admin/kegiatan/delete/{id}', [AdminController::class, 'deleteKegiatan'])->name('admin.kegiatan.delete');
+
     Route::get('/admin/ormawa', [AdminController::class, 'ormawa'])->name('admin.ormawa');
+    Route::post('/admin/ormawa/store', [AdminController::class, 'storeOrmawa'])->name('admin.ormawa.store');
+    Route::get('/admin/ormawa/edit/{id}', [AdminController::class, 'editOrganisasi'])->name('admin.ormawa.edit');
+    Route::put('/admin/ormawa/update/{id}', [AdminController::class, 'updateOrganisasi'])->name('admin.ormawa.update');
+    Route::delete('/admin/ormawa/delete/{id}', [AdminController::class, 'deleteOrganisasi'])->name('admin.ormawa.delete');
+
+    Route::get('/admin/jenjang', [AdminController::class, 'jenjang'])->name('admin.jenjang');
+    Route::post('/admin/jenjang/store', [AdminController::class, 'storeJenjang'])->name('admin.jenjang.store');
+    Route::get('/admin/jenjang/edit/{id}', [AdminController::class, 'editJenjang'])->name('admin.jenjang.edit');
+    Route::put('/admin/jenjang/update/{id}', [AdminController::class, 'updateJenjang'])->name('admin.jenjang.update');
+    Route::delete('/admin/jenjang/delete/{id}', [AdminController::class, 'deleteJenjang'])->name('admin.jenjang.delete');
+
     Route::get('/admin/jalur-masuk', [AdminController::class, 'jalurMasuk'])->name('admin.jalur-masuk');
+    Route::post('/admin/jalur/store', [AdminController::class, 'storeJalur'])->name('admin.jalur.store');
+    Route::get('/admin/jalur/edit/{id}', [AdminController::class, 'editJalur'])->name('admin.jalur.edit');
+    Route::put('/admin/jalur/update/{id}', [AdminController::class, 'updateJalur'])->name('admin.jalur.update');
+    Route::delete('/admin/jalur/delete/{id}', [AdminController::class, 'deleteJalur'])->name('admin.jalur.delete');
+
     Route::get('/admin/prodi', [AdminController::class, 'prodi'])->name('admin.prodi');
+    Route::post('/admin/prodi/store', [AdminController::class, 'storeProdi'])->name('admin.prodi.store');
+    Route::get('/admin/prodi/edit/{id}', [AdminController::class, 'editProdi'])->name('admin.prodi.edit');
+    Route::put('/admin/prodi/update/{id}', [AdminController::class, 'updateProdi'])->name('admin.prodi.update');
+    Route::delete('/admin/prodi/delete/{id}', [AdminController::class, 'deleteProdi'])->name('admin.prodi.delete');
+
     Route::get('/admin/fakultas', [AdminController::class, 'fakultas'])->name('admin.fakultas');
+    Route::post('/admin/fakultas/store', [AdminController::class, 'storeFakultas'])->name('admin.fakultas.store');
+    Route::get('/admin/fakultas/edit/{id}', [AdminController::class, 'editFakultas'])->name('admin.fakultas.edit');
+    Route::put('/admin/fakultas/update/{id}', [AdminController::class, 'updateFakultas'])->name('admin.fakultas.update');
+    Route::delete('/admin/fakultas/delete/{id}', [AdminController::class, 'deleteFakultas'])->name('admin.fakultas.delete');
 
     Route::get('/admin/mahasiswa', [AdminController::class, 'mahasiswa'])->name('admin.mahasiswa');
     Route::get('/admin/mahasiswa/export', [AdminController::class, 'mahasiswaExport'])->name('admin.mahasiswa.export');

@@ -9,6 +9,13 @@
     </li>
 
     <li>
+        <a href="{{ route('admin.agenda') }}" class=" waves-effect">
+            <i class="ri-book-2-line"></i>
+            <span>Agenda</span>
+        </a>
+    </li>
+
+    <li>
         <a href="{{ route('admin.kegiatan') }}" class=" waves-effect">
             <i class="ri-book-line"></i>
             <span>Kegiatan</span>
@@ -32,9 +39,9 @@
     </li>
 
     <li>
-        <a href="{{ route('admin.prodi') }}" class=" waves-effect">
-            <i class="ri-booklet-line"></i>
-            <span>Program Studi</span>
+        <a href="{{ route('admin.jenjang') }}" class=" waves-effect">
+            <i class="ri-book-3-line"></i>
+            <span>Jenjang</span>
         </a>
     </li>
 
@@ -42,6 +49,13 @@
         <a href="{{ route('admin.fakultas') }}" class=" waves-effect">
             <i class="ri-folder-line"></i>
             <span>Fakultas</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('admin.prodi') }}" class=" waves-effect">
+            <i class="ri-booklet-line"></i>
+            <span>Program Studi</span>
         </a>
     </li>
 
