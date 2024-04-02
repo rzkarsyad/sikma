@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\MhsAgenda;
+use App\Models\ListAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\DataTables\Mahasiswa\MhsAgendaDataTable;
@@ -27,12 +28,9 @@ class MhsAgendaController extends Controller
      */
     public function create()
     {
-        $jenis_bimbingan = [
-            1 => 'Bimbingan Konseling',
-            2 => 'Bimbingan Pembina Ormawa',
-        ];
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
         $dosen = Dosen::pluck('nama', 'nidn');
-        return view('mahasiswa.agenda.create', compact('dosen', 'jenis_bimbingan'));
+        return view('mahasiswa.agenda.create', compact('jenis_agenda', 'dosen'));
     }
 
     /**
@@ -44,14 +42,14 @@ class MhsAgendaController extends Controller
     public function store(Request $request)
     {
         $this->validateAgenda($request);
-        
+
         $user = Auth::user();
         $nim = $user->mahasiswa->nim;
         $user_id = $user->id;
 
         MhsAgenda::create([
             'user_id' => $user_id,
-            'type' => $request->type,
+            'id_agenda' => $request->id_agenda,
             'agenda_date' => $request->agenda_date,
             'agenda_time' => $request->agenda_time,
             'dosen_id' => $request->dosen_id,
@@ -76,10 +74,10 @@ class MhsAgendaController extends Controller
             1 => 'Belum ditinjau',
             2 => 'Sudah ditinjau',
         ];
-    
+
         $statusText = $status[$mhsAgenda->status] ?? $mhsAgenda->status;
         $badgeClass = '';
-    
+
         switch ($mhsAgenda->status) {
             case 1:
                 $badgeClass = 'text-bg-danger';
@@ -92,18 +90,15 @@ class MhsAgendaController extends Controller
                 break;
         }
 
-        $type = [
-            1 => 'Bimbingan Konseling',
-            2 => 'Bimbingan Pembina Ormawa',
-        ];
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
 
-        $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
+        $jenis_agenda = $jenis_agenda[$mhsAgenda->jenis_agenda] ?? $mhsAgenda->jenis_agenda;
 
         return view('mahasiswa.agenda.show')->with([
             'statusText' => $statusText,
             'badgeClass' => $badgeClass,
             'mhsAgenda' => $mhsAgenda,
-            'type' => $type,
+            'jenis_agenda' => $jenis_agenda,
         ]);
     }
 
@@ -116,12 +111,11 @@ class MhsAgendaController extends Controller
     public function edit($id)
     {
         $mhsAgenda = MhsAgenda::findOrFail($id);
-        $jenis_bimbingan = [
-            1 => 'Bimbingan Konseling',
-            2 => 'Bimbingan Pembina Ormawa',
-        ];
+
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
+
         $dosen = Dosen::pluck('nama', 'nidn');
-        return view('mahasiswa.agenda.edit', compact('dosen', 'jenis_bimbingan', 'mhsAgenda'));
+        return view('mahasiswa.agenda.edit', compact('dosen', 'jenis_agenda', 'mhsAgenda'));
     }
 
     /**
@@ -137,7 +131,7 @@ class MhsAgendaController extends Controller
 
         $mhsAgenda = MhsAgenda::findOrFail($id);
 
-        $mhsAgenda->type = $request->type;
+        $mhsAgenda->id_agenda = $request->id_agenda;
         $mhsAgenda->agenda_date = $request->agenda_date;
         $mhsAgenda->agenda_time = $request->agenda_time;
         $mhsAgenda->dosen_id = $request->dosen_id;
@@ -167,7 +161,7 @@ class MhsAgendaController extends Controller
     public function validateAgenda(Request $request)
     {
         $rules = [
-            'type' => 'required',
+            'id_agenda' => 'required',
             'agenda_date' => 'required',
             'agenda_time' => 'required',
             'dosen_id' => 'required',
@@ -176,7 +170,7 @@ class MhsAgendaController extends Controller
         ];
 
         $messages = [
-            'type.required' => 'Jenis bimbingan tidak boleh kosong',
+            'id_agenda.required' => 'Jenis bimbingan tidak boleh kosong',
             'agenda_date.required' => 'Tanggal tidak boleh kosong',
             'agenda_time.required' => 'Waktu tidak boleh kosong',
             'dosen_id.required' => 'Dosen pembimbing tidak boleh kosong',

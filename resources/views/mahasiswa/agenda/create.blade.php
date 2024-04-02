@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -22,18 +21,17 @@
                                     <div class="row gx-3 gy-2">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="list_bimbingan">Jenis Bimbingan</label>
-                                                <select name="type"
-                                                    class="form-select @error('type') is-invalid @enderror">
-                                                    <option value="">Pilih Bimbingan</option>
-                                                    @foreach ($jenis_bimbingan as $value => $label)
-                                                        <option value="{{ $value }}"
-                                                            {{ old('type') == $value ? 'selected' : '' }}>
-                                                            {{ $label }}
-                                                        </option>
+                                                <label for="id_agenda">Jenis Bimbingan</label>
+                                                <select name="id_agenda" id="id_agenda"
+                                                    class="form-select @error('id_agenda') is-invalid @enderror">
+                                                    <option value="">Pilih Jenis Bimbingan</option>
+                                                    @foreach ($jenis_agenda as $id => $nama)
+                                                        <option value="{{ $id }}"
+                                                            {{ old('id_agenda') == $id ? 'selected' : null }}>
+                                                            {{ $nama }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('type')
+                                                @error('id_agenda')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -41,7 +39,7 @@
                                             <div class="row gx-3">
                                                 <div class="col-md-6 mb-3 mb-md-0">
                                                     <label for="agenda_date">Tanggal</label>
-                                                    <input name="agenda_date" type="date"
+                                                    <input name="agenda_date" type="date" id="agenda_date"
                                                         class="form-control @error('agenda_date') is-invalid @enderror"
                                                         value="{{ old('agenda_date') }}">
                                                     @error('agenda_date')
@@ -51,7 +49,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="agenda_time">Waktu</label>
-                                                    <input name="agenda_time" type="time"
+                                                    <input name="agenda_time" type="time" id="agenda_time"
                                                         class="form-control @error('agenda_time') is-invalid @enderror"
                                                         value="{{ old('agenda_time') }}">
                                                     @error('agenda_time')
@@ -64,8 +62,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="dosen_id">Dosen Pembimbing</label>
-                                                <select name="dosen_id" id="#js-example-basic-single"
-                                                    data-live-search="true"
+                                                <select name="dosen_id" id="dosen_id"
                                                     class="form-select @error('dosen_id') is-invalid @enderror">
                                                     <option value="">Pilih Dosen</option>
                                                     @foreach ($dosen as $nidn => $nama)
@@ -81,7 +78,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="topic">Judul</label>
-                                                <input name="topic" type="input"
+                                                <input name="topic" type="input" id="topic"
                                                     class="form-control @error('topic') is-invalid @enderror"
                                                     value="{{ old('topic') }}">
                                                 @error('topic')
@@ -105,13 +102,13 @@
                                     </div>
 
                                     @include('components.lib.action-modal')
+
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
         </div>
     </div>
 @endsection

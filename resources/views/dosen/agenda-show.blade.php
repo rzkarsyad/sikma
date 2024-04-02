@@ -44,7 +44,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="width: 32%" class="text-primary fw-bold">Jenis Bimbingan</td>
-                                                <td>{{ $type }}</td>
+                                                <td>{{ $mhsAgenda->type->nama }}</td>
                                             </tr>
                                         </table>
                                     </div>

@@ -11,6 +11,7 @@ use App\Models\Mahasiswa;
 use App\Models\MhsAgenda;
 use App\Models\MhsOrmawa;
 use App\Models\JalurMasuk;
+use App\Models\ListAgenda;
 use App\Models\ListOrmawa;
 use App\Models\ListTingkat;
 use App\Models\MhsKegiatan;
@@ -112,26 +113,21 @@ class DosenController extends Controller
         $angkatan = $this->getAngkatan();
         $prodi = Prodi::pluck('nama', 'id');
 
-        $jenis_bimbingan = [
-            1 => 'Bimbingan Konseling',
-            2 => 'Bimbingan Pembina Ormawa',
-        ];
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
+
         $status = [
             1 => 'Belum Diterima',
             2 => 'Diterima',
         ];
 
-        return $dataTable->render('dosen.agenda', compact('angkatan', 'prodi', 'jenis_bimbingan', 'status'));
+        return $dataTable->render('dosen.agenda', compact('angkatan', 'prodi', 'jenis_agenda', 'status'));
     }
 
     public function showAgenda($id)
     {
         $mhsAgenda = MhsAgenda::findOrFail($id);
 
-        $type = [
-            1 => 'Bimbingan Konseling',
-            2 => 'Bimbingan Pembina Ormawa',
-        ];
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
 
         $status = [
             1 => 'Belum diterima',
@@ -152,7 +148,7 @@ class DosenController extends Controller
                 break;
         }
 
-        $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
+        $jenis_agenda = $jenis_agenda[$mhsAgenda->jenis_agenda] ?? $mhsAgenda->jenis_agenda;
 
         $mahasiswa = $mhsAgenda->mahasiswa;
         $dosen = $mhsAgenda->dosen;
@@ -160,7 +156,7 @@ class DosenController extends Controller
 
         return view('dosen.agenda-show')->with([
             'mhsAgenda' => $mhsAgenda,
-            'type' => $type,
+            'jenis_agenda' => $jenis_agenda,
             'mahasiswa' => $mahasiswa,
             'dosen' => $dosen,
             'statusText' => $statusText,

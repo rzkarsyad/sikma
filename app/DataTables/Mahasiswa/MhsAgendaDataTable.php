@@ -22,24 +22,16 @@ class MhsAgendaDataTable extends DataTable
             ->addColumn('actions', function ($item) {
                 return view('components.lib.action-mhsAgenda', compact('item'));
             })
-            ->addColumn('type', function ($item) {
-                $type = [
-                    1 => 'Bimbingan Konseling',
-                    2 => 'Bimbingan Pembina Ormawa',
-                ];
-    
-                return $type[$item->type] ?? $item->type;
-            })
             ->addColumn('status', function ($item) {
                 $status = [
                     1 => 'Belum diterima',
                     2 => 'Diterima',
                     3 => 'Selesai',
                 ];
-    
+
                 $statusText = $status[$item->status] ?? $item->status;
                 $badgeClass = '';
-    
+
                 switch ($item->status) {
                     case 1:
                         $badgeClass = 'text-bg-danger';
@@ -54,7 +46,7 @@ class MhsAgendaDataTable extends DataTable
                         $badgeClass = 'text-bg-secondary';
                         break;
                 }
-    
+
                 return '<span class="badge rounded-pill ' . $badgeClass . '">' . $statusText . '</span>';
             })
             ->rawColumns(['status', 'actions']);
@@ -66,7 +58,7 @@ class MhsAgendaDataTable extends DataTable
 
         return $model->newQuery()
             ->where('user_id', $id)
-            ->with(['dosen'])
+            ->with(['dosen', 'type'])
             ->select([
                 'mhs_agenda.*',
                 'mhs_agenda.id as agenda_id',
@@ -87,12 +79,11 @@ class MhsAgendaDataTable extends DataTable
                 'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
             ])
             ->initComplete('function(settings, json) {
-                // Apply custom styling after DataTable initialization
-                $(".dataTables_wrapper").addClass("mb-3"); // Add margin-bottom to the entire DataTable container
-                $(".dataTables_filter").addClass("mb-2"); // Add margin-bottom to the search bar
-                $(".dataTables_length").addClass("mb-2"); // Add margin-bottom to the show entries dropdown
-                $(".dataTables_paginate").addClass("mt-3"); // Add margin-top to the pagination container
-                $(".dataTables_info").addClass("mt-3"); // Add margin-top to the showing text
+                $(".dataTables_wrapper").addClass("mb-3");
+                $(".dataTables_filter").addClass("mb-2");
+                $(".dataTables_length").addClass("mb-2");
+                $(".dataTables_paginate").addClass("mt-3");
+                $(".dataTables_info").addClass("mt-3");
             }');
     }
 
@@ -104,7 +95,7 @@ class MhsAgendaDataTable extends DataTable
                 ->searchable(false)
                 ->exportable(false)
                 ->printable(false),
-            Column::make('type')->title('Jenis Bimbingan'),
+            Column::make('type.nama')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
             Column::make('dosen.nama')->title('Nama Pembimbing'),
             Column::make('agenda_date')->title('Tanggal'),

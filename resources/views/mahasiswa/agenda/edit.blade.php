@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -22,18 +21,17 @@
                                     <div class="row gx-3 gy-2">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="list_bimbingan">Jenis Bimbingan</label>
-                                                <select name="type"
-                                                    class="form-select @error('type') is-invalid @enderror">
-                                                    <option value="">Pilih Bimbingan</option>
-                                                    @foreach ($jenis_bimbingan as $id => $label)
+                                                <label for="id_agenda">Nama Kegiatan</label>
+                                                <select name="id_agenda" id="id_agenda"
+                                                    class="form-select @error('id_agenda') is-invalid @enderror">
+                                                    <option value="">Pilih Kegiatan</option>
+                                                    @foreach ($jenis_agenda as $id => $nama)
                                                         <option value="{{ $id }}"
-                                                            {{ $id == $mhsAgenda->type ? 'selected' : null }}>
-                                                            {{ $label }}
-                                                        </option>
+                                                            {{ $id == $mhsAgenda->id_agenda ? 'selected' : null }}>
+                                                            {{ $nama }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('type')
+                                                @error('id_agenda')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -108,7 +106,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
         </div>
     </div>
 @endsection
