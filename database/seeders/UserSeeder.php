@@ -17,25 +17,13 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-               'nim_nidn'=>'2102039',
-               'email'=>'dosen@gmail.com',
-               'type'=>1,
-               'password'=> bcrypt('123456'),
-            ],
-            [
-                'nim_nidn'=>'0',
+                'nim_nidn'=>'01234',
                 'email'=>'admin@gmail.com',
                 'type'=> 2,
                 'password'=> bcrypt('123456'),
             ],
-            [
-               'nim_nidn'=>'210202017',
-               'email'=>'edu.rzkarsyad@gmail.com',
-               'type'=>0,
-               'password'=> bcrypt('123456'),
-            ],
         ];
-    
+
         foreach ($users as $key => $user) {
             User::create($user);
         }
