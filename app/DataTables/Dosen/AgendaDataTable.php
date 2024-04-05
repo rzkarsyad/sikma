@@ -67,10 +67,11 @@ class AgendaDataTable extends DataTable
             ->whereHas('dosen', function ($query) use ($nidn) {
                 $query->where('dosen_id', $nidn);
             })
-            ->with(['dosen', 'mahasiswa', 'mahasiswa.prodi', 'type'])
+            ->with(['type' ,'dosen', 'mahasiswa', 'mahasiswa.prodi'])
             ->select([
                 'mhs_agenda.*',
                 'mhs_agenda.id as agenda_id',
+                'mhs_agenda.id_agenda as id_agenda',
             ]);
 
         $angkatan = request('angkatan');
@@ -91,7 +92,7 @@ class AgendaDataTable extends DataTable
         }
 
         if (!empty($bimbingan)) {
-            $query->whereIn('type', $bimbingan);
+            $query->whereIn('id_agenda', $bimbingan);
         }
 
         if (!empty($status)) {
