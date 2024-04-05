@@ -54,7 +54,7 @@
                                                                 <label class="form-check-label ms-1"
                                                                     for="filter-bimbingan-all">Semua</label>
                                                             </li>
-                                                            @foreach ($jenis_bimbingan as $value => $label)
+                                                            @foreach ($jenis_agenda as $value => $label)
                                                                 <li class="mb-2">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input filter-bimbingan"
