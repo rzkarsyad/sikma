@@ -18,7 +18,7 @@
                             <form action="{{ route('m.ormawa-store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
-                                <div class="row gx-3 gy-2 align-items-center">
+                                <div class="row gx-3 gy-2 align-items-top">
                                     <div class="col-md">
                                         <div class="mb-3">
                                             <label for="list_ormawa">Jenis Organisasi</label>
