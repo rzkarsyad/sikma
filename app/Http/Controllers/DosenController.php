@@ -289,9 +289,15 @@ class DosenController extends Controller
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
 
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
+        $status = [
+            1 => 'Belum Diterima',
+            2 => 'Diterima',
+        ];
+
         $dataTable->setUserId($mahasiswa->user_id);
 
-        return $dataTable->render('dosen.detail-mahasiswa', compact('mahasiswa'));
+        return $dataTable->render('dosen.detail-mahasiswa', compact('mahasiswa', 'jenis_agenda', 'status'));
     }
 
     public function profile()

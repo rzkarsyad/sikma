@@ -181,11 +181,7 @@
                                                     @forelse ($mahasiswa->agenda as $item)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            @if ($item->type == 1)
-                                                                <td>Bimbingan Konseling</td>
-                                                            @elseif ($item->type == 2)
-                                                                <td>Bimbingan Pembina Ormawa</td>
-                                                            @endif
+                                                            <td>{{ $item->type->nama }}</td>
                                                             <td>{{ $item->topic }}</td>
                                                             <td>{{ $item->agenda_date }}</td>
                                                             @if ($item->status == 1)
