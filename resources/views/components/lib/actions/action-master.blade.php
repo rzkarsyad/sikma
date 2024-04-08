@@ -1,7 +1,8 @@
 <div>
     <button type="button" class="btn text-muted d-inline edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
-        data-bs-id="{{ $item->id }}" data-bs-title="Edit"
-        onclick="fillModalData({{ $item->id }}, '{{ $item->nama }}')">
+        data-bs-id="{{ $item->id }}" data-bs-jenjang="{{ $item->id_jenjang }}"
+        data-bs-fakultas="{{ $item->id_fakultas }}" data-bs-nama="{{ $item->nama }}"
+        onclick="fillModalData('{{ $item->id }}', '{{ $item->id_jenjang }}', '{{ $item->id_fakultas }}', '{{ $item->nama }}')">
         <i class="ri-pencil-line font-size-16 me-2"></i>
     </button>
 
