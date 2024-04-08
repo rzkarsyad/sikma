@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Buat Agenda
+    Agenda
 @endsection
 
 @section('content')
@@ -112,3 +112,21 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('input').on('input', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+
+            $('textarea').on('input', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+
+            $('select').on('change', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+        });
+    </script>
+@endpush

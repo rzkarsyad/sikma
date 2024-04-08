@@ -312,6 +312,8 @@ class DosenController extends Controller
             'no_hp' => 'required',
         ]);
 
+        session(['active_tab' => 'kontak-pribadi']);
+
         $kPribadi = User::find(Auth::id());
         $kPribadi->dosen->no_hp = $request->input('no_hp');
 
@@ -324,21 +326,27 @@ class DosenController extends Controller
     {
         $request->validate([
             'old_password' => 'required',
-            'new_password' => 'required|confirmed',
+            'new_password' => 'required',
         ]);
+
+        session(['active_tab' => 'ganti-sandi']);
 
         $user = User::find(Auth::id());
 
         $current = $user->password;
 
         if (!Hash::check($request->old_password, $current)) {
-            return back()->with('error', 'Current password is incorrect.');
+            return redirect()->back()->with('error', 'Kata sandi saat ini salah.');
+        }
+
+        if ($request->new_password !== $request->new_password_confirmation) {
+            return redirect()->back()->with('error', 'Kata sandi baru dan konfirmasi tidak cocok.');
         }
 
         $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return redirect()->back()->with('success', 'Password berhasil diubah.');
+        return redirect()->back()->with('success', 'Kata sandi berhasil diubah.');
     }
 
     public function validateAgenda(Request $request)

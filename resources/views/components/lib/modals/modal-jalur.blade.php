@@ -151,7 +151,6 @@
                 $(this).find('.invalid-feedback').remove();
             });
 
-
             $('input').on('input', function() {
                 $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
             });

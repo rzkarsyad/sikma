@@ -30,7 +30,10 @@ class MhsAgendaController extends Controller
     {
         $jenis_agenda = ListAgenda::pluck('nama', 'id');
         $dosen = Dosen::pluck('nama', 'nidn');
-        return view('mahasiswa.agenda.create', compact('jenis_agenda', 'dosen'));
+
+        $backRoute = route('m.agenda');
+
+        return view('mahasiswa.agenda.create', compact('jenis_agenda', 'dosen', 'backRoute'));
     }
 
     /**

@@ -30,7 +30,10 @@ class MhsPrestasiController extends Controller
     public function create()
     {
         $tingkat = ListTingkat::pluck('nama', 'id');
-        return view('mahasiswa.prestasi.create', compact('tingkat'));
+
+        $backRoute = route('m.prestasi');
+
+        return view('mahasiswa.prestasi.create', compact('tingkat', 'backRoute'));
     }
 
     /**

@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -91,8 +90,21 @@
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
         </div>
 
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('input').on('input', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+
+            $('select').on('change', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+        });
+    </script>
+@endpush
