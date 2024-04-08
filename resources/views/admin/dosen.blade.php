@@ -13,7 +13,7 @@
                         <h4 class="mb-sm-0">Data Dosen</h4>
                     </div>
 
-                    @include('components.lib.toast')
+                    @include('components.lib.toast-success')
 
                     @include('components.lib.toast-error')
 
