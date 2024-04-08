@@ -140,28 +140,41 @@
                     error: function(xhr, status, error) {
                         var errors = xhr.responseJSON.errors;
 
-                        var jenjangError = errors['id_jenjang'];
-                        if (jenjangError) {
-                            $('#createJenjang').addClass('is-invalid').next('.invalid-feedback')
-                                .remove().end().after('<div class="invalid-feedback">' +
+                        $('#createJenjang').removeClass('is-invalid').next('.invalid-feedback')
+                            .remove();
+                        $('#createFakultas').removeClass('is-invalid').next('.invalid-feedback')
+                            .remove();
+                        $('#createNama').removeClass('is-invalid').next('.invalid-feedback')
+                            .remove();
+
+                        if (errors) {
+                            var jenjangError = errors['id_jenjang'];
+                            if (jenjangError) {
+                                $('#createJenjang').addClass('is-invalid').after(
+                                    '<div class="invalid-feedback">' +
                                     jenjangError[0] + '</div>');
+                            }
+
+                            var fakultasError = errors['id_fakultas'];
+                            if (fakultasError) {
+                                $('#createFakultas').addClass('is-invalid').after(
+                                    '<div class="invalid-feedback">' +
+                                    fakultasError[0] + '</div>');
+                            }
+
+                            var namaError = errors['nama'];
+                            if (namaError) {
+                                $('#createNama').addClass('is-invalid').after(
+                                    '<div class="invalid-feedback">' +
+                                    namaError + '</div>');
+                            }
+                        } else {
+                            console.error('Error occurred:', error);
                         }
 
-                        var fakultasError = errors['id_fakultas'];
-                        if (fakultasError) {
-                            $('#createFakultas').addClass('is-invalid').next(
-                                '.invalid-feedback').remove().end().after(
-                                '<div class="invalid-feedback">' + fakultasError[0] +
-                                '</div>');
-                        }
-
-                        var namaError = errors['nama'];
-                        if (namaError) {
-                            $('#createNama').addClass('is-invalid').next('.invalid-feedback')
-                                .remove().end().after('<div class="invalid-feedback">' +
-                                    namaError[0] + '</div>');
-                        }
+                        $('#createModal').modal('show');
                     }
+
 
                 });
             });
@@ -243,5 +256,13 @@
             $('#editFakultas').val(fakultas);
             $('#editNama').val(nama);
         }
+
+        $('input').on('input', function() {
+            $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+        });
+
+        $('select').on('change', function() {
+            $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+        });
     </script>
 @endpush

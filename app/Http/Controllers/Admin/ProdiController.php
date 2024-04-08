@@ -36,13 +36,24 @@ class ProdiController extends Controller
     {
         $this->validateProdi($request);
 
-        Prodi::create([
-            'id_jenjang' => $request->id_jenjang,
-            'id_fakultas' => $request->id_fakultas,
-            'nama' => $request->nama,
-        ]);
+        $existingProdi = Prodi::where('id_jenjang', $request->id_jenjang)
+                              ->where('id_fakultas', $request->id_fakultas)
+                              ->where('nama', $request->nama)
+                              ->exists();
 
-        return session()->flash('success', 'Data program studi berhasil ditambah.');
+        if ($existingProdi) {
+            return response()->json(['errors' => ['nama' => 'Program studi sudah ada.']], 422);
+        }
+
+        $newProdi = new Prodi();
+        $newProdi->id_jenjang = $request->id_jenjang;
+        $newProdi->id_fakultas = $request->id_fakultas;
+        $newProdi->nama = $request->nama;
+
+        $newProdi->save();
+
+        return session()->flash('success', 'Program studi berhasil ditambah.');
+
     }
 
     /**
@@ -98,14 +109,12 @@ class ProdiController extends Controller
             'id_jenjang' => 'required',
             'id_fakultas' => 'required',
             'nama' => 'required|string|max:255',
-            // 'nama' => 'required|string|max:255|unique:prodi',
         ];
 
         $messages = [
             'id_jenjang.required' => 'Harap pilih jenjang',
             'id_fakultas.required' => 'Harap pilih fakultas',
             'nama.required' => 'Nama program studi tidak boleh kosong',
-            // 'nama.unique' => 'Nama program studi sudah ada.',
         ];
 
         $request->validate($rules, $messages);

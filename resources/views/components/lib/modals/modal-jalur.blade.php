@@ -111,5 +111,9 @@
                 editModal.hide();
             });
         });
+
+        $('input').on('input', function() {
+            $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+        });
     </script>
 @endpush
