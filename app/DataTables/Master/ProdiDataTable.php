@@ -25,7 +25,7 @@ class ProdiDataTable extends DataTable
             ->addIndexColumn()
             ->setRowId('id')
             ->addColumn('actions', function ($item) {
-                return view('components.lib.actions.action-master', [
+                return view('components.lib.actions.action-prodi', [
                     'item' => $item,
                     'deleteRouteName' => 'admin.prodi.delete',
                 ]);

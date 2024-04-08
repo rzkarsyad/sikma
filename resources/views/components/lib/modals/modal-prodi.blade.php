@@ -46,7 +46,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="cancelBtn">Batal</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                 <button type="submit" class="btn btn-primary" id="submitBtn">Simpan</button>
             </div>
             </form>
@@ -65,6 +65,7 @@
                 <form id="editForm" action="{{ route('admin.prodi.update', $id) }}" method="POST">
                     @method('PUT')
                     @csrf
+                    <input type="hidden" name="editItemId" id="editItemId">
                     <div class="mb-3">
                         <label for="list_jenjang">Jenjang</label>
                         <select name="id_jenjang" id="editJenjang"
@@ -105,7 +106,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="cancelBtn">Batal</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                 <button type="submit" class="btn btn-primary" id="submitBtn">Simpan</button>
             </div>
             </form>
@@ -134,7 +135,9 @@
 
                         $('#createNama').val('');
                         $('#createNama').removeClass('is-invalid');
+
                         $('.alert-success').html(response.success).show();
+
                         window.location.reload();
                     },
                     error: function(xhr, status, error) {
@@ -179,22 +182,34 @@
                 });
             });
 
-            $('.edit-btn').click(function() {
-                const itemId = $(this).data('bs-id');
-                const jenjang = $(this).data('bs-jenjang');
-                const fakultas = $(this).data('bs-fakultas');
-                const nama = $(this).data('bs-nama');
+            const editModal = document.getElementById('editModal');
 
-                fillModalData(itemId, jenjang, fakultas, nama);
-                $('#editModal').modal('show');
+            editModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget;
+                const id = button.getAttribute('data-bs-id');
+                const jenjang = button.getAttribute('data-bs-jenjang');
+                const fakultas = button.getAttribute('data-bs-fakultas');
+                const nama = button.getAttribute('data-bs-nama');
+
+                const editItemId = document.getElementById('editItemId');
+                const editJenjang = document.getElementById('editJenjang');
+                const editFakultas = document.getElementById('editFakultas');
+                const editNama = document.getElementById('editNama');
+
+                editItemId.value = id;
+                editJenjang.value = jenjang;
+                editFakultas.value = fakultas;
+                editNama.value = nama;
             });
 
             $('#editForm').submit(function(e) {
                 e.preventDefault();
 
+                const actionUrl = "{{ route('admin.prodi.update', '') }}/" + $('#editItemId').val();
+
                 $.ajax({
-                    type: "PUT",
-                    url: $(this).attr('action'),
+                    type: "POST",
+                    url: actionUrl,
                     data: $(this).serialize(),
                     success: function(response) {
                         $('#editModal').modal('hide');
@@ -209,60 +224,68 @@
                         $('#editNama').removeClass('is-invalid');
 
                         $('.alert-success').html(response.success).show();
+
                         window.location.reload();
                     },
                     error: function(xhr, status, error) {
                         var errors = xhr.responseJSON.errors;
 
-                        var jenjangError = errors['id_jenjang'];
-                        if (jenjangError) {
-                            $('#editJenjang').addClass('is-invalid').next('.invalid-feedback')
-                                .remove().end().after('<div class="invalid-feedback">' +
+                        $('#editJenjang').removeClass('is-invalid').next('.invalid-feedback')
+                            .remove();
+                        $('#editFakultas').removeClass('is-invalid').next('.invalid-feedback')
+                            .remove();
+                        $('#editNama').removeClass('is-invalid').next('.invalid-feedback')
+                            .remove();
+
+                        if (errors) {
+                            var jenjangError = errors['id_jenjang'];
+                            if (jenjangError) {
+                                $('#editJenjang').addClass('is-invalid').after(
+                                    '<div class="invalid-feedback">' +
                                     jenjangError[0] + '</div>');
+                            }
+
+                            var fakultasError = errors['id_fakultas'];
+                            if (fakultasError) {
+                                $('#editFakultas').addClass('is-invalid').after(
+                                    '<div class="invalid-feedback">' +
+                                    fakultasError[0] + '</div>');
+                            }
+
+                            var namaError = errors['nama'];
+                            if (namaError) {
+                                $('#editNama').addClass('is-invalid').after(
+                                    '<div class="invalid-feedback">' +
+                                    namaError + '</div>');
+                            }
+                        } else {
+                            console.error('Error occurred:', error);
                         }
 
-                        var fakultasError = errors['id_fakultas'];
-                        if (fakultasError) {
-                            $('#editFakultas').addClass('is-invalid').next(
-                                '.invalid-feedback').remove().end().after(
-                                '<div class="invalid-feedback">' + fakultasError[0] +
-                                '</div>');
-                        }
-
-                        var namaError = errors['nama'];
-                        if (namaError) {
-                            $('#editNama').addClass('is-invalid').next('.invalid-feedback')
-                                .remove().end().after('<div class="invalid-feedback">' +
-                                    namaError[0] + '</div>');
-                        }
+                        $('#editModal').modal('show');
                     }
+
 
                 });
             });
 
-            $('#cancelBtn').click(function() {
-                window.location.reload();
+            $('#createModal').on('hidden.bs.modal', function() {
+                $(this).find('.is-invalid').removeClass('is-invalid');
+                $(this).find('.invalid-feedback').remove();
             });
-        });
 
-        function fillModalData(itemId, jenjang, fakultas, nama) {
-            const editForm = document.getElementById('editForm');
-            const actionUrl = "{{ route('admin.prodi.update', '') }}/" + itemId;
+            $('#editModal').on('hidden.bs.modal', function() {
+                $(this).find('.is-invalid').removeClass('is-invalid');
+                $(this).find('.invalid-feedback').remove();
+            });
 
-            editForm.action = actionUrl;
+            $('input').on('input', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
 
-            $('#editItemId').val(itemId);
-            $('#editJenjang').val(jenjang);
-            $('#editFakultas').val(fakultas);
-            $('#editNama').val(nama);
-        }
-
-        $('input').on('input', function() {
-            $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
-        });
-
-        $('select').on('change', function() {
-            $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            $('select').on('change', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
         });
     </script>
 @endpush

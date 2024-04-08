@@ -80,6 +80,15 @@ class ProdiController extends Controller
     {
         $this->validateProdi($request);
 
+        $existingProdi = Prodi::where('id_jenjang', $request->id_jenjang)
+                              ->where('id_fakultas', $request->id_fakultas)
+                              ->where('nama', $request->nama)
+                              ->exists();
+
+        if ($existingProdi) {
+            return response()->json(['errors' => ['nama' => 'Program studi sudah ada.']], 422);
+        }
+
         $prodi = Prodi::find($id);
 
         $prodi->update([
@@ -88,7 +97,7 @@ class ProdiController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return redirect()->route('admin.prodi')->with('success', 'Data program studi berhasil diperbarui.');
+        return session()->flash('success', 'Program studi berhasil diperbarui.');
     }
 
     /**
