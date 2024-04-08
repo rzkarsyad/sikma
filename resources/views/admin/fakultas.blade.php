@@ -13,11 +13,7 @@
                         <h4 class="mb-sm-0">Data Fakultas</h4>
                     </div>
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('components.lib.toast-success')
 
                     <div class="row">
                         <div class="col-12">

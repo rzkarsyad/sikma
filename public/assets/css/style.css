@@ -105,3 +105,8 @@
     cursor: pointer;
     object-fit: cover;
 }
+
+.logo-sm{
+    width: 32px;
+    height: 32px;
+}

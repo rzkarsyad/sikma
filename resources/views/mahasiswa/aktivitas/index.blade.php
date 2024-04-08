@@ -14,11 +14,8 @@
                         <a href="{{ route('m.aktivitas-create') }}" class="btn btn-primary">+ Tambah Aktivitas</a>
                     </div>
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('components.lib.toast-success')
+
                     <div class="row">
                         <div class="col-12">
                             <div class="card">

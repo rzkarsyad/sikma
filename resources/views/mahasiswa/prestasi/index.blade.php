@@ -14,11 +14,7 @@
                         <a href="{{ route('m.prestasi-create') }}" class="btn btn-primary">+ Tambah Prestasi</a>
                     </div>
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('components.lib.toast-success')
 
                     <div class="row">
                         <div class="col-12">

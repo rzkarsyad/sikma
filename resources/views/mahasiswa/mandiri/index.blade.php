@@ -14,11 +14,7 @@
                         <a href="{{ route('m.mandiri-create') }}" class="btn btn-primary">+ Tambah Kegiatan</a>
                     </div>
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('components.lib.toast-success')
 
                     <div class="row">
                         <div class="col-12">

@@ -14,18 +14,9 @@
                         <h4 class="mb-sm-0">Data Mahasiswa</h4>
                     </div>
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('components.lib.toast-success')
 
-                    @if (Session::has('error'))
-                        <div class="alert alert-danger">
-                            {{ Session::get('error') }}
-                        </div>
-                    @endif
-
+                    @include('components.lib.toast-error')
 
                     <div class="row">
                         <div class="col-12">
