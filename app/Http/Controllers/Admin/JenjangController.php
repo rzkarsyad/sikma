@@ -43,7 +43,7 @@ class JenjangController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return session()->flash('success', 'Data jenjang berhasil ditambah.');
+        return session()->flash('success', 'Jenjang berhasil ditambah.');
     }
 
     /**
@@ -84,7 +84,7 @@ class JenjangController extends Controller
 
         $jalur->update(['nama' => $request->nama]);
 
-        return redirect()->route('admin.jenjang')->with('success', 'Data jenjang berhasil diperbarui.');
+        return session()->flash('success', 'Jenjang berhasil diperbarui.');
     }
 
     /**

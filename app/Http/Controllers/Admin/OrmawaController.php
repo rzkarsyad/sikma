@@ -36,7 +36,7 @@ class OrmawaController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return session()->flash('success', 'Data organisasi berhasil ditambah.');
+        return session()->flash('success', 'Organisasi / UKM berhasil ditambah.');
     }
 
     /**
@@ -67,7 +67,7 @@ class OrmawaController extends Controller
 
         $ormawa->update(['nama' => $request->nama]);
 
-        return redirect()->route('admin.ormawa')->with('success', 'Data organisasi berhasil diperbarui.');
+        return session()->flash('success', 'Organisasi/UKM berhasil diperbarui.');
     }
 
     /**

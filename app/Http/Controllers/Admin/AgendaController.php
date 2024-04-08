@@ -36,7 +36,7 @@ class AgendaController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return session()->flash('success', 'Data tipe agenda berhasil ditambah.');
+        return session()->flash('success', 'Tipe agenda berhasil ditambah.');
     }
 
     /**
@@ -67,7 +67,7 @@ class AgendaController extends Controller
 
         $agenda->update(['nama' => $request->nama]);
 
-        return redirect()->route('admin.agenda')->with('success', 'Data agenda berhasil diperbarui.');
+        return session()->flash('success', 'Tipe agenda berhasil diperbarui.');
     }
 
     /**

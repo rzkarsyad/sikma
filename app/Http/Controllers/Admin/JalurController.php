@@ -36,7 +36,7 @@ class JalurController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return session()->flash('success', 'Data jalur masuk berhasil ditambah.');
+        return session()->flash('success', 'Jalur masuk berhasil ditambah.');
     }
 
     /**
@@ -67,7 +67,7 @@ class JalurController extends Controller
 
         $jalur->update(['nama' => $request->nama]);
 
-        return redirect()->route('admin.jalur-masuk')->with('success', 'Data jalur masuk berhasil diperbarui.');
+        return session()->flash('success', 'Jalur masuk berhasil ditambah.');
     }
 
     /**

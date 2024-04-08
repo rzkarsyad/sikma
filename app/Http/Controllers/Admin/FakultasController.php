@@ -36,7 +36,7 @@ class FakultasController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return session()->flash('success', 'Data fakultas berhasil ditambah.');
+        return session()->flash('success', 'Fakultas berhasil ditambah.');
     }
 
     /**
@@ -67,7 +67,7 @@ class FakultasController extends Controller
 
         $fakultas->update(['nama' => $request->nama]);
 
-        return redirect()->route('admin.fakultas')->with('success', 'Data fakultas berhasil diperbarui.');
+        return session()->flash('success', 'Fakultas berhasil diperbarui.');
     }
 
     /**

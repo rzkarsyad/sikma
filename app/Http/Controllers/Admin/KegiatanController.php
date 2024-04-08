@@ -36,7 +36,7 @@ class KegiatanController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return session()->flash('success', 'Data kegiatan berhasil ditambah.');
+        return session()->flash('success', 'Kegiatan berhasil ditambah.');
     }
 
     /**
@@ -67,7 +67,7 @@ class KegiatanController extends Controller
 
         $kegiatan->update(['nama' => $request->nama]);
 
-        return redirect()->route('admin.kegiatan')->with('success', 'Data kegiatan berhasil diperbarui.');
+        return session()->flash('success', 'Kegiatan berhasil diperbarui.');
     }
 
     /**

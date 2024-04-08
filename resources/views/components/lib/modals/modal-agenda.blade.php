@@ -30,24 +30,28 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editModalLabel">Edit Data Agenda</h1>
+                <h5 class="modal-title" id="editModalLabel">Edit Agenda</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editForm" action="" method="POST">
-                    @csrf
+                <form id="editForm" action="{{ route('admin.agenda.update', '') }}" method="POST">
                     @method('PUT')
+                    @csrf
+                    <input type="hidden" name="editItemId" id="editItemId">
                     <div class="mb-3">
-                        <label for="nama" class="form-label">Nama Tipe Agenda</label>
-                        <input type="text" class="form-control" id="nama" name="nama">
+                        <label for="editNama" class="form-label">Nama Tipe Agenda</label>
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="editNama"
+                            name="nama">
+                        @error('nama')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <input type="hidden" id="editItemId" name="id">
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary" id="submitButton">Simpan</button>
-                    </div>
-                </form>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Simpan</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -81,39 +85,77 @@
                     }
                 });
             });
-        });
 
-        function fillModalData(itemId, nama) {
-            const editForm = document.getElementById('editForm');
-            const namaInput = document.getElementById('nama');
-            const itemIdInput = document.getElementById('editItemId');
 
-            itemIdInput.value = itemId;
-            editForm.action = "{{ route('admin.agenda.update', '') }}/" + itemId;
-            namaInput.value = nama;
-        }
+            const editModal = document.getElementById('editModal');
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+            editModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget;
+                const id = button.getAttribute('data-bs-id');
+                const nama = button.getAttribute('data-bs-nama');
 
-            document.querySelectorAll('.edit-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const itemId = this.getAttribute('data-bs-id');
-                    const nama = this.getAttribute('data-bs-nama');
+                const editItemId = document.getElementById('editItemId');
+                const editNama = document.getElementById('editNama');
 
-                    fillModalData(itemId, nama);
-                    editModal.show();
+                editItemId.value = id;
+                editNama.value = nama;
+            });
+
+            $('#editForm').submit(function(e) {
+                e.preventDefault();
+
+                const actionUrl = "{{ route('admin.agenda.update', '') }}/" + $('#editItemId').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#editModal').modal('hide');
+
+                        $('#editNama').val('');
+                        $('#editNama').removeClass('is-invalid');
+
+                        $('.alert-success').html(response.success).show();
+
+                        window.location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        var errors = xhr.responseJSON.errors;
+
+                        $('#editNama').removeClass('is-invalid').next('.invalid-feedback')
+                            .remove();
+
+                        if (errors) {
+                            var namaError = errors['nama'];
+                            if (namaError) {
+                                $('#editNama').addClass('is-invalid').after(
+                                    '<div class="invalid-feedback">' +
+                                    namaError + '</div>');
+                            }
+                        } else {
+                            console.error('Error occurred:', error);
+                        }
+
+                        $('#editModal').modal('show');
+                    }
                 });
             });
 
-            const closeButton = document.querySelector('#editModal .btn-close');
-            closeButton.addEventListener('click', function() {
-                editModal.hide();
+            $('#createModal').on('hidden.bs.modal', function() {
+                $(this).find('.is-invalid').removeClass('is-invalid');
+                $(this).find('.invalid-feedback').remove();
             });
-        });
 
-        $('input').on('input', function() {
-            $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            $('#editModal').on('hidden.bs.modal', function() {
+                $(this).find('.is-invalid').removeClass('is-invalid');
+                $(this).find('.invalid-feedback').remove();
+            });
+
+            $('input').on('input', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+
         });
     </script>
 @endpush
