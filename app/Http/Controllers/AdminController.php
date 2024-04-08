@@ -19,9 +19,10 @@ use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
-use App\DataTables\Master\JenjangDataTable;
+use App\DataTables\Master\AdminDataTable;
 use App\DataTables\Master\DosenDataTable;
 use App\DataTables\Master\ProdiDataTable;
+use App\DataTables\Master\JenjangDataTable;
 use App\DataTables\Master\FakultasDataTable;
 use App\DataTables\Master\KegiatanDataTable;
 use App\DataTables\Master\MahasiswaDataTable;
@@ -36,9 +37,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AdminDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.index');
     }
 
     /**
@@ -59,7 +60,16 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateAdmin($request);
+
+        $user = User::create([
+            'nim_nidn' => $request->nim_nidn,
+            'email' => $request->email,
+            'password' => Hash::make($request->nim_nidn),
+            'type' => 2,
+        ]);
+
+        return session()->flash('success', 'Admin berhasil ditambah.');
     }
 
     /**
@@ -104,7 +114,11 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $admin = User::findOrFail($id);
+
+        $admin->delete();
+
+        return redirect()->route('admin.member')->with('success', 'Admin berhasil dihapus.');
     }
 
     public function mahasiswa(MahasiswaDataTable $dataTable)
@@ -237,5 +251,26 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Kata sandi berhasil disetel ulang.');
+    }
+
+    public function validateAdmin(Request $request)
+    {
+        $rules = [
+            'nim_nidn' => 'required|string|max:255|unique:users',
+            'email' => 'required|email|max:255',
+            'password' => 'required|string|max:255'
+        ];
+
+        $messages = [
+            'nim_nidn.required' => 'Username tidak boleh kosong',
+            'nim_nidn.unique' => 'Username sudah ada.',
+
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid',
+
+            'password.required' => 'Kata sandi tidak boleh kosong',
+        ];
+
+        $request->validate($rules, $messages);
     }
 }

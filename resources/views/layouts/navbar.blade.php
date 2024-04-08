@@ -63,13 +63,21 @@
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
+
                     @if (Auth::user()->type == 'mahasiswa')
                         <a class="dropdown-item" href="{{ route('m.profile') }}"><i
                                 class="ri-user-line align-middle me-1"></i>
                             Profil</a>
                         <div class="dropdown-divider"></div>
                     @endif
+
+                    @if (Auth::user()->type == 'dosen')
+                        <a class="dropdown-item" href="{{ route('dosen.profile') }}"><i
+                                class="ri-user-line align-middle me-1"></i>
+                            Profil</a>
+                        <div class="dropdown-divider"></div>
+                    @endif
+
                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">

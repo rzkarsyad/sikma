@@ -62,6 +62,13 @@
     <li class="menu-title">DATA MASTER</li>
 
     <li>
+        <a href="{{ route('admin.member') }}" class=" waves-effect">
+            <i class="ri-user-settings-line"></i>
+            <span>Admin</span>
+        </a>
+    </li>
+
+    <li>
         <a href="{{ route('admin.mahasiswa') }}" class=" waves-effect">
             <i class="ri-contacts-line"></i>
             <span>Mahasiswa</span>

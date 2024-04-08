@@ -176,6 +176,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::put('/admin/fakultas/update/{id}', [FakultasController::class, 'update'])->name('admin.fakultas.update');
     Route::delete('/admin/fakultas/delete/{id}', [FakultasController::class, 'destroy'])->name('admin.fakultas.delete');
 
+    Route::get('/admin/member', [AdminController::class, 'index'])->name('admin.member');
+    Route::post('/admin/member/store', [AdminController::class, 'store'])->name('admin.member.store');
+    Route::delete('/admin/member/delete/{id}', [AdminController::class, 'destroy'])->name('admin.member.delete');
+
     Route::get('/admin/mahasiswa', [AdminController::class, 'mahasiswa'])->name('admin.mahasiswa');
     Route::get('/admin/mahasiswa/export', [AdminController::class, 'mahasiswaExport'])->name('admin.mahasiswa.export');
     Route::post('/admin/mahasiswa/import', [AdminController::class, 'mahasiswaImport'])->name('admin.mahasiswa.import');

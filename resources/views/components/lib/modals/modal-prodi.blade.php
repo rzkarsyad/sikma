@@ -177,8 +177,6 @@
 
                         $('#createModal').modal('show');
                     }
-
-
                 });
             });
 
