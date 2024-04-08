@@ -9,7 +9,7 @@
                 <form id="createForm" action="{{ route('admin.agenda.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="createNama" class="form-label">Nama Agenda</label>
+                        <label for="createNama" class="form-label">Nama Tipe Agenda</label>
                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="createNama"
                             name="nama">
                         @error('nama')
@@ -38,7 +38,7 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label for="nama" class="form-label">Nama Agenda</label>
+                        <label for="nama" class="form-label">Nama Tipe Agenda</label>
                         <input type="text" class="form-control" id="nama" name="nama">
                     </div>
                     <input type="hidden" id="editItemId" name="id">

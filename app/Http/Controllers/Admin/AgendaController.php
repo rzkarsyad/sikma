@@ -30,8 +30,13 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        $agenda = ListAgenda::findOrFail($id);
-        return response()->json($agenda);
+        $this->validateAgenda($request);
+
+        ListAgenda::create([
+            'nama' => $request->nama,
+        ]);
+
+        return session()->flash('success', 'Data tipe agenda berhasil ditambah.');
     }
 
     /**
