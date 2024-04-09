@@ -8,7 +8,7 @@
         </button>
     </form>
 
-    @if (Auth::user()->id != $item->id)
+    {{-- @if (Auth::user()->id != $item->id)
         <form id="deleteForm" action="{{ route('admin.member.delete', ['id' => $item->id]) }}" method="POST"
             style="display: inline;">
             @csrf
@@ -17,5 +17,5 @@
                 <i class="ri-delete-bin-line font-size-16"></i>
             </button>
         </form>
-    @endif
+    @endif --}}
 </div>

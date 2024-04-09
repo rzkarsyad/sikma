@@ -36,6 +36,12 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 Route::get('/', [AuthenticatedSessionController::class, 'create'])
     ->middleware(['guest:'.config('fortify.guard')]);
 
+Route::get('/admin/auth', [AuthenticatedSessionController::class, 'create'])
+    ->middleware(['auth.admin:'.config('fortify.guard')]);
+
+Route::post('/admin/auth', [LoginController::class, 'loginAdmin'])
+    ->name('admin.login');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
