@@ -46,7 +46,7 @@ Route::get('/admin/auth',  function () {
 Route::post('/admin/auth', [LoginController::class, 'loginAdmin'])
     ->name('admin.login');
 
-Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware([
     'auth:sanctum',

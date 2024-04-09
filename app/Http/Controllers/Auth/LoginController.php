@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Fortify\Http\Responses\LogoutResponse;
 
 class LoginController extends Controller
 {
@@ -107,5 +108,21 @@ class LoginController extends Controller
                     ->with('error','Pengguna tidak terdaftar.');
             }
         }
+    }
+
+    public function logout(Request $request) {
+        $redirectTo = '/login';
+
+        if (Auth::check() && Auth::user()->type === 'admin') {
+            $redirectTo = '/admin/auth';
+        }
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect($redirectTo);
     }
 }

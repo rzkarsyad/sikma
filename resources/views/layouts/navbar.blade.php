@@ -78,6 +78,13 @@
                         <div class="dropdown-divider"></div>
                     @endif
 
+                    @if (Auth::user()->type == 'admin')
+                        <a class="dropdown-item" href="{{ route('admin.profile') }}"><i
+                                class="ri-user-line align-middle me-1"></i>
+                            Profil</a>
+                        <div class="dropdown-divider"></div>
+                    @endif
+
                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
