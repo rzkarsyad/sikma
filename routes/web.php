@@ -33,10 +33,14 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 
-Route::get('/', [AuthenticatedSessionController::class, 'create'])
+Route::get('/',  function () {
+        return view('auth.login');
+    })
     ->middleware(['guest:'.config('fortify.guard')]);
 
-Route::get('/admin/auth', [AuthenticatedSessionController::class, 'create'])
+Route::get('/admin/auth',  function () {
+        return view('auth.login-admin');
+    })
     ->middleware(['auth.admin:'.config('fortify.guard')]);
 
 Route::post('/admin/auth', [LoginController::class, 'loginAdmin'])
