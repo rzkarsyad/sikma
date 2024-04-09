@@ -17,7 +17,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h4>Halo, Admin!</h4>
+                    <h4>Halo, {{ ucfirst(Auth::user()->nim_nidn) }}!</h4>
                     <p class="text-muted mt-2">Selamat datang di Sistem Kegiatan Mahasiswa.</p>
                 </div>
             </div>

@@ -48,7 +48,7 @@
                     @elseif (Auth::user()->type == 'mahasiswa')
                         <img src="{{ Avatar::create(Auth::user()->mahasiswa->nama)->toBase64() }}" alt="Avatar">
                     @elseif (Auth::user()->type == 'admin')
-                        <img src="{{ Avatar::create('Admin')->toBase64() }}" alt="Avatar">
+                        <img src="{{ Avatar::create(ucfirst(Auth::user()->nim_nidn))->toBase64() }}" alt="Avatar">
                     @endif
 
                     @if (Auth::user()->type == 'dosen')
@@ -58,7 +58,7 @@
                         <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->mahasiswa->nama }}</span>
                     @endif
                     @if (Auth::user()->type == 'admin')
-                        <span class="d-none d-xl-inline-block ms-1">Admin</span>
+                        <span class="d-none d-xl-inline-block ms-1">{{ ucfirst(Auth::user()->nim_nidn) }} </span>
                     @endif
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>

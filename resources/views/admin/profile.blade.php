@@ -21,11 +21,11 @@
                             <div class="card shadow-none rounded-4">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ Avatar::create('Admin')->setDimension(72)->setFontSize(32)->toBase64() }}"
+                                        <img src="{{ Avatar::create(ucfirst(Auth::user()->nim_nidn))->setDimension(72)->setFontSize(32)->toBase64() }}"
                                             alt="Avatar">
                                         <div class="col ms-2">
                                             <div class="col ms-2">
-                                                <span class="h4">Admin</span>
+                                                <span class="h4">{{ ucfirst(Auth::user()->nim_nidn) }}</span>
                                             </div>
                                             <div class="col ms-2 mt-1">
                                                 <span class="text-mute">Administrator</span>
