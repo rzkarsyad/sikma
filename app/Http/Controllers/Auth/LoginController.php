@@ -49,6 +49,10 @@ class LoginController extends Controller
         $this->validate($request, [
             'nim_nidn' => 'required|numeric',
             'password' => 'required',
+        ], [
+            'nim_nidn.required' => 'Mohon masukkan username.',
+            'nim_nidn.numeric' => 'Username harus berupa angka.',
+            'password.required' => 'Mohon masukkan kata sandi.',
         ]);
 
         $credentials = $request->only('nim_nidn', 'password');
@@ -77,12 +81,14 @@ class LoginController extends Controller
 
     public function loginAdmin(Request $request)
     {
-        $input = $request->all();
-
         $this->validate($request, [
             'nim_nidn' => 'required',
             'password' => 'required',
+        ], [
+            'nim_nidn.required' => 'Mohon masukkan username.',
+            'password.required' => 'Mohon masukkan kata sandi.',
         ]);
+
 
         $credentials = $request->only('nim_nidn', 'password');
 
