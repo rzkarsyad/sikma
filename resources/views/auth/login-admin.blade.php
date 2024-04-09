@@ -1,10 +1,10 @@
-@extends('layouts.auth')
+@extends('layouts.auth-admin')
 
 @section('content')
     <div>
         <div class="text-center">
             <div>
-                <a href="index.html" class="">
+                <a href="" class="">
                     <img src="{{ asset('assets/images/logo-unaic.png') }}" alt="" height="72"
                         class="auth-logo logo-dark mx-auto">
                     <img src="{{ asset('assets/images/logo-unaic.png') }}" alt="" height="20"
@@ -12,7 +12,7 @@
                 </a>
             </div>
 
-            <h4 class="font-size-18 mt-4">Selamat Datang Admin!</h4>
+            <h4 class="font-size-18 mt-4">Selamat Datang!</h4>
             <p class="text-muted">Silahkan masuk untuk melanjutkan.</p>
         </div>
         @if (session('error'))
