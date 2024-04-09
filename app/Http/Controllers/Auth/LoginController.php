@@ -81,6 +81,8 @@ class LoginController extends Controller
 
     public function loginAdmin(Request $request)
     {
+        $input = $request->all();
+
         $this->validate($request, [
             'nim_nidn' => 'required',
             'password' => 'required',
@@ -88,7 +90,6 @@ class LoginController extends Controller
             'nim_nidn.required' => 'Mohon masukkan username.',
             'password.required' => 'Mohon masukkan kata sandi.',
         ]);
-
 
         $credentials = $request->only('nim_nidn', 'password');
 

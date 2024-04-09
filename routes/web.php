@@ -42,6 +42,8 @@ Route::get('/admin/auth', [AuthenticatedSessionController::class, 'create'])
 Route::post('/admin/auth', [LoginController::class, 'loginAdmin'])
     ->name('admin.login');
 
+Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

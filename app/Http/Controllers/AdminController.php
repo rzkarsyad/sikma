@@ -258,7 +258,6 @@ class AdminController extends Controller
         $rules = [
             'nim_nidn' => 'required|string|max:255|unique:users',
             'email' => 'required|email|max:255',
-            'password' => 'required|string|max:255'
         ];
 
         $messages = [
@@ -267,8 +266,6 @@ class AdminController extends Controller
 
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Email tidak valid',
-
-            'password.required' => 'Kata sandi tidak boleh kosong',
         ];
 
         $request->validate($rules, $messages);

@@ -24,19 +24,6 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-3">
-                        <label for="createPassword" class="form-label">Kata Sandi</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="createPassword" name="password">
-                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                <i class="ri ri-eye-off-fill"></i>
-                            </button>
-                        </div>
-                        @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -66,9 +53,6 @@
                         $('#createEmail').val('');
                         $('#createEmail').removeClass('is-invalid');
 
-                        $('#createPassword').val('');
-                        $('#createPassword').removeClass('is-invalid');
-
                         $('.alert-success').html(response.success).show();
 
                         window.location.reload();
@@ -79,8 +63,6 @@
                         $('#createUsername').removeClass('is-invalid').next('.invalid-feedback')
                             .remove();
                         $('#createEmail').removeClass('is-invalid').next('.invalid-feedback')
-                            .remove();
-                        $('#createPassword').removeClass('is-invalid').next('.invalid-feedback')
                             .remove();
 
                         if (errors) {
@@ -98,12 +80,6 @@
                                     emailError[0] + '</div>');
                             }
 
-                            var passwordError = errors['password'];
-                            if (passwordError) {
-                                $('#createPassword').addClass('is-invalid').after(
-                                    '<div class="invalid-feedback">' +
-                                    passwordError + '</div>');
-                            }
                         } else {
                             console.error('Error occurred:', error);
                         }
