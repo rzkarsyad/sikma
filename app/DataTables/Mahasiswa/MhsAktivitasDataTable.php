@@ -56,9 +56,6 @@ class MhsAktivitasDataTable extends DataTable
             ->responsive(true)
             ->orderBy(0)
             ->selectStyleSingle()
-            ->buttons([
-                'excel', 'csv', 'pdf', 'print', 'reset', 'reload'
-            ])
             ->initComplete('function(settings, json) {
                 $(".dataTables_wrapper").addClass("mb-3");
                 $(".dataTables_filter").addClass("mb-2");

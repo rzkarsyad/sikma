@@ -33,7 +33,10 @@ class MhsAktivitasController extends Controller
         $kategori = ListKategori::pluck('nama', 'id');
         $kegiatan = ListKegiatan::pluck('nama', 'id');
         $tahun = $this->tahunDropdown();
-        return view('mahasiswa.aktivitas.create', compact('kategori', 'kegiatan', 'tahun'));
+
+        $backRoute = route('m.aktivitas');
+
+        return view('mahasiswa.aktivitas.create', compact('kategori', 'kegiatan', 'tahun', 'backRoute'));
     }
 
     /**

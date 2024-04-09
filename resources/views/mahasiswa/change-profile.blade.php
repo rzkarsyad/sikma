@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -78,7 +77,7 @@
                                 <div class="row">
                                     <div class="col-md-9">
                                         <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
-                                            <div class="tab-pane fade @if (!session('success') && !session('successUpdatePribadi') && !session('successUpdateDarurat')) show active @endif"
+                                            <div class="tab-pane fade @if (!session('success') && !session('error') && !session('successUpdatePribadi') && !session('successUpdateDarurat')) show active @endif"
                                                 id="data-pribadi" role="tabpanel" aria-labelledby="v-pills-data-tab">
                                                 <h4 class="fw-semibold">Informasi Pribadi</h4>
                                                 <div class="col">
@@ -181,13 +180,62 @@
                                                 <h4 class="fw-semibold">Kontak Pribadi</h4>
 
                                                 @if (session('successUpdatePribadi'))
-                                                    <div class="alert alert-success">{{ session('successUpdatePribadi') }}
+                                                    <div class="toast-container position-fixed top-0 end-0 p-3">
+                                                        <div id="liveToast" class="toast" role="alert"
+                                                            aria-live="assertive" aria-atomic="true">
+                                                            <div class="toast-header">
+                                                                <i
+                                                                    class="ri-checkbox-circle-fill font-size-20 me-2 icon-success"></i>
+                                                                <strong class="me-auto fw-bold">Berhasil</strong>
+                                                                <small id="toast-time"></small>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="toast" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                {{ session('successUpdatePribadi') }}
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+                                                    @push('scripts')
+                                                        <script>
+                                                            document.addEventListener('DOMContentLoaded', function() {
+                                                                var toastEl = document.querySelector('.toast');
+                                                                var toast = new bootstrap.Toast(toastEl);
+                                                                toast.show();
+
+                                                                var toastTime = document.getElementById('toast-time');
+                                                                var startTime = new Date().getTime();
+
+                                                                function updateToastTime() {
+                                                                    var currentTime = new Date().getTime();
+                                                                    var elapsedTime = Math.floor((currentTime - startTime) / 1000);
+
+                                                                    var timeAgo;
+                                                                    if (elapsedTime < 5) {
+                                                                        timeAgo = 'Baru saja';
+                                                                    } else if (elapsedTime < 60) {
+                                                                        timeAgo = elapsedTime + ' detik yang lalu';
+                                                                    } else if (elapsedTime < 3600) {
+                                                                        var minutes = Math.floor(elapsedTime / 60);
+                                                                        timeAgo = minutes + ' menit yang lalu';
+                                                                    } else {
+                                                                        var hours = Math.floor(elapsedTime / 3600);
+                                                                        timeAgo = hours + ' jam yang lalu';
+                                                                    }
+
+                                                                    toastTime.textContent = timeAgo;
+                                                                    setTimeout(updateToastTime, 1000);
+                                                                }
+
+                                                                updateToastTime();
+                                                            });
+                                                        </script>
+                                                    @endpush
                                                 @endif
 
-                                                @if (session('error'))
-                                                    <div class="alert alert-danger">{{ session('error') }}</div>
-                                                @endif
+                                                @include('components.lib.toast-error')
+
                                                 <div class="col">
                                                     <form class="row gx-3 gy-2 align-items-center" method="POST"
                                                         action="{{ route('ubah.kontak.pribadi') }}">
@@ -222,14 +270,64 @@
                                                 aria-labelledby="v-pills-darurat-tab">
 
                                                 <h4 class="fw-semibold">Kontak Darurat</h4>
+
                                                 @if (session('successUpdateDarurat'))
-                                                    <div class="alert alert-success">{{ session('successUpdateDarurat') }}
+                                                    <div class="toast-container position-fixed top-0 end-0 p-3">
+                                                        <div id="liveToast" class="toast" role="alert"
+                                                            aria-live="assertive" aria-atomic="true">
+                                                            <div class="toast-header">
+                                                                <i
+                                                                    class="ri-checkbox-circle-fill font-size-20 me-2 icon-success"></i>
+                                                                <strong class="me-auto fw-bold">Berhasil</strong>
+                                                                <small id="toast-time"></small>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="toast" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                {{ session('successUpdateDarurat') }}
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+                                                    @push('scripts')
+                                                        <script>
+                                                            document.addEventListener('DOMContentLoaded', function() {
+                                                                var toastEl = document.querySelector('.toast');
+                                                                var toast = new bootstrap.Toast(toastEl);
+                                                                toast.show();
+
+                                                                var toastTime = document.getElementById('toast-time');
+                                                                var startTime = new Date().getTime();
+
+                                                                function updateToastTime() {
+                                                                    var currentTime = new Date().getTime();
+                                                                    var elapsedTime = Math.floor((currentTime - startTime) / 1000);
+
+                                                                    var timeAgo;
+                                                                    if (elapsedTime < 5) {
+                                                                        timeAgo = 'Baru saja';
+                                                                    } else if (elapsedTime < 60) {
+                                                                        timeAgo = elapsedTime + ' detik yang lalu';
+                                                                    } else if (elapsedTime < 3600) {
+                                                                        var minutes = Math.floor(elapsedTime / 60);
+                                                                        timeAgo = minutes + ' menit yang lalu';
+                                                                    } else {
+                                                                        var hours = Math.floor(elapsedTime / 3600);
+                                                                        timeAgo = hours + ' jam yang lalu';
+                                                                    }
+
+                                                                    toastTime.textContent = timeAgo;
+                                                                    setTimeout(updateToastTime, 1000);
+                                                                }
+
+                                                                updateToastTime();
+                                                            });
+                                                        </script>
+                                                    @endpush
                                                 @endif
 
-                                                @if (session('error'))
-                                                    <div class="alert alert-danger">{{ session('error') }}</div>
-                                                @endif
+                                                @include('components.lib.toast-error')
+
                                                 <form class="row gx-3 gy-2 align-items-center" method="POST"
                                                     action="{{ route('ubah.kontak.darurat') }}">
                                                     @csrf
@@ -292,13 +390,10 @@
                                                 id="ganti-sandi" role="tabpanel" aria-labelledby="v-pills-password-tab">
 
                                                 <h4 class="fw-semibold">Ganti Kata Sandi</h4>
-                                                @if (session('success'))
-                                                    <div class="alert alert-success">{{ session('success') }}</div>
-                                                @endif
 
-                                                @if (session('error'))
-                                                    <div class="alert alert-danger">{{ session('error') }}</div>
-                                                @endif
+                                                @include('components.lib.toast-success')
+
+                                                @include('components.lib.toast-error')
 
                                                 <form class="row gx-3 gy-2 align-items-center" method="POST"
                                                     action="{{ route('change.password') }}">
@@ -309,8 +404,7 @@
                                                             Sekarang</label>
                                                         <input type="password"
                                                             class="form-control @error('old_password') is-invalid @enderror"
-                                                            id="old_password" name="old_password"
-                                                            placeholder="Kata sandi sekarang" required>
+                                                            id="old_password" name="old_password" required>
                                                         @error('current_password')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -320,26 +414,23 @@
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="new_password">Kata Sandi
                                                             Baru</label>
+                                                        <input type="password" class="form-control" id="new_password"
+                                                            name="new_password" required>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label"
+                                                            for="new_password_confirmation">Konfirmasi Kata Sandi
+                                                            Baru</label>
                                                         <input type="password"
-                                                            class="form-control @error('new_password') is-invalid @enderror"
-                                                            id="new_password" name="new_password"
-                                                            placeholder="Kata sandi baru" required>
+                                                            class="form-control  @error('new_password') is-invalid @enderror"
+                                                            id="new_password_confirmation"
+                                                            name="new_password_confirmation" required>
 
                                                         @error('new_password')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <label class="form-label" for="new_password_confirmation">Ulangi
-                                                            Kata
-                                                            Sandi
-                                                            Baru</label>
-                                                        <input type="password" class="form-control"
-                                                            id="new_password_confirmation"
-                                                            name="new_password_confirmation"
-                                                            placeholder="Ketik ulang sandi baru" required>
                                                     </div>
                                                     <div class="col-auto">
                                                         <button type="submit" class="btn btn-primary mt-3">Simpan
@@ -356,7 +447,49 @@
 
                 </div>
             </div>
-            <!-- end page title -->
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var successUpdatePribadi = {!! json_encode(session('successUpdatePribadi')) !!};
+            var successUpdateDarurat = {!! json_encode(session('successUpdateDarurat')) !!};
+            var success = {!! json_encode(session('success')) !!};
+            var error = {!! json_encode(session('error')) !!};
+
+            function activateTab(tabId) {
+                $('.nav-link').removeClass('active');
+                $('.tab-pane').removeClass('show active');
+                $(tabId).addClass('show active');
+                $('a[href="' + tabId + '"]').addClass('active');
+            }
+
+            if (error) {
+                activateTab('#ganti-sandi');
+                showToast('#ganti-sandi');
+            } else {
+                if (!successUpdatePribadi && !successUpdateDarurat && !success) {
+                    activateTab('#data-pribadi');
+                } else if (successUpdatePribadi) {
+                    activateTab('#kontak-pribadi');
+                } else if (successUpdateDarurat) {
+                    activateTab('#kontak-darurat');
+                } else if (success) {
+                    activateTab('#ganti-sandi');
+                }
+            }
+
+            function showToast(tabId) {
+                var toastEl = document.querySelector(tabId + ' .toast');
+                var toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            }
+
+            $('input').on('input', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+        });
+    </script>
+@endpush

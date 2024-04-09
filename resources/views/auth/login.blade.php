@@ -4,7 +4,7 @@
     <div>
         <div class="text-center">
             <div>
-                <a href="index.html" class="">
+                <a href="" class="">
                     <img src="{{ asset('assets/images/logo-unaic.png') }}" alt="" height="72"
                         class="auth-logo logo-dark mx-auto">
                     <img src="{{ asset('assets/images/logo-unaic.png') }}" alt="" height="20"

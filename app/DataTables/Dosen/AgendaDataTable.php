@@ -30,14 +30,6 @@ class AgendaDataTable extends DataTable
             ->addColumn('actions', function ($item) {
                 return view('components.lib.action-agenda', compact('item'));
             })
-            ->addColumn('type', function ($item) {
-                $type = [
-                    1 => 'Bimbingan Konseling',
-                    2 => 'Bimbingan Pembina Ormawa',
-                ];
-
-                return $type[$item->type] ?? $item->type;
-            })
             ->addColumn('status', function ($item) {
                 $status = [
                     1 => 'Belum diterima',
@@ -75,10 +67,11 @@ class AgendaDataTable extends DataTable
             ->whereHas('dosen', function ($query) use ($nidn) {
                 $query->where('dosen_id', $nidn);
             })
-            ->with(['dosen', 'mahasiswa', 'mahasiswa.prodi'])
+            ->with(['type' ,'dosen', 'mahasiswa', 'mahasiswa.prodi'])
             ->select([
                 'mhs_agenda.*',
                 'mhs_agenda.id as agenda_id',
+                'mhs_agenda.id_agenda as id_agenda',
             ]);
 
         $angkatan = request('angkatan');
@@ -99,7 +92,7 @@ class AgendaDataTable extends DataTable
         }
 
         if (!empty($bimbingan)) {
-            $query->whereIn('type', $bimbingan);
+            $query->whereIn('id_agenda', $bimbingan);
         }
 
         if (!empty($status)) {
@@ -144,7 +137,7 @@ class AgendaDataTable extends DataTable
             Column::make('mahasiswa.nama')->title('Nama Mahasiswa'),
             Column::make('mahasiswa.prodi.nama')->title('Program Studi'),
             Column::make('mahasiswa.tahun_masuk')->title('Angkatan'),
-            Column::make('type')->title('Jenis Bimbingan'),
+            Column::make('type.nama')->title('Jenis Bimbingan'),
             Column::make('topic')->title('Topik'),
             Column::make('agenda_date')->title('Tanggal'),
             Column::make('status')->title('Status'),

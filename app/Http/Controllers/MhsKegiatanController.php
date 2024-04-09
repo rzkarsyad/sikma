@@ -31,7 +31,10 @@ class MhsKegiatanController extends Controller
     {
         $tingkat = ListTingkat::pluck('nama', 'id');
         $jenis = ListJenis::pluck('nama', 'id');
-        return view('mahasiswa.mandiri.create', compact('tingkat', 'jenis'));
+
+        $backRoute = route('m.mandiri');
+
+        return view('mahasiswa.mandiri.create', compact('tingkat', 'jenis', 'backRoute'));
     }
 
     /**

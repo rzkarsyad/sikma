@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -18,7 +17,7 @@
                             <form action="{{ route('m.ormawa-store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
-                                <div class="row gx-3 gy-2 align-items-center">
+                                <div class="row gx-3 gy-2 align-items-top">
                                     <div class="col-md">
                                         <div class="mb-3">
                                             <label for="list_ormawa">Jenis Organisasi</label>
@@ -91,8 +90,21 @@
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
         </div>
 
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('input').on('input', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+
+            $('select').on('change', function() {
+                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
+            });
+        });
+    </script>
+@endpush

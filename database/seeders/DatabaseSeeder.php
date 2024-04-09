@@ -25,8 +25,6 @@ class DatabaseSeeder extends Seeder
             ListOrmawaSeeder::class,
             ListTingkatSeeder::class,
             ProdiSeeder::class,
-            MahasiswaSeeder::class,
-            DosenSeeder::class,
             UserSeeder::class,
         ]);
 

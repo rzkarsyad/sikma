@@ -11,6 +11,7 @@ use App\Models\Mahasiswa;
 use App\Models\MhsAgenda;
 use App\Models\MhsOrmawa;
 use App\Models\JalurMasuk;
+use App\Models\ListAgenda;
 use App\Models\ListOrmawa;
 use App\Models\ListTingkat;
 use App\Models\MhsKegiatan;
@@ -112,26 +113,21 @@ class DosenController extends Controller
         $angkatan = $this->getAngkatan();
         $prodi = Prodi::pluck('nama', 'id');
 
-        $jenis_bimbingan = [
-            1 => 'Bimbingan Konseling',
-            2 => 'Bimbingan Pembina Ormawa',
-        ];
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
+
         $status = [
             1 => 'Belum Diterima',
             2 => 'Diterima',
         ];
 
-        return $dataTable->render('dosen.agenda', compact('angkatan', 'prodi', 'jenis_bimbingan', 'status'));
+        return $dataTable->render('dosen.agenda', compact('angkatan', 'prodi', 'jenis_agenda', 'status'));
     }
 
     public function showAgenda($id)
     {
         $mhsAgenda = MhsAgenda::findOrFail($id);
 
-        $type = [
-            1 => 'Bimbingan Konseling',
-            2 => 'Bimbingan Pembina Ormawa',
-        ];
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
 
         $status = [
             1 => 'Belum diterima',
@@ -152,7 +148,7 @@ class DosenController extends Controller
                 break;
         }
 
-        $type = $type[$mhsAgenda->type] ?? $mhsAgenda->type;
+        $jenis_agenda = $jenis_agenda[$mhsAgenda->jenis_agenda] ?? $mhsAgenda->jenis_agenda;
 
         $mahasiswa = $mhsAgenda->mahasiswa;
         $dosen = $mhsAgenda->dosen;
@@ -160,7 +156,7 @@ class DosenController extends Controller
 
         return view('dosen.agenda-show')->with([
             'mhsAgenda' => $mhsAgenda,
-            'type' => $type,
+            'jenis_agenda' => $jenis_agenda,
             'mahasiswa' => $mahasiswa,
             'dosen' => $dosen,
             'statusText' => $statusText,
@@ -293,9 +289,15 @@ class DosenController extends Controller
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
 
+        $jenis_agenda = ListAgenda::pluck('nama', 'id');
+        $status = [
+            1 => 'Belum Diterima',
+            2 => 'Diterima',
+        ];
+
         $dataTable->setUserId($mahasiswa->user_id);
 
-        return $dataTable->render('dosen.detail-mahasiswa', compact('mahasiswa'));
+        return $dataTable->render('dosen.detail-mahasiswa', compact('mahasiswa', 'jenis_agenda', 'status'));
     }
 
     public function profile()
@@ -310,6 +312,8 @@ class DosenController extends Controller
             'no_hp' => 'required',
         ]);
 
+        session(['active_tab' => 'kontak-pribadi']);
+
         $kPribadi = User::find(Auth::id());
         $kPribadi->dosen->no_hp = $request->input('no_hp');
 
@@ -322,21 +326,27 @@ class DosenController extends Controller
     {
         $request->validate([
             'old_password' => 'required',
-            'new_password' => 'required|confirmed',
+            'new_password' => 'required',
         ]);
+
+        session(['active_tab' => 'ganti-sandi']);
 
         $user = User::find(Auth::id());
 
         $current = $user->password;
 
         if (!Hash::check($request->old_password, $current)) {
-            return back()->with('error', 'Current password is incorrect.');
+            return redirect()->back()->with('error', 'Kata sandi saat ini salah.');
+        }
+
+        if ($request->new_password !== $request->new_password_confirmation) {
+            return redirect()->back()->with('error', 'Kata sandi baru dan konfirmasi tidak cocok.');
         }
 
         $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return redirect()->back()->with('success', 'Password berhasil diubah.');
+        return redirect()->back()->with('success', 'Kata sandi berhasil diubah.');
     }
 
     public function validateAgenda(Request $request)

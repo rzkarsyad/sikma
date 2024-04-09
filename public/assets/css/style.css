@@ -105,3 +105,16 @@
     cursor: pointer;
     object-fit: cover;
 }
+
+.logo-sm{
+    width: 32px;
+    height: 32px;
+}
+
+.icon-success{
+    color: #28a745;
+}
+
+.icon-danger{
+    color: #dc3545;
+}

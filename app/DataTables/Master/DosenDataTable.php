@@ -58,24 +58,14 @@ class DosenDataTable extends DataTable
                     ->minifiedAjax()
                     ->scrollX(true)
                     ->responsive(true)
-                    //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ])
                     ->initComplete('function(settings, json) {
-                        // Apply custom styling after DataTable initialization
-                        $(".dataTables_wrapper").addClass("mb-3"); // Add margin-bottom to the entire DataTable container
-                        $(".dataTables_filter").addClass("mb-2"); // Add margin-bottom to the search bar
-                        $(".dataTables_length").addClass("mb-2"); // Add margin-bottom to the show entries dropdown
-                        $(".dataTables_paginate").addClass("mt-3"); // Add margin-top to the pagination container
-                        $(".dataTables_info").addClass("mt-3"); // Add margin-top to the showing text
+                        $(".dataTables_wrapper").addClass("mb-3");
+                        $(".dataTables_filter").addClass("mb-2");
+                        $(".dataTables_length").addClass("mb-2");
+                        $(".dataTables_paginate").addClass("mt-3");
+                        $(".dataTables_info").addClass("mt-3");
                     }');
     }
 
@@ -110,7 +100,6 @@ class DosenDataTable extends DataTable
             Column::make('no_hp')->title('Nomor HP'),
         ];
 
-        // Tambahkan kolom aksi jika user adalah admin
         if (Auth::user()->type == 'admin') {
             $columns[] = Column::computed('action')
                 ->title('Aksi')

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('mhs_agenda', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->enum('type', ['1', '2']);
+            $table->integer('id_agenda');
             $table->date('agenda_date');
             $table->time('agenda_time');
             $table->string('dosen_id');

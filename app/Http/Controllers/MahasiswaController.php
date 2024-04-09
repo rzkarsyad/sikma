@@ -44,6 +44,8 @@ class MahasiswaController extends Controller
         $tanggalLahir = Auth::user()->mahasiswa->tgl_lahir;
         $tglLahir = date('d', strtotime($tanggalLahir)).' '.$months[date('n', strtotime($tanggalLahir))].' '.date('Y', strtotime($tanggalLahir));
 
+        session(['active_tab' => 'data-pribadi']);
+
         return view('mahasiswa.change-profile', compact('tglLahir'));
     }
 
@@ -129,13 +131,15 @@ class MahasiswaController extends Controller
             'alamat' => 'required',
         ]);
 
+        session(['active_tab' => 'kontak-pribadi']);
+
         $kPribadi = User::find(Auth::id());
         $kPribadi->mahasiswa->no_hp = $request->input('no_hp');
         $kPribadi->mahasiswa->alamat = $request->input('alamat');
 
         $kPribadi->mahasiswa->save();
 
-        return redirect()->back()->with('successUpdatePribadi', 'Kontak pribadi berhasil diupdate');
+        return redirect()->back()->with('successUpdatePribadi', 'Kontak pribadi berhasil diperbarui');
     }
 
     public function ubahKontakDarurat(Request $request)
@@ -147,6 +151,8 @@ class MahasiswaController extends Controller
             'no_hp_ortu' => 'nullable',
         ]);
 
+        session(['active_tab' => 'kontak-darurat']);
+
         $kDarurat = User::find(Auth::id());
 
         $kDarurat->mahasiswa->nama_ortu = $request->input('nama_ortu');
@@ -155,7 +161,7 @@ class MahasiswaController extends Controller
 
         $kDarurat->mahasiswa->save();
 
-        return redirect()->back()->with('successUpdateDarurat', 'Kontak darurat berhasil diupdate');
+        return redirect()->back()->with('successUpdateDarurat', 'Kontak darurat berhasil diperbarui');
     }
 
 
@@ -163,15 +169,21 @@ class MahasiswaController extends Controller
     {
         $request->validate([
             'old_password' => 'required',
-            'new_password' => 'required|confirmed',
+            'new_password' => 'required',
         ]);
+
+        session(['active_tab' => 'ganti-sandi']);
 
         $user = User::find(Auth::id());
 
         $current = $user->password;
 
         if (!Hash::check($request->old_password, $current)) {
-            return back()->with('error', 'Kata sandi saat ini salah.');
+            return redirect()->back()->with('error', 'Kata sandi saat ini salah.');
+        }
+
+        if ($request->new_password !== $request->new_password_confirmation) {
+            return redirect()->back()->with('error', 'Kata sandi baru dan konfirmasi tidak cocok.');
         }
 
         $user->password = Hash::make($request->new_password);

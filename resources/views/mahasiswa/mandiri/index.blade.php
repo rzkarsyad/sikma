@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -15,11 +14,7 @@
                         <a href="{{ route('m.mandiri-create') }}" class="btn btn-primary">+ Tambah Kegiatan</a>
                     </div>
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('components.lib.toast-success')
 
                     <div class="row">
                         <div class="col-12">
@@ -35,11 +30,10 @@
                                     ]) !!}
                                 </div>
                             </div>
-                        </div> <!-- end col -->
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
         </div>
     </div>
     @include('components.lib.modal-img')

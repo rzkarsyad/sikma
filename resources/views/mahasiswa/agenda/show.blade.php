@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -34,7 +33,7 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td style="width: 22%">Jenis Bimbingan</td>
-                                    <td>{{ $type }}</td>
+                                    <td>{{ $mhsAgenda->type->nama }}</td>
                                 </tr>
                                 <tr>
                                     <td>Tanggal</td>
@@ -75,7 +74,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
         </div>
     </div>
 @endsection

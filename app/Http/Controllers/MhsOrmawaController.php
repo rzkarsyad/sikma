@@ -29,7 +29,10 @@ class MhsOrmawaController extends Controller
     public function create()
     {
         $ormawa = ListOrmawa::pluck('nama', 'id');
-        return view('mahasiswa.ormawa.create', compact('ormawa'));
+
+        $backRoute = route('m.ormawa');
+
+        return view('mahasiswa.ormawa.create', compact('ormawa', 'backRoute'));
     }
 
     /**

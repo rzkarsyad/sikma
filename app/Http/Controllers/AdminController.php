@@ -4,16 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Dosen;
+use App\Models\Prodi;
+use App\Models\Jenjang;
+use App\Models\Fakultas;
 use App\Models\Mahasiswa;
+use App\Models\JalurMasuk;
+use App\Models\ListAgenda;
+use App\Models\ListOrmawa;
 use App\Exports\DosenExport;
 use App\Imports\DosenImport;
+use App\Models\ListKegiatan;
 use Illuminate\Http\Request;
 use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
-use App\DataTables\Master\MahasiswaDataTable;
+use App\DataTables\Master\AdminDataTable;
 use App\DataTables\Master\DosenDataTable;
+use App\DataTables\Master\ProdiDataTable;
+use App\DataTables\Master\JenjangDataTable;
+use App\DataTables\Master\FakultasDataTable;
+use App\DataTables\Master\KegiatanDataTable;
+use App\DataTables\Master\MahasiswaDataTable;
+use App\DataTables\Master\JalurMasukDataTable;
+use App\DataTables\Master\ListAgendaDataTable;
+use App\DataTables\Master\ListOrmawaDataTable;
 
 class AdminController extends Controller
 {
@@ -22,9 +37,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AdminDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.index');
     }
 
     /**
@@ -45,7 +60,16 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateAdmin($request);
+
+        $user = User::create([
+            'nim_nidn' => $request->nim_nidn,
+            'email' => $request->email,
+            'password' => Hash::make($request->nim_nidn),
+            'type' => 2,
+        ]);
+
+        return session()->flash('success', 'Admin berhasil ditambah.');
     }
 
     /**
@@ -90,27 +114,11 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        $admin = User::findOrFail($id);
 
-    public function kegiatan(){
-        return view('admin.kegiatan');
-    }
+        $admin->delete();
 
-    public function ormawa(){
-        return view('admin.ormawa');
-    }
-
-    public function jalurMasuk(){
-        return view('admin.jalur-masuk');
-    }
-
-    public function prodi(){
-        return view('admin.prodi');
-    }
-
-    public function fakultas(){
-        return view('admin.fakultas');
+        return redirect()->route('admin.member')->with('success', 'Admin berhasil dihapus.');
     }
 
     public function mahasiswa(MahasiswaDataTable $dataTable)
@@ -158,12 +166,10 @@ class AdminController extends Controller
                 'type' => 0,
             ]);
 
-            // Update user_id in mahasiswa table
             $mhs->update([
                 'user_id' => $user->id,
             ]);
         } else {
-            // Update user_id in mahasiswa table if it's different
             if ($mhs->user_id !== $existingUser->id) {
                 $mhs->update([
                     'user_id' => $existingUser->id,
@@ -213,12 +219,10 @@ class AdminController extends Controller
                     'type' => 0,
                 ]);
 
-                // Update user_id in mahasiswa table
                 $dosen->update([
                     'user_id' => $user->id,
                 ]);
             } else {
-                // Update user_id in mahasiswa table if it's different
                 if ($dosen->user_id !== $existingUser->id) {
                     $dosen->update([
                         'user_id' => $existingUser->id,
@@ -247,5 +251,23 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Kata sandi berhasil disetel ulang.');
+    }
+
+    public function validateAdmin(Request $request)
+    {
+        $rules = [
+            'nim_nidn' => 'required|string|max:255|unique:users',
+            'email' => 'required|email|max:255',
+        ];
+
+        $messages = [
+            'nim_nidn.required' => 'Username tidak boleh kosong',
+            'nim_nidn.unique' => 'Username sudah ada.',
+
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid',
+        ];
+
+        $request->validate($rules, $messages);
     }
 }
