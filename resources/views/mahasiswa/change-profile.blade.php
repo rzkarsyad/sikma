@@ -405,7 +405,7 @@
                                                         <input type="password"
                                                             class="form-control @error('old_password') is-invalid @enderror"
                                                             id="old_password" name="old_password" required>
-                                                        @error('current_password')
+                                                        @error('old_password')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -414,19 +414,24 @@
                                                     <div class="col-sm-12">
                                                         <label class="form-label" for="new_password">Kata Sandi
                                                             Baru</label>
-                                                        <input type="password" class="form-control" id="new_password"
-                                                            name="new_password" required>
+                                                        <input type="password"
+                                                            class="form-control @error('new_password') is-invalid @enderror"
+                                                            id="new_password" name="new_password" required>
+                                                        @error('new_password')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <label class="form-label"
                                                             for="new_password_confirmation">Konfirmasi Kata Sandi
                                                             Baru</label>
                                                         <input type="password"
-                                                            class="form-control  @error('new_password') is-invalid @enderror"
+                                                            class="form-control  @error('new_password_confirmation') is-invalid @enderror"
                                                             id="new_password_confirmation"
                                                             name="new_password_confirmation" required>
-
-                                                        @error('new_password')
+                                                        @error('new_password_confirmation')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>

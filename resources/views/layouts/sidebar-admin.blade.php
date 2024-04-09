@@ -82,6 +82,13 @@
         </a>
     </li>
 
+    <li class="menu-title">Pengaturan</li>
+    <li>
+        <a href="{{ route('admin.profile') }}" class=" waves-effect">
+            <i class="ri-user-3-line"></i>
+            <span>Profil</span>
+        </a>
+    </li>
     <li>
         <a href="{{ route('logout') }}"
             onclick="event.preventDefault();

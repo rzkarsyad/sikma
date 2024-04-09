@@ -17,6 +17,7 @@ use App\Models\ListKegiatan;
 use Illuminate\Http\Request;
 use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\DataTables\Master\AdminDataTable;
@@ -234,12 +235,46 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Data dosen berhasil digenerate user.');;
     }
 
+    public function profile()
+    {
+        $admin = Auth::user()->admin;
+        return view('admin.profile', compact('admin'));
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required',
+        ],[
+            'old_password.required' => 'Kata sandi saat ini tidak boleh kosong',
+            'new_password.required' => 'Kata sandi baru tidak boleh kosong',
+        ]);
+
+        $user = User::find(Auth::id());
+
+        $current = $user->password;
+
+        if (!Hash::check($request->old_password, $current)) {
+            return redirect()->back()->with('error', 'Kata sandi saat ini salah.');
+        }
+
+        if ($request->new_password !== $request->new_password_confirmation) {
+            return redirect()->back()->with('error', 'Kata sandi baru dan konfirmasi tidak cocok.');
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Kata sandi berhasil diubah.');
+    }
+
     public function resetPassword($id) {
 
         $user = User::find($id);
 
         if (!$user) {
-            return redirect()->back()->with('error', 'Mahasiswa tidak ditemukan.');
+            return redirect()->back()->with('error', 'Pengguna tidak ditemukan.');
         }
 
         $password = $user->nim_nidn;

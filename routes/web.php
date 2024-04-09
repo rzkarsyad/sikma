@@ -203,4 +203,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dosen/generate', [AdminController::class, 'generateDosen'])->name('admin.dosen.generate');
 
     Route::post('/admin/user/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('admin.reset.password');
+
+    Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
+    Route::post('/admin/change-password', [AdminController::class, 'changePassword'])->name('admin.change.password');
 });

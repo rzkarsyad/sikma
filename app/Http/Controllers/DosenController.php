@@ -327,6 +327,9 @@ class DosenController extends Controller
         $request->validate([
             'old_password' => 'required',
             'new_password' => 'required',
+        ],[
+            'old_password.required' => 'Kata sandi saat ini tidak boleh kosong',
+            'new_password.required' => 'Kata sandi baru tidak boleh kosong',
         ]);
 
         session(['active_tab' => 'ganti-sandi']);
