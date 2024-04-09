@@ -17,10 +17,10 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'nim_nidn'=>'01234',
+                'nim_nidn'=>'admin',
                 'email'=>'admin@gmail.com',
                 'type'=> 2,
-                'password'=> bcrypt('123456'),
+                'password'=> bcrypt('admin'),
             ],
         ];
 
