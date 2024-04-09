@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             JalurMasukSeeder::class,
             JenjangSeeder::class,
             ListJenisSeeder::class,
+            ListAgendaSeeder::class,
             ListKategoriSeeder::class,
             ListKegiatanSeeder::class,
             ListOrmawaSeeder::class,
